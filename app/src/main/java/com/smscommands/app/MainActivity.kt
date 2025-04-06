@@ -17,12 +17,11 @@ class MainActivity : ComponentActivity() {
 }
 
 // TODO LIST
-// Onboarding settings tile improvement?
 // Add Notification handling
 // Add onboarding content text
-// Add warning for permissions screen when user declines 2x
 
 // Maybe later
+// Onboarding settings tile improvement?
 // Add permissionStates to viewModel,
 //  then implement permission checks through the app
 
