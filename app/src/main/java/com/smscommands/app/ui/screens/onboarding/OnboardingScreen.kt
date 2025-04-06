@@ -38,7 +38,6 @@ fun OnboardingScreen(
     val pageOffset = pagerState.currentPageOffsetFraction
 
     val pageTitle = stringResource(OnboardingPages[currentPage].title)
-    val pageContent = stringResource(OnboardingPages[currentPage].content)
 
     val scrollToPage: (Int) -> Unit = { page ->
         coroutineScope.launch {
@@ -46,29 +45,11 @@ fun OnboardingScreen(
         }
     }
 
-
-    val prevContent: String
-    val onPrevClicked: () -> Unit
-
-    if (pagerState.canScrollBackward) {
-        prevContent = stringResource(R.string.common_back)
-        onPrevClicked = { scrollToPage(currentPage - 1) }
-    } else {
-        prevContent = stringResource(R.string.common_skip)
-        onPrevClicked = {
-            viewModel.updateIsFirstLaunch(false)
-            navController.navigate(Routes.HOME) {
-                popUpTo(Routes.HOME)
-            }
-        }
-    }
-
-
     val nextContent: String
     val onNextClicked: () -> Unit
 
     if (pagerState.canScrollForward) {
-        nextContent = stringResource(R.string.common_next)
+        nextContent = stringResource(R.string.common_skip)
         onNextClicked = { scrollToPage(currentPage + 1) }
     } else {
         nextContent = stringResource(R.string.common_ok)
@@ -89,14 +70,13 @@ fun OnboardingScreen(
                         modifier = Modifier.alpha(1 - pageOffset.absoluteValue * 1.6f)
                     )
                 },
+                expandedHeight = 224.dp
             )
         },
         bottomBar = {
             ProgressNavBar(
                 nextContent = nextContent,
                 onNextClicked = onNextClicked,
-                prevContent = prevContent,
-                onPrevClicked = onPrevClicked,
                 pageIndex = currentPage,
                 pageCount = pageCount,
                 pageOffset = pageOffset,
@@ -109,9 +89,9 @@ fun OnboardingScreen(
             modifier = Modifier
                 .padding(padding)
                 .fillMaxSize()
-        ) {
+        ) { page ->
             Text(
-                text = pageContent,
+                text = stringResource(OnboardingPages[page].content),
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
             )

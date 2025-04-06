@@ -50,7 +50,8 @@
     <string name="common_stop">Stop</string>
     <string name="common_v1_colon_v2">%1$s: %2$s</string>
     <string name="common_v1_comma_v2">%1$s, %2$s</string>
-    <string name="onboarding_intro_title">Welcome</string>
+    <string name="common_warning">Warning</string>
+    <string name="screen_onboarding_intro_title">Welcome</string>
     <string name="permission_admin">Device Admin</string>
     <string name="permission_admin_desc">Device admin desc</string>
     <string name="permission_camera">Camera</string>
@@ -97,7 +98,12 @@
     <string name="screen_home_pin_remove">Remove PIN</string>
     <string name="screen_home_pin_remove_rationale">Removing the PIN will allow anyone with your phone number to trigger commands</string>
     <string name="screen_home_title">Home</string>
-    <string name="screen_onboarding_intro_description">Welcome to SMS Commands</string>
+    <string name="screen_onboarding_arguments_content">"To use arguments, simply add them to the argument section of the command, separated by spaces.\nSome arguments also require a value, they are formatted like that: 'argument:value'. \nYou can see the possible arguments in the Command screen."</string>
+    <string name="screen_onboarding_arguments_title">Arguments</string>
+    <string name="screen_onboarding_command_content">To use a command, send yourself a message with the following structure:\n\'!!PIN/command/arguments\'\n - !!: SMS Commands will only listen to commands starting with this prefix.\n - PIN: An access pin, you can change it on the home screen.\n - Command: The command you want to run, you must have enabled it first in the Command screen\n - Arguments: More about this on the next page</string>
+    <string name="screen_onboarding_command_title">Sending commands</string>
+    <string name="screen_onboarding_intro_content">Welcome to SMS Commands! This app allows you to execute basic tasks, such as locking your device, or getting its location simply by sending yourself an SMS.</string>
+    <string name="screen_perms_decline_warning">On Android 11+, if you deny a permission more than once, the app won\'t be able to request it again, so you\'ll have to enable it yourself in the settings</string>
     <string name="screen_perms_granted">"Granted, "</string>
     <string name="screen_perms_not_granted">"NOT GRANTED, "</string>  <!-- TODO: replace this with R.string.common_v1_comma_v2 -->
     <string name="screen_perms_notification_rationale">getting notified when someone uses the app (recommended)</string>
@@ -147,6 +153,4 @@
     <string name="url_github" translatable="false">https://github.com/RyfterWasTaken/SMSCommands</string>
     <string name="url_github_releases" translatable="false">https://github.com/RyfterWasTaken/SMSCommands/releases</string>
     <string name="url_maps"><![CDATA[https://www.google.com/maps/search/?api=1&query=%1$s,%2$s]]></string>
-    <string name="common_warning">Warning</string>
-    <string name="screen_perms_decline_warning">On Android 11+, if you deny a permission more than once, the app won\'t be able to request it again, so you\'ll have to enable it yourself in the settings</string>
 </resources>

@@ -5,20 +5,16 @@ import com.smscommands.app.R
 
 val OnboardingPages = listOf(
     OnboardingPage(
-        title = R.string.onboarding_intro_title,
-        content = R.string.screen_onboarding_intro_description,
+        title = R.string.screen_onboarding_intro_title,
+        content = R.string.screen_onboarding_intro_content,
     ),
     OnboardingPage(
-        title = R.string.screen_home_title,
-        content = R.string.screen_onboarding_intro_description,
+        title = R.string.screen_onboarding_command_title,
+        content = R.string.screen_onboarding_command_content,
     ),
     OnboardingPage(
-        title = R.string.app_name,
-        content = R.string.common_stop,
-    ),
-    OnboardingPage(
-        title = R.string.onboarding_intro_title,
-        content = R.string.screen_onboarding_intro_description,
+        title = R.string.screen_onboarding_arguments_title,
+        content = R.string.screen_onboarding_arguments_content,
     ),
 )
 
