@@ -13,12 +13,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.core.net.toUri
 import androidx.navigation.NavController
 import com.smscommands.app.R
-import com.smscommands.app.data.UiStateViewModel
 
 @Composable
 fun DeclineWarningDialog(
-    navController: NavController,
-    viewModel: UiStateViewModel
+    navController: NavController
 ) {
     val context = LocalContext.current
 

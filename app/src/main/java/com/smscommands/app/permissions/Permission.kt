@@ -1,7 +1,6 @@
 package com.smscommands.app.permissions
 
 import android.content.Context
-import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 
@@ -40,6 +39,4 @@ interface Permission {
         )
     }
 }
-
-typealias PermLauncher = ManagedActivityResultLauncher<Array<String>, Map<String, @JvmSuppressWildcards Boolean>>?
 

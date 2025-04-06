@@ -67,7 +67,7 @@
     <string name="permission_phone_desc">Required to make phone calls</string>
     <string name="permission_sms">SMS</string>
     <string name="permission_sms_desc">Required for the app to function correctly</string>
-    <string name="ringing_device_for_seconds">Ringing device for %1$s seconds</string>
+    <string name="ringing_device_for_seconds">Ringing device for %1$d seconds</string>
     <string name="screen_commands_permissions_required">Required permissions: %1$s</string>
     <string name="screen_commands_status">Status: %1$s</string>
     <string name="screen_commands_title">Commands</string>

@@ -28,6 +28,7 @@ class MainActivity : ComponentActivity() {
 
 // Later
 // Add custom color themes
+// Redo icons
 
 // Commands
 // Status command

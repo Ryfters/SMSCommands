@@ -118,8 +118,7 @@ fun NavGraph(
         }
         dialog(Routes.DECLINE_WARNING_DIALOG) {
             DeclineWarningDialog(
-                navController = navController,
-                viewModel = viewModel
+                navController = navController
             )
         }
 
