@@ -14,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.style.TextOverflow.Companion.Ellipsis
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -76,29 +75,4 @@ fun MyListItem(
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun MyListItemPreview() {
-    MyListItem(
-        title = "Item 1",
-        content = "Description 1",
-        onClick = {},
-        separator = true,
-        action = {},
-        disabled = true
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun MyListItemPreview2() {
-    MyListItem(
-        title = "Item 1",
-        content = "Description 1",
-        onClick = {},
-        separator = false,
-        action = {}
-    )
 }
