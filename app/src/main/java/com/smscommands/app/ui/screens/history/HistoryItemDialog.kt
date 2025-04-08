@@ -14,7 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.core.net.toUri
 import androidx.navigation.NavController
 import com.smscommands.app.R
-import com.smscommands.app.commands.CommandList
+import com.smscommands.app.commands.Command
 import com.smscommands.app.data.UiStateViewModel
 import com.smscommands.app.utils.formatRelativeTime
 import com.smscommands.app.utils.getStatusRes
@@ -36,28 +36,34 @@ fun HistoryItemDialog(
         return
     }
 
-    val commandName = CommandList.find { it.id == item.commandId }?.label
+    val commandName = Command.LIST.find { it.id == item.commandId }?.label
         ?: R.string.screen_history_item_invalid_command
 
     val formattedTime = formatRelativeTime(context, item.time).replaceFirstChar { it.uppercase() }
+
+    val commandContent = stringResource(R.string.screen_history_item_dialog_command, stringResource(commandName))
+    val statusContent = stringResource(R.string.screen_history_item_dialog_status, stringResource(getStatusRes(item.status)))
+    val senderContent = stringResource(R.string.screen_history_item_dialog_sender, item.sender)
+    val timeContent = stringResource(R.string.screen_history_item_dialog_time, formattedTime)
+    val messageContent = stringResource(R.string.screen_history_item_dialog_message, item.message)
 
     AlertDialog(
         onDismissRequest = { navController.popBackStack() },
         title = { Text(text = "History") },
         text = {
             Column {
-                Text("Command: ${stringResource(commandName)}")
-                Text("Status: ${getStatusRes(item.status)}")
-                Text("Sender: ${item.sender}")
-                Text("Time: $formattedTime")
-                Text("Message: ${item.message}")
+                Text(commandContent)
+                Text(statusContent)
+                Text(senderContent)
+                Text(timeContent)
+                Text(messageContent)
             }
         },
         confirmButton = {
             TextButton(
                 onClick = { navController.popBackStack() }
             ) {
-                Text("OK")
+                Text(stringResource(R.string.common_ok))
             }
         },
         dismissButton = {

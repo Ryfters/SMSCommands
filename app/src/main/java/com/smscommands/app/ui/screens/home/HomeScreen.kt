@@ -15,7 +15,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.smscommands.app.R
-import com.smscommands.app.commands.CommandList
+import com.smscommands.app.commands.Command
 import com.smscommands.app.data.UiStateViewModel
 import com.smscommands.app.data.db.HistoryItem
 import com.smscommands.app.ui.components.MainScaffold
@@ -36,7 +36,7 @@ fun HomeScreen(
         actions = { SettingsIcon(onClick = { navController.navigate(Routes.SETTINGS) }) },
     ) {
 
-        val totalCommandsCount = CommandList.count()
+        val totalCommandsCount = Command.LIST.count()
         val commandPreferences by viewModel.commandPreferences.collectAsState()
         val enabledCommandsCount = commandPreferences.count { command -> command.value }
         val commandContent = stringResource(
