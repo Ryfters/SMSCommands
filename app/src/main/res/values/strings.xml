@@ -15,14 +15,14 @@
     <string name="command_capture_param_camera_both">both</string>
     <string name="command_capture_param_camera_front">front</string>
     <string name="command_capture_param_flash">flash:</string>
-    <string name="command_capture_reply_success">Successfully captured %1$s/%2$s photos</string>
+    <string name="command_capture_reply_success">Successfully captured %1$d/%2$d photos</string>
     <string name="command_capture_usage">usage</string>
     <string name="command_gps_desc">Returns your device\'s current location</string>
     <string name="command_gps_id">gps</string>
     <string name="command_gps_label">GPS</string>
     <string name="command_gps_reply_error">An error occurred, couldn\'t get last known location</string>
     <string name="command_gps_usage">Long description for GPS</string>
-    <string name="command_location_reply">"Device location: %1$s\nDetails: \n    Accurate within: %2$sm\n    Collected: %3$s    "</string>
+    <string name="command_location_reply">"Device location: %1$s\nDetails: \n    Accurate within: %2$dm\n    Collected: %3$s    "</string>
     <string name="command_lock_desc">Locks your device</string>
     <string name="command_lock_label">Lock</string>
     <string name="command_lock_reply_success">Locked device</string>
@@ -80,18 +80,17 @@
     <string name="screen_history_item_invalid_pin">Wrong PIN</string>
     <string name="screen_history_item_status_disabled_command">Command disabled</string>
     <string name="screen_history_item_status_invalid_command">Invalid command</string>
-    <string name="screen_history_item_status_invalid_pin">Wrong PIN</string>
     <string name="screen_history_item_status_missing_permissions">Missing permissions</string>
     <string name="screen_history_item_status_success">Success</string>
     <string name="screen_history_item_status_unknown">Unknown status</string>
     <string name="screen_history_title">History</string>
     <string name="screen_home_commands_title">Commands</string>
-    <string name="screen_home_enabled_count">%1$s/%2$s enabled</string>
+    <string name="screen_home_enabled_count">%1$d/%2$d enabled</string>
     <string name="screen_home_history_disabled">History is disabled</string>
     <string name="screen_home_history_empty">Start by sending a command first</string>
     <string name="screen_home_history_last_executed">Last command executed: %1$s</string>
     <string name="screen_home_pin">PIN</string>
-    <string name="screen_home_pin_current">Current pin: %1$s</string>
+    <string name="screen_home_pin_current">Current pin: %1$s</string> <!-- Not a pin cuz of leading zeros? and cant be empty -->
     <string name="screen_home_pin_edit_pin">Edit PIN</string>
     <string name="screen_home_pin_new_pin">New PIN</string>
     <string name="screen_home_pin_not_set">Pin not set</string>
@@ -104,8 +103,8 @@
     <string name="screen_onboarding_command_title">Sending commands</string>
     <string name="screen_onboarding_intro_content">Welcome to SMS Commands! This app allows you to execute basic tasks, such as locking your device, or getting its location simply by sending yourself an SMS.</string>
     <string name="screen_perms_decline_warning">On Android 11+, if you deny a permission more than once, the app won\'t be able to request it again, so you\'ll have to enable it yourself in the settings</string>
-    <string name="screen_perms_granted">"Granted, "</string>
-    <string name="screen_perms_not_granted">"NOT GRANTED, "</string>  <!-- TODO: replace this with R.string.common_v1_comma_v2 -->
+    <string name="screen_perms_granted">"Granted, "</string>  <!-- TODO: replace this with R.string.common_v1_comma_v2 -->
+    <string name="screen_perms_not_granted">"Not granted, "</string>  <!-- TODO: replace this with R.string.common_v1_comma_v2 -->
     <string name="screen_perms_notification_rationale">getting notified when someone uses the app (recommended)</string>
     <string name="screen_perms_perm_required_for">required for %1$s</string>
     <string name="screen_perms_title">Permissions</string>
@@ -148,9 +147,9 @@
     <string name="timeformat_dd_MM_yy">dd/MM/yy</string>
     <string name="timeformat_dd_MM_yy_at">dd/MM/yy \'at\' HH:mm</string>
     <string name="timeformat_today_at">\'today at \'HH:mm</string>
-    <string name="timeformat_x_days_ago_at">\'%1$s days ago at\' HH:mm</string>
+    <string name="timeformat_x_days_ago_at">\'%1$d days ago at\' HH:mm</string>
     <string name="timeformat_yesterday_at">\'yesterday at\' HH:mm</string>
     <string name="url_github" translatable="false">https://github.com/RyfterWasTaken/SMSCommands</string>
     <string name="url_github_releases" translatable="false">https://github.com/RyfterWasTaken/SMSCommands/releases</string>
-    <string name="url_maps"><![CDATA[https://www.google.com/maps/search/?api=1&query=%1$s,%2$s]]></string>
+    <string name="url_maps"><![CDATA[https://www.google.com/maps/search/?api=1&query=%1$f,%2$f]]></string>
 </resources>

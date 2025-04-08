@@ -17,6 +17,7 @@ import com.smscommands.app.R
 import com.smscommands.app.commands.CommandList
 import com.smscommands.app.data.UiStateViewModel
 import com.smscommands.app.utils.formatRelativeTime
+import com.smscommands.app.utils.getStatusRes
 
 @Composable
 fun HistoryItemDialog(

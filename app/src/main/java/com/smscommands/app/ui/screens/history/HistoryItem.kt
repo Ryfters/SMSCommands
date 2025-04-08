@@ -12,6 +12,7 @@ import com.smscommands.app.commands.CommandList
 import com.smscommands.app.data.db.HistoryItem
 import com.smscommands.app.ui.components.MyListItem
 import com.smscommands.app.utils.formatRelativeTime
+import com.smscommands.app.utils.getStatusRes
 
 @Composable
 fun HistoryItem(
