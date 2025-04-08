@@ -5,7 +5,6 @@ import android.content.Context
 import android.location.Location
 import android.location.LocationManager
 import com.smscommands.app.R
-import com.smscommands.app.permissions.LocationPermission
 import com.smscommands.app.permissions.Permission
 import com.smscommands.app.utils.formatRelativeTime
 import java.time.Instant
@@ -43,8 +42,8 @@ class Gps : Command {
 
         val mapsUrl = context.getString(
             R.string.url_maps,
-            bestLocation.latitude.toString(),
-            bestLocation.longitude.toString()
+            bestLocation.latitude,
+            bestLocation.longitude,
         )
 
         val formattedTime = formatRelativeTime(context, Instant.ofEpochMilli(bestLocation.time))
@@ -53,7 +52,7 @@ class Gps : Command {
             context.getString(
                 R.string.command_location_reply,
                 mapsUrl,
-                bestLocation.accuracy.toInt().toString(),
+                bestLocation.accuracy.toInt(),
                 formattedTime
             )
         )
