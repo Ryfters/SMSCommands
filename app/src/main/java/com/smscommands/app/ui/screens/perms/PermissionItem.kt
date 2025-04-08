@@ -22,7 +22,7 @@ fun PermissionItem(
         permission.description?.let { stringResource(it) } ?: ""
     } else {
         val permRequiredFor = Command.LIST.filter { command ->
-            command.requiredPermissions.any { it.id == permission.id }
+            command.requiredPermissions.any { it == permission }
         }.joinToString { context.getString(it.label) }
 
         stringResource(R.string.screen_perms_perm_required_for, permRequiredFor)
