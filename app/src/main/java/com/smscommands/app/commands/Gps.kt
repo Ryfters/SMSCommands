@@ -12,7 +12,7 @@ import java.time.Instant
 class Gps : Command {
     override val id = "command_gps"
     override val label = R.string.command_gps_label
-    override val desc = R.string.command_gps_desc
+    override val description = R.string.command_gps_desc
     override val usage = R.string.command_gps_usage
 
     override val requiredPermissions = listOf(

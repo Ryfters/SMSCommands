@@ -51,7 +51,7 @@ fun CommandItemDialog(
             Column {
                 Text(stringResource(command.label))
                 Text(
-                    text = stringResource(command.desc),
+                    text = stringResource(command.description),
                     style = MaterialTheme.typography.bodyMedium
                 )
             }

@@ -11,7 +11,7 @@ interface Command {
     val label: Int
 
     @get:StringRes
-    val desc: Int
+    val description: Int
 
     @get:StringRes
     val usage: Int

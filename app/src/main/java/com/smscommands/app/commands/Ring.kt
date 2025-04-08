@@ -12,7 +12,7 @@ import com.smscommands.app.utils.getArgumentValue
 class Ring : Command {
     override val id = "command_ring"
     override val label = R.string.command_ring_label
-    override val desc = R.string.command_ring_desc
+    override val description = R.string.command_ring_desc
     override val usage = R.string.command_ring_usage
 
     override val requiredPermissions = listOf(

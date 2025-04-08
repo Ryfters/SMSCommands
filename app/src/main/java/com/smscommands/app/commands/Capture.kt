@@ -16,7 +16,7 @@ import com.smscommands.app.utils.getArgumentValue
 class Capture : Command {
     override val id = "command_capture"
     override val label = R.string.command_capture_label
-    override val desc = R.string.command_capture_desc
+    override val description = R.string.command_capture_desc
     override val usage = R.string.command_capture_usage
 
     override val requiredPermissions = listOf(
