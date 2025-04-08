@@ -8,7 +8,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.smscommands.app.R
-import com.smscommands.app.commands.CommandList
+import com.smscommands.app.commands.Command
 import com.smscommands.app.data.db.HistoryItem
 import com.smscommands.app.ui.components.MyListItem
 import com.smscommands.app.utils.formatRelativeTime
@@ -21,7 +21,7 @@ fun HistoryItem(
 ) {
     val context: Context = LocalContext.current
 
-    val commandNameRes = CommandList.find { command -> command.id == historyItem.commandId }?.label
+    val commandNameRes = Command.LIST.find { command -> command.id == historyItem.commandId }?.label
         ?: R.string.screen_history_item_invalid_command
 
     val headline =
