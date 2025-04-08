@@ -3,7 +3,6 @@ package com.smscommands.app.commands
 import android.content.Context
 import android.content.Intent
 import androidx.camera.core.ImageCapture
-
 import com.smscommands.app.R
 import com.smscommands.app.commands.CaptureActivity.Companion.CAMERA_BACK
 import com.smscommands.app.commands.CaptureActivity.Companion.CAMERA_BOTH
@@ -11,8 +10,7 @@ import com.smscommands.app.commands.CaptureActivity.Companion.CAMERA_EXTRA
 import com.smscommands.app.commands.CaptureActivity.Companion.CAMERA_FRONT
 import com.smscommands.app.commands.CaptureActivity.Companion.FLASH_MODE_EXTRA
 import com.smscommands.app.commands.Command.Companion.SENDER_EXTRA
-import com.smscommands.app.permissions.CameraPermission
-import com.smscommands.app.permissions.OverlayPermission
+import com.smscommands.app.permissions.Permission
 import com.smscommands.app.utils.getArgumentValue
 
 class Capture : Command {
@@ -22,8 +20,8 @@ class Capture : Command {
     override val usage = R.string.command_capture_usage
 
     override val requiredPermissions = listOf(
-        OverlayPermission(),
-        CameraPermission(),
+        Permission.OVERLAY,
+        Permission.CAMERA
     )
 
     override fun onReceive(context: Context, args: List<String>, sender: String, onReply: (String) -> Unit) {

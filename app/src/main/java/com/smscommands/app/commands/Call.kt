@@ -6,8 +6,7 @@ import android.media.AudioDeviceInfo
 import android.media.AudioManager
 import androidx.core.net.toUri
 import com.smscommands.app.R
-import com.smscommands.app.permissions.OverlayPermission
-import com.smscommands.app.permissions.PhonePermission
+import com.smscommands.app.permissions.Permission
 import com.smscommands.app.utils.getArgumentValue
 
 class Call : Command {
@@ -17,8 +16,8 @@ class Call : Command {
     override val usage = R.string.command_call_usage
 
     override val requiredPermissions = listOf(
-        PhonePermission(),
-        OverlayPermission()
+        Permission.PHONE,
+        Permission.OVERLAY,
     )
     override fun onReceive(context: Context, args: List<String>, sender: String, onReply: (String) -> Unit) {
 

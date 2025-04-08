@@ -27,15 +27,24 @@ interface Permission {
     fun request(onResult: (Boolean) -> Unit): () -> Unit
 
     companion object {
-        val LIST = arrayOf(
-            SmsPermission(),
-            NotificationPermission(),
-            ManageNotificationsPermission(),
-            OverlayPermission(),
-            AdminPermission(),
-            CameraPermission(),
-            LocationPermission(),
-            PhonePermission(),
+        val ADMIN = AdminPermission()
+        val CAMERA = CameraPermission()
+        val LOCATION = LocationPermission()
+        val MANAGE_NOTIFICATIONS = ManageNotificationsPermission()
+        val NOTIFICATION = NotificationPermission()
+        val OVERLAY = OverlayPermission()
+        val PHONE = PhonePermission()
+        val SMS = SmsPermission()
+
+        val LIST = listOf( // Sorted by importance
+            SMS,
+            NOTIFICATION,
+            MANAGE_NOTIFICATIONS,
+            OVERLAY,
+            ADMIN,
+            CAMERA,
+            LOCATION,
+            PHONE,
         )
     }
 }

@@ -6,6 +6,7 @@ import android.location.Location
 import android.location.LocationManager
 import com.smscommands.app.R
 import com.smscommands.app.permissions.LocationPermission
+import com.smscommands.app.permissions.Permission
 import com.smscommands.app.utils.formatRelativeTime
 import java.time.Instant
 
@@ -16,7 +17,7 @@ class Gps : Command {
     override val usage = R.string.command_gps_usage
 
     override val requiredPermissions = listOf(
-        LocationPermission()
+        Permission.LOCATION
     )
 
     @SuppressLint("MissingPermission") // Already checked in .receiver.processCommands()

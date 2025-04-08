@@ -5,7 +5,7 @@ import android.content.Intent
 import com.smscommands.app.R
 import com.smscommands.app.commands.RingActivity.Companion.RING_TIME_EXTRA
 import com.smscommands.app.commands.RingActivity.Companion.STOP_RINGING_INTENT
-import com.smscommands.app.permissions.OverlayPermission
+import com.smscommands.app.permissions.Permission
 import com.smscommands.app.utils.containsArgument
 import com.smscommands.app.utils.getArgumentValue
 
@@ -16,7 +16,7 @@ class Ring : Command {
     override val usage = R.string.command_ring_usage
 
     override val requiredPermissions = listOf(
-        OverlayPermission()
+        Permission.OVERLAY,
     )
 
     override fun onReceive(context: Context, args: List<String>, sender: String, onReply: (String) -> Unit) {
