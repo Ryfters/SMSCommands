@@ -18,12 +18,14 @@ class MainActivity : ComponentActivity() {
 
 // TODO LIST
 // Add Notification handling
-// Add onboarding content text
-
-// Maybe later
-// Onboarding settings tile improvement?
+// Better onboarding content text
+// Handle params within the receiver
 // Add permissionStates to viewModel,
 //  then implement permission checks through the app
+
+// Maybe later
+// Onboarding settings tile desc?
+
 
 
 // Later
