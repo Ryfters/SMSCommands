@@ -21,15 +21,11 @@ fun CommandItemDialog(
     commandId: String
 ) {
 
-    Log.d("Here", "CommandItemDialog: $commandId")
-
     val command = Command.LIST.find { it.id == commandId } ?: run {
         Log.e("CommandItemDialog", "Command not found: $commandId")
         navController.popBackStack()
         return
     }
-
-    Log.d("Here", "CommandItemDialog: $commandId")
 
     val isEnabled = viewModel.commandPreferences.collectAsState().value[commandId]
 
