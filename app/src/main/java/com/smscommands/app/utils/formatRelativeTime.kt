@@ -25,7 +25,7 @@ fun formatRelativeTime(
     val timeFormat = when {
         daysDifference == 0L -> context.getString(R.string.timeformat_today_at)
         daysDifference == 1L -> context.getString(R.string.timeformat_yesterday_at)
-        daysDifference < 7 -> context.getString(R.string.timeformat_x_days_ago_at, daysDifference.toString())
+        daysDifference < 7 -> context.getString(R.string.timeformat_x_days_ago_at, daysDifference)
         yearsDifference == 0L -> context.getString(R.string.timeformat_dd_MM_at)
         else -> context.getString(R.string.timeformat_dd_MM_yy_at)
     }
