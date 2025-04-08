@@ -22,5 +22,19 @@ interface Command {
 
     companion object {
         const val SENDER_EXTRA = "sender"
+
+        val CALL = Call()
+        val CAPTURE = Capture()
+        val GPS = Gps()
+        val LOCK = Lock()
+        val RING = Ring()
+
+        val LIST = listOf(
+            CALL,
+            CAPTURE,
+            GPS,
+            LOCK,
+            RING,
+        )
     }
 }
