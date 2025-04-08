@@ -103,8 +103,8 @@
     <string name="screen_onboarding_command_title">Sending commands</string>
     <string name="screen_onboarding_intro_content">Welcome to SMS Commands! This app allows you to execute basic tasks, such as locking your device, or getting its location simply by sending yourself an SMS.</string>
     <string name="screen_perms_decline_warning">On Android 11+, if you deny a permission more than once, the app won\'t be able to request it again, so you\'ll have to enable it yourself in the settings</string>
-    <string name="screen_perms_granted">"Granted, "</string>  <!-- TODO: replace this with R.string.common_v1_comma_v2 -->
-    <string name="screen_perms_not_granted">"Not granted, "</string>  <!-- TODO: replace this with R.string.common_v1_comma_v2 -->
+    <string name="screen_perms_granted">"Granted"</string>
+    <string name="screen_perms_not_granted">"Not granted"</string>
     <string name="screen_perms_notification_rationale">getting notified when someone uses the app (recommended)</string>
     <string name="screen_perms_perm_required_for">required for %1$s</string>
     <string name="screen_perms_title">Permissions</string>

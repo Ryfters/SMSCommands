@@ -30,11 +30,9 @@ fun PermissionItem(
 
     // TODO: Use this in viewmodel
     var isGranted by remember { mutableStateOf(permission.isGranted(context)) }
-    val isGrantedString = if (isGranted) {
-        R.string.screen_perms_granted
-    } else {
-        R.string.screen_perms_not_granted
-    }
+    val isGrantedString =
+        if (isGranted) stringResource(R.string.screen_perms_granted)
+        else stringResource(R.string.screen_perms_not_granted)
 
     val request = permission.request { isGranted = it }
 
@@ -42,7 +40,7 @@ fun PermissionItem(
 
     MyListItem(
         title = stringResource(permission.label),
-        content = stringResource(isGrantedString) + content,
+        content = stringResource(R.string.common_v1_comma_v2, isGrantedString, content),
         onClick = request
     )
 }
