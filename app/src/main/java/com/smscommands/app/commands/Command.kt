@@ -20,4 +20,7 @@ interface Command {
 
     fun onReceive(context: Context, args: List<String>, sender: String, onReply: (String) -> Unit, )
 
+    companion object {
+        const val SENDER_EXTRA = "sender"
+    }
 }

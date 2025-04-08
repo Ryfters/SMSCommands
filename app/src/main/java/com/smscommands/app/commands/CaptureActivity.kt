@@ -14,6 +14,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.concurrent.futures.await
 import androidx.lifecycle.lifecycleScope
 import com.smscommands.app.R
+import com.smscommands.app.commands.Command.Companion.SENDER_EXTRA
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.text.SimpleDateFormat
@@ -36,7 +37,7 @@ class CaptureActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         cameraExecutor = Executors.newSingleThreadExecutor()
 
-        sender = intent.getStringExtra(FLASH_MODE_EXTRA)
+        sender = intent.getStringExtra(SENDER_EXTRA)
 
         camera = intent.getIntExtra(CAMERA_EXTRA, CAMERA_BOTH)
         flashMode = intent.getIntExtra(FLASH_MODE_EXTRA, ImageCapture.FLASH_MODE_OFF)
@@ -123,10 +124,10 @@ class CaptureActivity : ComponentActivity() {
     }
 
     private fun processResults(attempts: MutableList<Boolean>) {
-        val successCount = attempts.count { it }.toString()
-        val failureCount = attempts.count { !it }.toString()
+        val successCount = attempts.count { it }
+        val attemptsCount = attempts.count()
 
-        onReply(getString(R.string.command_capture_reply_success, successCount, failureCount))
+        onReply(getString(R.string.command_capture_reply_success, successCount, attemptsCount))
 
     }
 
@@ -144,7 +145,6 @@ class CaptureActivity : ComponentActivity() {
         const val CAMERA_BACK = 2
         const val CAMERA_BOTH = 0
 
-        const val SENDER_EXTRA = "sender"
         const val CAMERA_EXTRA = "camera"
         const val FLASH_MODE_EXTRA = "flash_mode"
     }

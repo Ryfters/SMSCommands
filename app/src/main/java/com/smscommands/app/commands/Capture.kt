@@ -10,7 +10,7 @@ import com.smscommands.app.commands.CaptureActivity.Companion.CAMERA_BOTH
 import com.smscommands.app.commands.CaptureActivity.Companion.CAMERA_EXTRA
 import com.smscommands.app.commands.CaptureActivity.Companion.CAMERA_FRONT
 import com.smscommands.app.commands.CaptureActivity.Companion.FLASH_MODE_EXTRA
-import com.smscommands.app.commands.CaptureActivity.Companion.SENDER_EXTRA
+import com.smscommands.app.commands.Command.Companion.SENDER_EXTRA
 import com.smscommands.app.permissions.CameraPermission
 import com.smscommands.app.permissions.OverlayPermission
 import com.smscommands.app.utils.getArgumentValue
