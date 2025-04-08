@@ -78,5 +78,4 @@ fun CommandItemDialog(
         },
         onDismissRequest = { navController.popBackStack() }
     )
-
 }
