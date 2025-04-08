@@ -10,8 +10,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.smscommands.app.R
-import com.smscommands.app.commands.CommandList
 import com.smscommands.app.data.UiStateViewModel
+import com.smscommands.app.permissions.Permission
 import com.smscommands.app.ui.components.MainScaffold
 import com.smscommands.app.ui.components.MyListItem
 import com.smscommands.app.ui.navigation.Routes
@@ -30,7 +30,7 @@ fun CommandsScreen(
     ) {
         val commandPreferences by viewModel.commandPreferences.collectAsState()
         LazyColumn {
-            items(CommandList) { command ->
+            items(Permission.LIST) { command ->
                 val isChecked = commandPreferences[command.id] == true
                 MyListItem(
                     title = stringResource(command.label),

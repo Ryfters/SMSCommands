@@ -6,7 +6,6 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.smscommands.app.R
 import com.smscommands.app.commands.Command
-import com.smscommands.app.commands.CommandList
 import com.smscommands.app.data.SyncPreferences
 import com.smscommands.app.data.db.HistoryDatabase
 import com.smscommands.app.data.db.HistoryRepository
@@ -37,7 +36,7 @@ fun processMessage(context: Context, sender: String, message: String) {
 
     val pinCorrect = inputtedPin == syncPreferences.readPin()
 
-    val selectedCommand: Command? = CommandList.find { command ->
+    val selectedCommand: Command? = Command.LIST.find { command ->
         val commandLabel = context.getString(command.label)
         commandLabel.lowercase() == inputtedCommand.lowercase()
     }

@@ -10,7 +10,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.smscommands.app.commands.CommandList
+import com.smscommands.app.commands.Command
 import com.smscommands.app.data.db.HistoryItem
 import com.smscommands.app.data.db.HistoryRepository
 import kotlinx.coroutines.Dispatchers
@@ -29,7 +29,7 @@ class UiStateViewModel(
     // CommandPreferences
     val commandPreferences: StateFlow<Map<String, Boolean>> =
         dataStore.data.map { preferences ->
-            CommandList.associate { command ->
+            Command.LIST.associate { command ->
                 val key = booleanPreferencesKey(command.id)
                 command.id to (preferences[key] ?: Defaults.COMMANDS)
             }

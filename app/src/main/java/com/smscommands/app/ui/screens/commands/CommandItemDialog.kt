@@ -11,7 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.smscommands.app.R
-import com.smscommands.app.commands.CommandList
+import com.smscommands.app.commands.Command
 import com.smscommands.app.data.UiStateViewModel
 
 @Composable
@@ -23,7 +23,7 @@ fun CommandItemDialog(
 
     Log.d("Here", "CommandItemDialog: $commandId")
 
-    val command = CommandList.find { it.id == commandId } ?: run {
+    val command = Command.LIST.find { it.id == commandId } ?: run {
         Log.e("CommandItemDialog", "Command not found: $commandId")
         navController.popBackStack()
         return

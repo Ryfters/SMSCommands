@@ -8,7 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.smscommands.app.R
-import com.smscommands.app.commands.CommandList
+import com.smscommands.app.commands.Command
 import com.smscommands.app.permissions.Permission
 import com.smscommands.app.ui.components.MyListItem
 
@@ -21,7 +21,7 @@ fun PermissionItem(
     val content = if (permission.required || permission.optional) {
         permission.description?.let { stringResource(it) } ?: ""
     } else {
-        val permRequiredFor = CommandList.filter { command ->
+        val permRequiredFor = Command.LIST.filter { command ->
             command.requiredPermissions.any { it.id == permission.id }
         }.joinToString { context.getString(it.label) }
 
