@@ -45,7 +45,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             Root(viewModel)
         }
-
     }
 
     override fun onResume() {

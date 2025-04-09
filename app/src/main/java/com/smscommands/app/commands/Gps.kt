@@ -22,7 +22,6 @@ class Gps : Command {
     @SuppressLint("MissingPermission") // Already checked in .receiver.processCommands()
     override fun onReceive(context: Context, args: List<String>, sender: String, onReply: (String) -> Unit) {
 
-
         var bestLocation: Location? = null
 
         val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
