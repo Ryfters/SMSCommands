@@ -53,7 +53,7 @@ class UiStateViewModel(
     }
 
     private val _permissionsState: MutableStateFlow<Map<String, Boolean>> =
-        MutableStateFlow(Permission.LIST.associate { it.id to false} )
+        MutableStateFlow(Permission.ALL.associate { it.id to false} )
 
     val permissionsState: StateFlow<Map<String, Boolean>> = _permissionsState
 
@@ -66,7 +66,7 @@ class UiStateViewModel(
     fun refreshPermissionsState(context: Context) {
         viewModelScope.launch {
             _permissionsState.update {
-                Permission.LIST.associate { it.id to it.isGranted(context) }
+                Permission.ALL.associate { it.id to it.isGranted(context) }
             }
         }
     }

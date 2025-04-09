@@ -8,11 +8,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.smscommands.app.R
 import com.smscommands.app.commands.Command
 import com.smscommands.app.data.UiStateViewModel
+import com.smscommands.app.permissions.Permission
 
 @Composable
 fun CommandItemDialog(
@@ -27,11 +29,18 @@ fun CommandItemDialog(
         return
     }
 
-    val isEnabled = viewModel.commandPreferences.collectAsState().value[commandId]
+    val permissionsState by viewModel.permissionsState.collectAsState()
 
-    // TODO: Add permission to status
-    val status = if (isEnabled == true) stringResource(R.string.common_enabled)
-    else stringResource(R.string.common_disabled)
+    val isMissingPerms = (command.requiredPermissions + Permission.REQUIRED).any { permission ->
+        permissionsState[permission.id] == true
+    }
+
+    val isEnabled = viewModel.commandPreferences.collectAsState().value[commandId] == true
+
+    val status =
+        if (isMissingPerms) stringResource(R.string.screen_commands_status_missing_perms)
+        else if (isEnabled) stringResource(R.string.common_enabled)
+        else stringResource(R.string.common_disabled)
 
     @Suppress("SimplifiableCallChain") // Doing this makes it so stringResource doesnt work
     val requiredPermissions = command.requiredPermissions
@@ -54,7 +63,6 @@ fun CommandItemDialog(
         },
         text = {
             Column {
-                // TODO: Implement permission ViewModel here
                 Text(
                     stringResource(R.string.screen_commands_status, status)
                 )

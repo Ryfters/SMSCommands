@@ -26,7 +26,6 @@ fun PermissionItem(
         stringResource(R.string.screen_perms_perm_required_for, permRequiredFor)
     }
 
-    // TODO: Use this in viewmodel
     val isGrantedString =
         if (isGranted) stringResource(R.string.screen_perms_granted)
         else stringResource(R.string.screen_perms_not_granted)

@@ -133,7 +133,7 @@ fun SettingsScreen(
                     )
                 },
             )
-//            TODO: Add custom color themes
+
 //            MyListItem(
 //                title = stringResource(R.string.screen_settings_color_theme_title),
 //                content =

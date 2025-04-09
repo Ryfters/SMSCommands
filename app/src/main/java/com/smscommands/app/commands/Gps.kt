@@ -50,7 +50,7 @@ class Gps : Command {
 
         onReply(
             context.getString(
-                R.string.command_location_reply,
+                R.string.command_gps_reply,
                 mapsUrl,
                 bestLocation.accuracy.toInt(),
                 formattedTime

@@ -39,12 +39,29 @@ fun HomeScreen(
 
         val totalCommandsCount = Command.LIST.count()
         val commandPreferences by viewModel.commandPreferences.collectAsState()
-        val enabledCommandsCount = commandPreferences.count { command -> command.value }
+        val enabledCommandsCount = Command.LIST.count { command ->
+            commandPreferences[command.id] == true
+        }
+
+        val permissionsState by viewModel.permissionsState.collectAsState()
+        val errorCount = Command.LIST.count { command ->
+            commandPreferences[command.id] == true &&
+                (command.requiredPermissions + Permission.REQUIRED).any { permission ->
+                    permissionsState[permission.id] == false
+                }
+        }
+
+        val errorContent =
+            if (errorCount > 0) {
+                val v2 = stringResource(R.string.screen_home_commands_errors, errorCount)
+                stringResource(R.string.common_v1_comma_v2,"", v2)
+            } else ""
+
         val commandContent = stringResource(
             R.string.screen_home_enabled_count,
             enabledCommandsCount,
             totalCommandsCount
-        )
+        ) + errorContent
 
 
         val historyEnabled by viewModel.historyEnabled.collectAsState()
@@ -67,7 +84,7 @@ fun HomeScreen(
 
         val permissions by viewModel.permissionsState.collectAsState()
         val missingPerms = permissions.count { !it.value }
-        val totalPerms = Permission.LIST.count()
+        val totalPerms = Permission.ALL.count()
         val permissionContent =
             if (missingPerms == 0) stringResource(R.string.screen_home_perms_all)
             else if(missingPerms == totalPerms) stringResource(R.string.screen_home_perms_none)

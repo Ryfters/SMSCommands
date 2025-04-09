@@ -58,9 +58,6 @@ class MainActivity : ComponentActivity() {
 // Add Notification handling
 // Better onboarding content text
 // Handle params within the receiver
-// Add permissionStates to viewModel,
-//  then implement permission checks through the app
-//  (commands, home)
 
 
 
@@ -71,7 +68,7 @@ class MainActivity : ComponentActivity() {
 
 // Later
 // Add custom color themes
-// Redo icons
+// Redo icon
 
 // Commands
 // Status command

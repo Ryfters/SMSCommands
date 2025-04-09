@@ -38,7 +38,7 @@ fun PermsScreen(
         val permissionsState by viewModel.permissionsState.collectAsState()
 
         LazyColumn {
-            items(Permission.LIST) { permission ->
+            items(Permission.ALL) { permission ->
 
                 PermissionItem(
                     permission = permission,

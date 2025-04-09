@@ -36,16 +36,24 @@ interface Permission {
         val PHONE = PhonePermission()
         val SMS = SmsPermission()
 
-        val LIST = listOf( // Sorted by importance
+        val REQUIRED = listOf(
             SMS,
+        )
+
+        val OPTIONAL = listOf(
             NOTIFICATION,
             MANAGE_NOTIFICATIONS,
+        )
+
+        val COMMANDS = listOf(
             OVERLAY,
             ADMIN,
             CAMERA,
             LOCATION,
             PHONE,
         )
+
+        val ALL = REQUIRED + OPTIONAL + COMMANDS
     }
 }
 

@@ -24,7 +24,6 @@ fun DeclineWarningDialog(
     AlertDialog(
         title = { Text(stringResource(R.string.common_warning)) },
 
-        // TODO: extract res
         text = { Text(stringResource(R.string.screen_perms_decline_warning)) },
         confirmButton = {
             TextButton(
@@ -43,7 +42,7 @@ fun DeclineWarningDialog(
                     navController.popBackStack()
                 }
             ) {
-                Text("Go to settings")
+                Text(stringResource(R.string.screen_perms_decline_warning_settings))
             }
         },
         onDismissRequest = { navController.popBackStack() },

@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import com.smscommands.app.R
 import com.smscommands.app.commands.Command
 import com.smscommands.app.data.UiStateViewModel
+import com.smscommands.app.permissions.Permission
 import com.smscommands.app.ui.components.MainScaffold
 import com.smscommands.app.ui.components.MyListItem
 import com.smscommands.app.ui.navigation.Routes
@@ -29,24 +30,38 @@ fun CommandsScreen(
         showUpButton = true
     ) {
         val commandPreferences by viewModel.commandPreferences.collectAsState()
+        val permissionsState by viewModel.permissionsState.collectAsState()
         LazyColumn {
             items(Command.LIST) { command ->
-                val isChecked = commandPreferences[command.id] == true
+                val missingPermissions = (command.requiredPermissions + Permission.REQUIRED)
+                    .filter { permission -> permissionsState[permission.id] == false }
+
+                val disabled = missingPermissions.isNotEmpty()
+
+                @Suppress("SimplifiableCallChain")
+                val content =
+                    if (disabled) {
+                        val missingPermsString = missingPermissions.map { stringResource(it.label) }.joinToString()
+                        stringResource(R.string.screen_commands_missing_permissions, missingPermsString)
+                    } else stringResource(command.description)
+
+
                 MyListItem(
                     title = stringResource(command.label),
-                    content = stringResource(command.description),
+                    content = content,
                     onClick = {
                         navController.navigate(Routes.COMMAND_ITEM_DIALOG + command.id)
                     },
                     separator = true,
                     action = {
                         Switch(
-                            checked = isChecked,
+                            checked = commandPreferences[command.id] == true,
                             onCheckedChange = { value ->
                                 viewModel.updateCommandPreference(command.id, value)
-                            }
+                            },
+                            enabled = !disabled
                         )
-                    }
+                    },
                 )
             }
         }
