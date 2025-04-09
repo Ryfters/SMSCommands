@@ -18,6 +18,7 @@ import com.smscommands.app.R
 import com.smscommands.app.commands.Command
 import com.smscommands.app.data.UiStateViewModel
 import com.smscommands.app.data.db.HistoryItem
+import com.smscommands.app.permissions.Permission
 import com.smscommands.app.ui.components.MainScaffold
 import com.smscommands.app.ui.navigation.Routes
 import com.smscommands.app.utils.formatRelativeTime
@@ -64,6 +65,15 @@ fun HomeScreen(
             stringResource(R.string.screen_home_pin_current, pin)
         }
 
+        val permissions by viewModel.permissionsState.collectAsState()
+        val missingPerms = permissions.count { !it.value }
+        val totalPerms = Permission.LIST.count()
+        val permissionContent =
+            if (missingPerms == 0) stringResource(R.string.screen_home_perms_all)
+            else if(missingPerms == totalPerms) stringResource(R.string.screen_home_perms_none)
+            else if(missingPerms == 1) stringResource(R.string.screen_home_perms_one)
+            else stringResource(R.string.screen_home_perms_many, missingPerms)
+
         Column {
             HomeListItem(
                 headline = stringResource(R.string.screen_commands_title),
@@ -88,7 +98,7 @@ fun HomeScreen(
             )
             HomeListItem(
                 headline = stringResource(R.string.screen_perms_title),
-                content = null,
+                content = permissionContent,
                 onClick = {
                     navController.navigate(Routes.PERMISSIONS)
                 }

@@ -157,4 +157,8 @@
     <string name="screen_history_item_dialog_sender">Sender: %1$s</string>
     <string name="screen_history_item_dialog_time">Time: %1$s</string>
     <string name="screen_history_item_dialog_message">Message: %1$s</string>
+    <string name="screen_home_perms_many">Missing %1$d</string>
+    <string name="screen_home_perms_one">Missing 1 permission</string>
+    <string name="screen_home_perms_all">All permissions granted</string>
+    <string name="screen_home_perms_none">No permission granted</string>
 </resources>
