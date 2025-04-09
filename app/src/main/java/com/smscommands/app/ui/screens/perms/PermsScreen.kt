@@ -6,6 +6,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
@@ -33,10 +35,18 @@ fun PermsScreen(
             }
         }
     ) {
+        val permissionsState by viewModel.permissionsState.collectAsState()
 
         LazyColumn {
             items(Permission.LIST) { permission ->
-                PermissionItem(permission)
+
+                PermissionItem(
+                    permission = permission,
+                    isGranted = permissionsState[permission.id] == true,
+                    onGrant = { isEnabled ->
+                        viewModel.updateSinglePermissionState(permission.id, isEnabled)
+                    }
+                )
             }
         }
     }

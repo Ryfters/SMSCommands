@@ -1,5 +1,6 @@
 package com.smscommands.app.data
 
+import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -13,11 +14,14 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.smscommands.app.commands.Command
 import com.smscommands.app.data.db.HistoryItem
 import com.smscommands.app.data.db.HistoryRepository
+import com.smscommands.app.permissions.Permission
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -39,10 +43,30 @@ class UiStateViewModel(
             initialValue = emptyMap()
         )
 
+
     fun updateCommandPreference(id: String, isEnabled: Boolean) {
         viewModelScope.launch {
             dataStore.edit { preferences ->
                 preferences[booleanPreferencesKey(id)] = isEnabled
+            }
+        }
+    }
+
+    private val _permissionsState: MutableStateFlow<Map<String, Boolean>> =
+        MutableStateFlow(Permission.LIST.associate { it.id to false} )
+
+    val permissionsState: StateFlow<Map<String, Boolean>> = _permissionsState
+
+    fun updateSinglePermissionState(permissionId: String, isEnabled: Boolean) {
+        _permissionsState.update { permissions ->
+            permissions + (permissionId to isEnabled)
+        }
+    }
+
+    fun refreshPermissionsState(context: Context) {
+        viewModelScope.launch {
+            _permissionsState.update {
+                Permission.LIST.associate { it.id to it.isGranted(context) }
             }
         }
     }
