@@ -17,8 +17,6 @@ navigationCompose = "2.8.9"
 room = "2.6.1"
 
 [libraries]
-#androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" } # found
-#androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" } # found
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-camera-camera2 = { group = "androidx.camera", name = "camera-camera2", version.ref = "cameraX" }
 androidx-camera-core = { group = "androidx.camera", name = "camera-core", version.ref = "cameraX" }
