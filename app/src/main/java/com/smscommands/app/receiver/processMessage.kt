@@ -27,7 +27,7 @@ fun processMessage(context: Context, sender: String, message: String) {
     val splitMessage = message.split("/")
     val inputtedPin = splitMessage[0].removePrefix("!!")
     val inputtedCommand = splitMessage.getOrElse(1) { "" }
-    val inputtedArgs = splitMessage.getOrElse(2) { "" }.split(" ")
+    val inputtedParams = splitMessage.getOrElse(2) { "" }.split(" ")
 
     val onReply: (String) -> Unit = { message ->
         val smsManager: SmsManager = context.getSystemService(SmsManager::class.java)
@@ -82,7 +82,7 @@ fun processMessage(context: Context, sender: String, message: String) {
         )
     }
 
-    commandToRun?.onReceive(context, inputtedArgs, sender, onReply)
+    commandToRun?.onReceive(context, inputtedParams, sender, onReply)
 
 }
 
