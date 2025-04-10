@@ -14,7 +14,7 @@ class ManageNotificationsPermission : Permission {
     override val label = R.string.permission_manage_notifications
     override val description = R.string.permission_manage_notifications_desc
 
-    override val optional = true
+    override val basePermission = true
 
     override fun isGranted(context: Context): Boolean {
         val enabledListeners = Settings.Secure.getString(

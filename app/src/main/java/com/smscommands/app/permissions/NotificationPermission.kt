@@ -14,7 +14,7 @@ class NotificationPermission : Permission {
     override val label = R.string.permission_notification
     override val description = R.string.permission_notification_desc
 
-    override val optional = true
+    override val basePermission = true
 
     private val permissions = arrayOf(
         Manifest.permission.POST_NOTIFICATIONS,

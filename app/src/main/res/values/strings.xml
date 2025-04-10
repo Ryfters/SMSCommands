@@ -163,4 +163,5 @@
     <string name="url_maps" translatable="false"><![CDATA[https://www.google.com/maps/search/?api=1&query=%1$f,%2$f]]></string>
     <string name="screen_commands_status_missing_perms">Missing permissions</string>
     <string name="screen_perms_decline_warning_settings">Go to settings</string>
+    <string name="permission_notification_desc">Required for the app to send you notifications</string>
 </resources>

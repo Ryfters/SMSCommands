@@ -15,9 +15,7 @@ interface Permission {
     val description: Int?
         get() = null
 
-    val required: Boolean
-        get() = false
-    val optional: Boolean
+    val basePermission: Boolean
         get() = false
 
 

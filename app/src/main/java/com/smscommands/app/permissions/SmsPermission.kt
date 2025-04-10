@@ -16,7 +16,7 @@ class SmsPermission : Permission {
     override val label = R.string.permission_sms
     override val description = R.string.permission_sms_desc
 
-    override val required = true
+    override val basePermission = true
 
     private val permissions = arrayOf(
         Manifest.permission.SEND_SMS,

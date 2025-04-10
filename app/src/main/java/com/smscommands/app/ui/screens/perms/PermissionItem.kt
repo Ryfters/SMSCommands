@@ -16,7 +16,7 @@ fun PermissionItem(
 ) {
     val context = LocalContext.current
 
-    val content = if (permission.required || permission.optional) {
+    val content = if (permission.basePermission) {
         permission.description?.let { stringResource(it) } ?: ""
     } else {
         val permRequiredFor = Command.LIST.filter { command ->
