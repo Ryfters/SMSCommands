@@ -52,24 +52,3 @@ class MainActivity : ComponentActivity() {
         viewModel.refreshPermissionsState(this)
     }
 }
-
-// TODO LIST
-// Add Notification handling
-// Better onboarding content text
-
-
-// Maybe later
-// Onboarding settings tile desc
-// Add automatic upload to a file provider
-
-
-
-// Later
-// Add custom color themes
-// Redo icon
-
-// Commands
-// Status command
-// Add a toggle command, wifi&data(with shizuku),
-//  bluetooth, dnd, etc
-
