@@ -6,8 +6,8 @@ import android.media.AudioDeviceInfo
 import android.media.AudioManager
 import androidx.core.net.toUri
 import com.smscommands.app.R
+import com.smscommands.app.commands.params.ChoiceParamDefinition
 import com.smscommands.app.permissions.Permission
-import com.smscommands.app.utils.getArgumentValue
 
 class Call : Command {
     override val id = "command_call"
@@ -19,10 +19,20 @@ class Call : Command {
         Permission.PHONE,
         Permission.OVERLAY,
     )
-    override fun onReceive(context: Context, args: List<String>, sender: String, onReply: (String) -> Unit) {
 
-        val audioMode = parseAudioMode(context, args)
-            ?: return onReply(context.getString(R.string.sms_reply_parameter_unknown, context.getString(R.string.command_capture_param_camera)))
+
+    override val params = mapOf(
+        AUDIO_PARAM to ChoiceParamDefinition(
+            R.string.command_call_param_audio,
+            R.string.command_call_param_audio_desc,
+            defaultValue = NONE,
+            choices = audioParamChoices
+        )
+    )
+
+    override fun onReceive(context: Context, parameters: Map<String, Any>, sender: String, onReply: (String) -> Unit) {
+        val audioMode = parameters[AUDIO_PARAM] as String
+
 
         val intent = Intent(Intent.ACTION_CALL).apply {
             data = "tel:$sender".toUri()
@@ -32,7 +42,7 @@ class Call : Command {
 
         var reply = context.getString(R.string.command_call_reply_success, sender)
         onReply(reply)
-        // TODO: add audioMode info
+        // TODO: add audioMode info?
 
         if (audioMode != NONE) {
             var audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
@@ -60,20 +70,6 @@ class Call : Command {
                 )
             }
         }
-
-
-    }
-
-    private fun parseAudioMode(context: Context, args: List<String>): String? {
-        val paramName = context.getString(R.string.command_call_param_audio)
-        val paramValue = getArgumentValue(args, paramName)
-        val paramOptions = mapOf(
-            context.getString(R.string.command_call_param_audio_speaker) to SPEAKER,
-            context.getString(R.string.command_call_param_audio_mute) to MUTE,
-            null to NONE
-        )
-
-        return paramOptions[paramValue]
     }
 
     companion object {
@@ -81,5 +77,11 @@ class Call : Command {
         private const val MUTE = "audiomode_mute"
         private const val NONE = "audiomode_none"
 
+        const val AUDIO_PARAM = "audio"
+
+        private val audioParamChoices = mapOf(
+            R.string.command_call_param_audio_speaker to SPEAKER,
+            R.string.command_call_param_audio_mute to MUTE,
+        )
     }
 }

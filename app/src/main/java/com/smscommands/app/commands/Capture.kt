@@ -10,8 +10,8 @@ import com.smscommands.app.commands.CaptureActivity.Companion.CAMERA_EXTRA
 import com.smscommands.app.commands.CaptureActivity.Companion.CAMERA_FRONT
 import com.smscommands.app.commands.CaptureActivity.Companion.FLASH_MODE_EXTRA
 import com.smscommands.app.commands.Command.Companion.SENDER_EXTRA
+import com.smscommands.app.commands.params.ChoiceParamDefinition
 import com.smscommands.app.permissions.Permission
-import com.smscommands.app.utils.getArgumentValue
 
 class Capture : Command {
     override val id = "command_capture"
@@ -24,13 +24,32 @@ class Capture : Command {
         Permission.CAMERA
     )
 
-    override fun onReceive(context: Context, args: List<String>, sender: String, onReply: (String) -> Unit) {
 
-        val flashMode = parseFlashMode(context, args)
-            ?: return onReply(context.getString(R.string.sms_reply_parameter_unknown, context.getString(R.string.command_capture_param_flash)))
+    override val params = mapOf(
+        FLASH_PARAM to ChoiceParamDefinition(
+            R.string.command_capture_param_flash,
+            R.string.command_capture_param_flash_desc,
+            defaultValue = ImageCapture.FLASH_MODE_OFF,
+            choices = flashParamChoices
+        ),
+        CAMERA_PARAM to ChoiceParamDefinition(
+            R.string.command_capture_param_camera,
+            R.string.command_capture_param_camera_desc,
+            defaultValue = CAMERA_BOTH,
+            choices = cameraParamChoices
+        )
+    )
 
-        val camera = parseCamera(context, args)
-            ?: return onReply(context.getString(R.string.sms_reply_parameter_unknown, context.getString(R.string.command_capture_param_camera)))
+    override fun onReceive(context: Context, parameters: Map<String, Any>, sender: String, onReply: (String) -> Unit) {
+        val flashMode = parameters[FLASH_PARAM] as Int
+        val camera = parameters[CAMERA_PARAM] as Int
+
+
+//        val flashMode = parseFlashMode(context, args)
+//            ?: return onReply(context.getString(R.string.sms_reply_parameter_unknown, context.getString(R.string.command_capture_param_flash)))
+//
+//        val camera = parseCamera(context, args)
+//            ?: return onReply(context.getString(R.string.sms_reply_parameter_unknown, context.getString(R.string.command_capture_param_camera)))
 
         val intent = Intent(context, CaptureActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or
@@ -45,29 +64,18 @@ class Capture : Command {
         context.startActivity(intent)
     }
 
-    private fun parseFlashMode(context: Context, args: List<String>): Int? {
-        val paramName = context.getString(R.string.command_capture_param_flash)
-        val paramValue = getArgumentValue(args, paramName)
-        val validParams = mapOf(
-            context.getString(R.string.common_on) to ImageCapture.FLASH_MODE_ON,
-            context.getString(R.string.common_off) to ImageCapture.FLASH_MODE_OFF,
-            context.getString(R.string.common_auto) to ImageCapture.FLASH_MODE_AUTO,
-            null to ImageCapture.FLASH_MODE_OFF
+    companion object {
+        private val flashParamChoices = mapOf(
+            R.string.common_on to ImageCapture.FLASH_MODE_ON,
+            R.string.common_off to ImageCapture.FLASH_MODE_OFF,
+            R.string.common_auto to ImageCapture.FLASH_MODE_AUTO,
         )
-
-        return validParams[paramValue]
-    }
-
-    private fun parseCamera(context: Context, args: List<String>): Int? {
-        val paramName = context.getString(R.string.command_capture_param_camera)
-        val paramValue = getArgumentValue(args, paramName)
-        val validParams = mapOf(
-            context.getString(R.string.command_capture_param_camera_front) to CAMERA_FRONT,
-            context.getString(R.string.command_capture_param_camera_back) to CAMERA_BACK,
-            context.getString(R.string.command_capture_param_camera_both) to CAMERA_BOTH,
-            null to CAMERA_BOTH
+        private val cameraParamChoices = mapOf(
+            R.string.command_capture_param_camera_front to CAMERA_FRONT,
+            R.string.command_capture_param_camera_back to CAMERA_BACK,
+            R.string.command_capture_param_camera_both to CAMERA_BOTH,
         )
-        return validParams[paramValue]
+        private const val CAMERA_PARAM = "camera"
+        private const val FLASH_PARAM = "flash"
     }
-
 }

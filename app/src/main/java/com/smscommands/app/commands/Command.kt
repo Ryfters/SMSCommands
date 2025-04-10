@@ -2,6 +2,7 @@ package com.smscommands.app.commands
 
 import android.content.Context
 import androidx.annotation.StringRes
+import com.smscommands.app.commands.params.ParamsDefinition
 import com.smscommands.app.permissions.Permission
 
 interface Command {
@@ -18,7 +19,10 @@ interface Command {
 
     val requiredPermissions: List<Permission>
 
-    fun onReceive(context: Context, args: List<String>, sender: String, onReply: (String) -> Unit, )
+    val params: Map<String, ParamsDefinition>
+        get() = emptyMap()
+
+    fun onReceive(context: Context, parameters: Map<String, Any>, sender: String, onReply: (String) -> Unit, )
 
     companion object {
         const val SENDER_EXTRA = "sender"
