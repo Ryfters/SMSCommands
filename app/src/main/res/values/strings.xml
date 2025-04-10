@@ -118,9 +118,9 @@
     <string name="screen_home_pin_remove">Remove PIN</string>
     <string name="screen_home_pin_remove_rationale">Removing the PIN will allow anyone with your phone number to trigger commands</string>
     <string name="screen_home_title">Home</string>
-    <string name="screen_onboarding_arguments_content">"To use arguments, simply add them to the argument section of the command, separated by spaces.\nSome arguments also require a value, they are formatted like that: 'argument:value'. \nYou can see the possible arguments in the Command screen."</string>
-    <string name="screen_onboarding_arguments_title">Arguments</string>
-    <string name="screen_onboarding_command_content">To use a command, send yourself a message with the following structure:\n\'!!PIN/command/arguments\'\n - !!: SMS Commands will only listen to commands starting with this prefix.\n - PIN: An access pin, you can change it on the home screen.\n - Command: The command you want to run, you must have enabled it first in the Command screen\n - Arguments: More about this on the next page</string>
+    <string name="screen_onboarding_parameters_content">"To use parameters, simply add them to the parameter section of the command, separated by spaces.\nThere are 2 types of parameters, flags and options\n - Flags: You just need to add them in the arguments for them to be counted\n - Options: They require an argument, and are formatted like that: 'parameter:argument'"</string>
+    <string name="screen_onboarding_parameters_title">Parameters</string>
+    <string name="screen_onboarding_command_content">To use a command, send yourself a message with the following structure:\n\'!!{PIN}/{command}/{parameters}\'\n - !!: This app will only listen to commands starting with this prefix.\n - PIN: An access pin, you can change it at any time on the home screen.\n - Command: The command you want to run, you must have enabled it first in the Commands screen\n - Parameters: More about them on the next page</string>
     <string name="screen_onboarding_command_title">Sending commands</string>
     <string name="screen_onboarding_intro_content">Welcome to SMS Commands! This app allows you to execute basic tasks, such as locking your device, or getting its location simply by sending yourself an SMS.</string>
     <string name="screen_onboarding_intro_title">Welcome</string>

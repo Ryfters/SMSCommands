@@ -13,8 +13,8 @@ val OnboardingPages = listOf(
         content = R.string.screen_onboarding_command_content,
     ),
     OnboardingPage(
-        title = R.string.screen_onboarding_arguments_title,
-        content = R.string.screen_onboarding_arguments_content,
+        title = R.string.screen_onboarding_parameters_title,
+        content = R.string.screen_onboarding_parameters_content,
     ),
 )
 
