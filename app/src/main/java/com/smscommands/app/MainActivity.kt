@@ -56,12 +56,13 @@ class MainActivity : ComponentActivity() {
 // TODO LIST
 // Add Notification handling
 // Better onboarding content text
-// Handle params within the receiver
 
 
 
 // Maybe later
-// Onboarding settings tile desc?
+// Onboarding settings tile desc
+// Add automatic upload to a file provider
+// Handle params within the receiver
 
 
 
