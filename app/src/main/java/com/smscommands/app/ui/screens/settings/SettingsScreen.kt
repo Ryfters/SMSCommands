@@ -103,7 +103,7 @@ fun SettingsScreen(
             )
             MyListItem(
                 title = stringResource(R.string.screen_settings_history_title),
-                content = stringResource(R.string.string_settings_history_content),
+                content = stringResource(R.string.screen_settings_history_content),
                 onClick = {
                     navController.navigate(Routes.HISTORY) {
                         popUpTo(Routes.HOME)
@@ -159,7 +159,7 @@ fun SettingsScreen(
             )
             MyListItem(
                 title = stringResource(R.string.screen_settings_source_code_title),
-                content = stringResource(R.string.string_settings_source_code_content),
+                content = stringResource(R.string.screen_settings_source_code_content),
                 onClick = {
                     val uri = context.getString(R.string.url_github).toUri()
                     val intent = Intent(Intent.ACTION_VIEW, uri)

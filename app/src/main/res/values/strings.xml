@@ -6,7 +6,6 @@
     <string name="command_call_param_audio_desc">Set the audio mode</string>
     <string name="command_call_param_audio_mute">mute</string>
     <string name="command_call_param_audio_speaker">speaker</string>
-    <string name="command_call_reply_audio_speaker">" with speaker enabled"</string>
     <string name="command_call_reply_success">Calling %1$s</string>
     <string name="command_call_usage">Usage for Call</string>
     <string name="command_capture_desc">Take a photo from your phone\'s cameras</string>
@@ -23,7 +22,7 @@
     <string name="command_gps_desc">Returns your device\'s current location</string>
     <string name="command_gps_id">gps</string>
     <string name="command_gps_label">GPS</string>
-    <string name="command_gps_reply">"Device location: %1$s\nDetails: \n    Accurate within: %2$dm\n    Collected: %3$s    "</string>
+    <string name="command_gps_reply">Device location: %1$s\nDetails: \n    Accurate within: %2$dm\n    Collected: %3$s</string>
     <string name="command_gps_reply_error">An error occurred, couldn\'t get last known location</string>
     <string name="command_gps_usage">Long description for GPS</string>
     <string name="command_lock_desc">Locks your device</string>
@@ -167,8 +166,8 @@
     <string name="sms_reply_missing_permissions">Missing the following permission(s): %1$s</string>
     <string name="sms_reply_parameter_unknown">Unknown value for parameter \'%1$s\'</string>
     <string name="sms_reply_pin_invalid">Invalid pin</string>
-    <string name="string_settings_history_content">Track your history</string>
-    <string name="string_settings_source_code_content">Source code of this app</string>
+    <string name="screen_settings_history_content">Track your history</string>
+    <string name="screen_settings_source_code_content">Source code of this app</string>
     <string name="timeformat_dd_MM_at">dd/MM \'at\' HH:mm</string>
     <string name="timeformat_dd_MM_yy">dd/MM/yy</string>
     <string name="timeformat_dd_MM_yy_at">dd/MM/yy \'at\' HH:mm</string>
