@@ -58,7 +58,6 @@ class MainActivity : ComponentActivity() {
 // Better onboarding content text
 
 
-
 // Maybe later
 // Onboarding settings tile desc
 // Add automatic upload to a file provider
@@ -70,7 +69,7 @@ class MainActivity : ComponentActivity() {
 // Redo icon
 
 // Commands
-// Status command, when params are better
+// Status command
 // Add a toggle command, wifi&data(with shizuku),
 //  bluetooth, dnd, etc
 
