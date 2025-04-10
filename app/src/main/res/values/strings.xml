@@ -92,10 +92,13 @@
     <string name="screen_history_item_invalid_command">Invalid command</string>
     <string name="screen_history_item_invalid_pin">Wrong PIN</string>
     <string name="screen_history_item_status_disabled_command">Command disabled</string>
+    <string name="screen_history_item_status_invalid_args">Invalid arguments</string>
     <string name="screen_history_item_status_invalid_command">Invalid command</string>
+    <string name="screen_history_item_status_missing_param">Missing required parameters</string>
     <string name="screen_history_item_status_missing_permissions">Missing permissions</string>
     <string name="screen_history_item_status_success">Success</string>
     <string name="screen_history_item_status_unknown">Unknown status</string>
+    <string name="screen_history_item_statuse_invalid_param">Invalid parameters</string>
     <string name="screen_history_title">History</string>
     <string name="screen_home_commands_errors">%1$d error(s)</string>
     <string name="screen_home_commands_title">Commands</string>
@@ -158,6 +161,8 @@
     <string name="screen_settings_view_onboarding">Guide</string>
     <string name="sms_reply_command_disabled">Command disabled</string>
     <string name="sms_reply_command_invalid">Invalid command</string>
+    <string name="sms_reply_invalid_args">Invalid argument for parameter \'%1$s\'\nPossible values: %2$s</string>
+    <string name="sms_reply_invalid_params">The following parameters are invalid: %1$s</string>
     <string name="sms_reply_missing_param">Missing required parameter \'%1$s\'</string>
     <string name="sms_reply_missing_permissions">Missing the following permission(s): %1$s</string>
     <string name="sms_reply_parameter_unknown">Unknown value for parameter \'%1$s\'</string>
@@ -173,9 +178,4 @@
     <string name="url_github" translatable="false">https://github.com/RyfterWasTaken/SMSCommands</string>
     <string name="url_github_releases" translatable="false">https://github.com/RyfterWasTaken/SMSCommands/releases</string>
     <string name="url_maps" translatable="false"><![CDATA[https://www.google.com/maps/search/?api=1&query=%1$f,%2$f]]></string>
-    <string name="sms_reply_invalid_args">Invalid argument for parameter \'%1$s\'\nPossible values: %2$s</string>
-    <string name="screen_history_item_statuse_invalid_param">Invalid parameters</string>
-    <string name="screen_history_item_status_invalid_args">Invalid arguments</string>
-    <string name="screen_history_item_status_missing_param">Missing required parameters</string>
-    <string name="sms_reply_invalid_params">The following parameters are invalid: %1$s</string>
 </resources>
