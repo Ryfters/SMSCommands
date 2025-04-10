@@ -3,6 +3,7 @@ package com.smscommands.app.commands
 import android.content.ContentValues
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.telephony.SmsManager
 import androidx.activity.ComponentActivity
@@ -94,10 +95,12 @@ class CaptureActivity : ComponentActivity() {
 
         val name = SimpleDateFormat(FILENAME_FORMAT, Locale.getDefault()).format(System.currentTimeMillis())
 
+        val fileDir = "${Environment.DIRECTORY_PICTURES}/${this.getString(R.string.app_name)}"
+
         val contentValues = ContentValues().apply {
             put(MediaStore.MediaColumns.DISPLAY_NAME, name)
             put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
-            put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/${getString(R.string.app_name)}") // TODO: Maybe localize this
+            put(MediaStore.Images.Media.RELATIVE_PATH, fileDir)
         }
 
         val outputOptions = ImageCapture.OutputFileOptions.Builder(
@@ -140,7 +143,7 @@ class CaptureActivity : ComponentActivity() {
     }
 
     companion object {
-        private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
+        private const val FILENAME_FORMAT = "yyyyMMdd_HHmmssSSS"
         const val CAMERA_FRONT = 1
         const val CAMERA_BACK = 2
         const val CAMERA_BOTH = 0
