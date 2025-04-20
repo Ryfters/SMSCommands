@@ -23,7 +23,7 @@ class IntParamDefinition(
         return param.toInt()
     }
 
-    override fun possibleValuesDescription(context: Context): String {
+    override fun possibleValues(context: Context): String {
         return context.getString(R.string.param_int_possible_values, min, max)
     }
 }

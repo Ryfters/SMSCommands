@@ -18,5 +18,5 @@ sealed class OptionParamDefinition : ParamsDefinition() {
 
     abstract fun parseParam(context: Context, param: String): Any
 
-    abstract fun possibleValuesDescription(context: Context): String
+    abstract fun possibleValues(context: Context): String
 }

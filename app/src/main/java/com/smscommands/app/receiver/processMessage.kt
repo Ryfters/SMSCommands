@@ -104,7 +104,7 @@ fun processMessage(context: Context, sender: String, message: String) {
                 onReply(context.getString(
                     R.string.sms_reply_invalid_args,
                     paramName,
-                    optionParam.possibleValuesDescription(context)
+                    optionParam.possibleValues(context)
                 ))
                 status = INVALID_ARGS
                 break

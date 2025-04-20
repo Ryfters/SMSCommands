@@ -52,6 +52,7 @@
     <string name="common_previous">Previous</string>
     <string name="common_skip">Skip</string>
     <string name="common_stop">Stop</string>
+    <string name="common_bullet_v1_colon_v2"> - %1$s: %2$s</string>
     <string name="common_v1_colon_v2">%1$s: %2$s</string>
     <string name="common_v1_comma_v2">%1$s, %2$s</string>
     <string name="common_warning">Warning</string>

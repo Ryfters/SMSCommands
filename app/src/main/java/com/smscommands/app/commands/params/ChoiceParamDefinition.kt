@@ -22,7 +22,7 @@ class ChoiceParamDefinition(
         }.value
     }
 
-    override fun possibleValuesDescription(context: Context): String {
+    override fun possibleValues(context: Context): String {
         val possibleValues = choices.keys.joinToString { context.getString(it) }
         return context.getString(R.string.param_choices_possible_values, possibleValues)
     }
