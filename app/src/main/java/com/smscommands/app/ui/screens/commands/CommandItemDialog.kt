@@ -16,7 +16,6 @@ import com.smscommands.app.R
 import com.smscommands.app.commands.Command
 import com.smscommands.app.commands.params.FlagParamDefinition
 import com.smscommands.app.commands.params.OptionParamDefinition
-import com.smscommands.app.commands.params.ParamsDefinition
 import com.smscommands.app.data.UiStateViewModel
 import com.smscommands.app.permissions.Permission
 
@@ -121,9 +120,4 @@ fun CommandItemDialog(
         },
         onDismissRequest = { navController.popBackStack() }
     )
-}
-
-@Composable
-fun FlagsDisplay(flags: Collection<ParamsDefinition>) {
-
 }
