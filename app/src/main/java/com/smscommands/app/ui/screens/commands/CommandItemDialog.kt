@@ -46,7 +46,7 @@ fun CommandItemDialog(
         else if (isEnabled) stringResource(R.string.common_enabled)
         else stringResource(R.string.common_disabled)
 
-    @Suppress("SimplifiableCallChain") // Doing this makes it so stringResource doesnt work
+    @Suppress("SimplifiableCallChain") // cant have composable in joinToString
     val requiredPermissions = command.requiredPermissions
         .map { stringResource(it.label) }
         .joinToString()
