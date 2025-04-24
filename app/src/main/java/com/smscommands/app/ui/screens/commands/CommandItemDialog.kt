@@ -35,7 +35,7 @@ fun CommandItemDialog(
 
     val permissionsState by viewModel.permissionsState.collectAsState()
 
-    val isMissingPerms = (command.requiredPermissions + Permission.REQUIRED).any { permission ->
+    val isMissingPerms = (command.requiredPermissions + Permission.BASE).any { permission ->
         permissionsState[permission.id] == true
     }
 

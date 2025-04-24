@@ -34,7 +34,7 @@ interface Permission {
         val PHONE = PhonePermission()
         val SMS = SmsPermission()
 
-        val REQUIRED = listOf(
+        val BASE = listOf(
             SMS,
         )
 

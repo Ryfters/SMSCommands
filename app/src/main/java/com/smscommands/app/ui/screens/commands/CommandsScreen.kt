@@ -33,7 +33,7 @@ fun CommandsScreen(
         val permissionsState by viewModel.permissionsState.collectAsState()
         LazyColumn {
             items(Command.LIST) { command ->
-                val missingPermissions = (command.requiredPermissions + Permission.REQUIRED)
+                val missingPermissions = (command.requiredPermissions + Permission.BASE)
                     .filter { permission -> permissionsState[permission.id] == false }
 
                 val disabled = missingPermissions.isNotEmpty()

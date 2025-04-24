@@ -46,7 +46,7 @@ fun HomeScreen(
         val permissionsState by viewModel.permissionsState.collectAsState()
         val errorCount = Command.LIST.count { command ->
             commandPreferences[command.id] == true &&
-                (command.requiredPermissions + Permission.REQUIRED).any { permission ->
+                (command.requiredPermissions + Permission.BASE).any { permission ->
                     permissionsState[permission.id] == false
                 }
         }
