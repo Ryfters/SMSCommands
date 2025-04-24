@@ -29,7 +29,6 @@ interface Permission {
         val CAMERA = CameraPermission()
         val LOCATION = LocationPermission()
         val MANAGE_NOTIFICATIONS = ManageNotificationsPermission()
-        val NOTIFICATION = NotificationPermission()
         val OVERLAY = OverlayPermission()
         val PHONE = PhonePermission()
         val SMS = SmsPermission()
