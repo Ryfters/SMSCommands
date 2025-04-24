@@ -21,10 +21,15 @@ class Call : Command {
     )
 
 
+    private val audioParamChoices = mapOf(
+        R.string.command_call_param_audio_speaker to SPEAKER,
+        R.string.command_call_param_audio_mute to MUTE,
+    )
+
     override val params = mapOf(
         AUDIO_PARAM to ChoiceParamDefinition(
-            R.string.command_call_param_audio,
-            R.string.command_call_param_audio_desc,
+            name = R.string.command_call_param_audio,
+            desc = R.string.command_call_param_audio_desc,
             defaultValue = NONE,
             choices = audioParamChoices
         )
@@ -78,10 +83,5 @@ class Call : Command {
         private const val NONE = "audiomode_none"
 
         const val AUDIO_PARAM = "audio"
-
-        private val audioParamChoices = mapOf(
-            R.string.command_call_param_audio_speaker to SPEAKER,
-            R.string.command_call_param_audio_mute to MUTE,
-        )
     }
 }

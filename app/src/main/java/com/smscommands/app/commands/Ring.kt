@@ -20,13 +20,13 @@ class Ring : Command {
 
     override val params = mapOf(
         TIME_PARAM to IntParamDefinition(
-            R.string.command_ring_param_time,
-            R.string.command_ring_param_time_desc,
+            name = R.string.command_ring_param_time,
+            desc = R.string.command_ring_param_time_desc,
             defaultValue = 120,
         ),
         STOP_PARAM to FlagParamDefinition(
-            R.string.common_stop,
-            R.string.command_ring_param_stop_desc,
+            name = R.string.common_stop,
+            desc = R.string.command_ring_param_stop_desc,
         )
     )
 
