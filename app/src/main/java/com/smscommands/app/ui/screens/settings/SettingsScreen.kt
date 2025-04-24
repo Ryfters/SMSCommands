@@ -1,7 +1,6 @@
 package com.smscommands.app.ui.screens.settings
 
 import android.content.Intent
-import android.provider.Settings
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -85,15 +84,16 @@ fun SettingsScreen(
                 .verticalScroll(rememberScrollState())
         ) {
             Subtitle(stringResource(R.string.screen_settings_subtitle_preferences))
-            MyListItem(
-                title = stringResource(R.string.screen_settings_notifications_title),
-                content = stringResource(R.string.screen_settings_notifications_content),
-                onClick = {
-                    val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
-                        .putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
-                    context.startActivity(intent)
-                }
-            )
+            // FIXME
+//            MyListItem(
+//                title = stringResource(R.string.screen_settings_notifications_title),
+//                content = stringResource(R.string.screen_settings_notifications_content),
+//                onClick = {
+//                    val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+//                        .putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
+//                    context.startActivity(intent)
+//                }
+//            )
             MyListItem(
                 title = stringResource(R.string.screen_settings_dismiss_title),
                 content = dismissMessagesContent,

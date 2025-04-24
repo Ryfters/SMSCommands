@@ -39,7 +39,7 @@ interface Permission {
         )
 
         val OPTIONAL = listOf(
-            NOTIFICATION,
+//            NOTIFICATION, FIXME
             MANAGE_NOTIFICATIONS,
         )
 
@@ -51,7 +51,7 @@ interface Permission {
             PHONE,
         )
 
-        val ALL = REQUIRED + OPTIONAL + COMMANDS
+        val ALL = BASE + OPTIONAL + COMMANDS
     }
 }
 
