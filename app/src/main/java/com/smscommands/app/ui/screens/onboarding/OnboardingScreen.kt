@@ -20,7 +20,6 @@ import com.smscommands.app.R
 import com.smscommands.app.data.UiStateViewModel
 import com.smscommands.app.ui.components.ProgressNavBar
 import com.smscommands.app.ui.navigation.Routes
-import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -39,27 +38,17 @@ fun OnboardingScreen(
 
     val pageTitle = stringResource(OnboardingPages[currentPage].title)
 
-    val scrollToPage: (Int) -> Unit = { page ->
-        coroutineScope.launch {
-            pagerState.animateScrollToPage(page)
+
+    val onNextClicked = {
+        viewModel.updateIsFirstLaunch(false)
+        navController.navigate(Routes.HOME) {
+            popUpTo(Routes.HOME)
         }
     }
 
-    val nextContent: String
-    val onNextClicked: () -> Unit
+    val nextContent = if (pagerState.canScrollForward) stringResource(R.string.common_skip)
+                    else stringResource(R.string.common_ok)
 
-    if (pagerState.canScrollForward) {
-        nextContent = stringResource(R.string.common_skip)
-        onNextClicked = { scrollToPage(currentPage + 1) }
-    } else {
-        nextContent = stringResource(R.string.common_ok)
-        onNextClicked = {
-            viewModel.updateIsFirstLaunch(false)
-            navController.navigate(Routes.HOME) {
-                popUpTo(Routes.HOME)
-            }
-        }
-    }
 
     Scaffold(
         topBar = {
