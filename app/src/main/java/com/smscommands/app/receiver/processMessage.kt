@@ -52,7 +52,7 @@ fun processMessage(context: Context, sender: String, message: String) {
 
     var status = SUCCESS
     var commandId: String = selectedCommand?.id ?: INVALID_COMMAND
-    val commandParams = mutableMapOf<String, Any>()
+    val commandParams = mutableMapOf<String, Any?>()
 
     if (pinCorrect == false) {
         onReply(context.getString(R.string.sms_reply_pin_invalid))
@@ -93,7 +93,6 @@ fun processMessage(context: Context, sender: String, message: String) {
                     break
                 }
                 commandParams[param.key] = optionParam.defaultValue
-                    ?: throw IllegalStateException("Missing default value for $paramName")
                 continue
             }
 

@@ -30,7 +30,7 @@ class Ring : Command {
         )
     )
 
-    override fun onReceive(context: Context, parameters: Map<String, Any>, sender: String, onReply: (String) -> Unit) {
+    override fun onReceive(context: Context, parameters: Map<String, Any?>, sender: String, onReply: (String) -> Unit) {
         val timeInS = parameters[TIME_PARAM] as Int
         val stop = parameters[STOP_PARAM] as Boolean
 

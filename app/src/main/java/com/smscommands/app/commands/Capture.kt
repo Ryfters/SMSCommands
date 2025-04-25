@@ -24,15 +24,15 @@ class Capture : Command {
         Permission.CAMERA
     )
 
-    private val flashParamChoices = mapOf(
-        R.string.common_on to ImageCapture.FLASH_MODE_ON,
-        R.string.common_off to ImageCapture.FLASH_MODE_OFF,
-        R.string.common_auto to ImageCapture.FLASH_MODE_AUTO,
+    private val flashParamChoices = mapOf<Any, Int>(
+        ImageCapture.FLASH_MODE_ON to R.string.common_on,
+        ImageCapture.FLASH_MODE_OFF to R.string.common_off,
+        ImageCapture.FLASH_MODE_AUTO to R.string.common_auto,
     )
-    private val cameraParamChoices = mapOf(
-        R.string.command_capture_param_camera_front to CAMERA_FRONT,
-        R.string.command_capture_param_camera_back to CAMERA_BACK,
-        R.string.command_capture_param_camera_both to CAMERA_BOTH,
+    private val cameraParamChoices = mapOf<Any, Int>(
+        CAMERA_FRONT to R.string.command_capture_param_camera_front,
+        CAMERA_BACK to R.string.command_capture_param_camera_back,
+        CAMERA_BOTH to R.string.command_capture_param_camera_both,
     )
 
 
@@ -51,7 +51,7 @@ class Capture : Command {
         )
     )
 
-    override fun onReceive(context: Context, parameters: Map<String, Any>, sender: String, onReply: (String) -> Unit) {
+    override fun onReceive(context: Context, parameters: Map<String, Any?>, sender: String, onReply: (String) -> Unit) {
         val flashMode = parameters[FLASH_PARAM] as Int
         val camera = parameters[CAMERA_PARAM] as Int
 

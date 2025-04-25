@@ -20,7 +20,7 @@ class Gps : Command {
     )
 
     @SuppressLint("MissingPermission") // Already checked in .receiver.processCommands()
-    override fun onReceive(context: Context, parameters: Map<String, Any>, sender: String, onReply: (String) -> Unit) {
+    override fun onReceive(context: Context, parameters: Map<String, Any?>, sender: String, onReply: (String) -> Unit) {
 
         var bestLocation: Location? = null
 

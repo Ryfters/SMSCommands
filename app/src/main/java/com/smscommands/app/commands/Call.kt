@@ -21,9 +21,9 @@ class Call : Command {
     )
 
 
-    private val audioParamChoices = mapOf(
-        R.string.command_call_param_audio_speaker to SPEAKER,
-        R.string.command_call_param_audio_mute to MUTE,
+    private val audioParamChoices = mapOf<Any, Int>(
+        SPEAKER to R.string.command_call_param_audio_speaker,
+        MUTE to R.string.command_call_param_audio_mute,
     )
 
     override val params = mapOf(
@@ -35,7 +35,7 @@ class Call : Command {
         )
     )
 
-    override fun onReceive(context: Context, parameters: Map<String, Any>, sender: String, onReply: (String) -> Unit) {
+    override fun onReceive(context: Context, parameters: Map<String, Any?>, sender: String, onReply: (String) -> Unit) {
         val audioMode = parameters[AUDIO_PARAM] as String
 
 

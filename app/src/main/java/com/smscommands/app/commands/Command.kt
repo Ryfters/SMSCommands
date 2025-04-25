@@ -22,7 +22,7 @@ interface Command {
     val params: Map<String, ParamsDefinition>
         get() = emptyMap()
 
-    fun onReceive(context: Context, parameters: Map<String, Any>, sender: String, onReply: (String) -> Unit, )
+    fun onReceive(context: Context, parameters: Map<String, Any?>, sender: String, onReply: (String) -> Unit, )
 
     companion object {
         const val SENDER_EXTRA = "sender"
