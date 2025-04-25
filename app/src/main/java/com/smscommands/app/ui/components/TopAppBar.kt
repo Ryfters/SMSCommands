@@ -1,5 +1,6 @@
 package com.smscommands.app.ui.components
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -17,17 +18,29 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalMaterial3Api::class)
 fun TopAppBar(
     title: String,
-    showUpButton: Boolean,
+    subtitle: String? = null,
+    showUpButton: Boolean = false,
     onUpButtonClicked: () -> Unit,
     actions: @Composable RowScope.() -> Unit,
     scrollBehavior: TopAppBarScrollBehavior?
 ) {
+
+    val expandedHeight = if (subtitle != null) 216.dp
+                       else 192.dp
     LargeTopAppBar(
         title = {
-            Text(
-                text = title,
-                color = MaterialTheme.colorScheme.onSurface,
-            )
+            Column {
+                Text(
+                    text = title,
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
+                subtitle?.let {
+                    Text(
+                        text = subtitle,
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                }
+            }
         },
         navigationIcon = {
             if (showUpButton) {
@@ -42,7 +55,7 @@ fun TopAppBar(
             }
         },
         actions = actions,
-        expandedHeight = 190.dp,
+        expandedHeight = expandedHeight,
         scrollBehavior = scrollBehavior
     )
 }
