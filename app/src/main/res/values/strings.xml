@@ -8,7 +8,7 @@
     <string name="command_call_param_audio_speaker">speaker</string>
     <string name="command_call_reply_success">Calling %1$s</string>
     <string name="command_call_usage">Usage for Call</string>
-    <string name="command_capture_desc">Take a photo from your phone\'s cameras</string>
+    <string name="command_capture_desc">Takes a photo from your phone\'s cameras</string>
     <string name="command_capture_label">Capture</string>
     <string name="command_capture_param_camera">camera</string>
     <string name="command_capture_param_camera_back">back</string>
@@ -76,8 +76,8 @@
     <string name="permission_sms_desc">Required for the app to function correctly</string>
     <string name="ringing_device_for_seconds">Ringing device for %1$d seconds</string>
     <string name="screen_commands_missing_permissions">Missing permissions: %1$s</string>
-    <string name="screen_commands_permissions_required">Required permissions: %1$s</string> <!-- TODO: Remove ':' everywhere-->
-    <string name="screen_commands_status">Status: %1$s</string>
+    <string name="screen_commands_permissions_required">Required permissions</string> <!-- TODO: Remove ':' everywhere-->
+    <string name="screen_commands_status">Status</string>
     <string name="screen_commands_status_missing_perms">Missing permissions</string>
     <string name="screen_commands_title">Commands</string>
     <string name="screen_commands_usage">Usage: %1$s</string>
