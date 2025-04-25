@@ -27,7 +27,7 @@ fun CommandsScreen(
     MainScaffold(
         navController = navController,
         title = stringResource(R.string.screen_commands_title),
-        showUpButton = true
+        showUpButton = true,
     ) {
         val commandPreferences by viewModel.commandPreferences.collectAsState()
         val permissionsState by viewModel.permissionsState.collectAsState()
@@ -50,7 +50,7 @@ fun CommandsScreen(
                     title = stringResource(command.label),
                     content = content,
                     onClick = {
-                        navController.navigate(Routes.COMMAND_ITEM_DIALOG + command.id)
+                        navController.navigate(Routes.COMMAND_ITEM + command.id)
                     },
                     separator = true,
                     action = {

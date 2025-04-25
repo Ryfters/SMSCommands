@@ -16,7 +16,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.navArgument
 import com.smscommands.app.data.UiStateViewModel
-import com.smscommands.app.ui.screens.commands.CommandItemDialog
+import com.smscommands.app.ui.screens.commands.CommandItemScreen
 import com.smscommands.app.ui.screens.commands.CommandsScreen
 import com.smscommands.app.ui.screens.history.HistoryItemDialog
 import com.smscommands.app.ui.screens.history.HistoryScreen
@@ -79,6 +79,16 @@ fun NavGraph(
             )
         }
 
+        // Commands
+        composable(Routes.COMMAND_ITEM + "{commandId}", listOf(navArgument("commandId") { type = NavType.StringType })) {
+            val commandId = it.arguments?.getString("commandId") ?: ""
+            CommandItemScreen(
+                navController = navController,
+                viewModel = viewModel,
+                commandId = commandId
+            )
+        }
+
 
         // Onboarding
         composable(Routes.ONBOARDING) {
@@ -128,14 +138,6 @@ fun NavGraph(
                 navController = navController,
                 viewModel = viewModel,
                 itemId = itemId
-            )
-        }
-        dialog(Routes.COMMAND_ITEM_DIALOG + "{commandId}", listOf(navArgument("commandId") { type = NavType.StringType })) {
-            val commandId = it.arguments?.getString("commandId") ?: ""
-            CommandItemDialog(
-                navController = navController,
-                viewModel = viewModel,
-                commandId = commandId
             )
         }
     }

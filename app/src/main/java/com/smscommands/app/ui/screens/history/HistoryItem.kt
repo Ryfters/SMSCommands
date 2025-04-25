@@ -41,6 +41,7 @@ fun HistoryItem(
     MyListItem(
         title = headline,
         content = content,
+        onClick = onInfoPressed,
         action = {
             IconButton(
                 onClick = onInfoPressed

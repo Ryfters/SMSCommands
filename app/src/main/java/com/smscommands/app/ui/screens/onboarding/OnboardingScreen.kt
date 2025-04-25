@@ -28,7 +28,6 @@ fun OnboardingScreen(
     navController: NavController,
     viewModel: UiStateViewModel,
 ) {
-    val coroutineScope = rememberCoroutineScope()
 
     val pageCount = OnboardingPages.size
     val pagerState = rememberPagerState { pageCount }

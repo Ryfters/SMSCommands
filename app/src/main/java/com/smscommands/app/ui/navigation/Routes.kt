@@ -22,5 +22,5 @@ object Routes {
     const val DISMISS_NOTIFICATIONS_DIALOG = "settings_dismiss_notifications_dialog"
 
     const val HISTORY_ITEM_DIALOG = "history_item_dialog/"
-    const val COMMAND_ITEM_DIALOG = "command_item_dialog/"
+    const val COMMAND_ITEM = "command_item_dialog/"
 }
