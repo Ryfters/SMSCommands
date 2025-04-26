@@ -48,12 +48,8 @@ class MainActivity : FragmentActivity() {
     }
 
     override fun onResume() {
-        super.onResume()
-        viewModel.refreshPermissionsState(this)
-    }
-
-    override fun onPause() {
         viewModel.updateSignedIn(false)
-        super.onPause()
+        viewModel.refreshPermissionsState(this)
+        super.onResume()
     }
 }

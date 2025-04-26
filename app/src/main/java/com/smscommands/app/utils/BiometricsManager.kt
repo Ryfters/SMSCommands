@@ -1,7 +1,5 @@
 package com.smscommands.app.utils
 
-import android.content.Context
-import androidx.activity.ComponentActivity
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
 import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
@@ -11,18 +9,13 @@ import androidx.biometric.BiometricPrompt.AuthenticationResult
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 
-fun getBiometricStatus(context: Context): Int {
-    val biometricManager = BiometricManager.from(context)
-    return biometricManager.canAuthenticate(BIOMETRIC_WEAK or DEVICE_CREDENTIAL)
-}
 
 fun getBiometricPrompt(
-    activity: ComponentActivity,
+    activity: FragmentActivity,
     onSuccess: () -> Unit,
     onFailure: () -> Unit,
     onError: (Int, CharSequence) -> Unit,
 ): () -> Unit {
-    val fragmentActivity = activity as FragmentActivity
     val executor = ContextCompat.getMainExecutor(activity)
 
     val authenticationCallback = object : AuthenticationCallback() {
@@ -33,10 +26,13 @@ fun getBiometricPrompt(
         }
     }
 
-    val prompt = BiometricPrompt(fragmentActivity, executor, authenticationCallback)
+    val prompt = BiometricPrompt(activity, executor, authenticationCallback)
+
+    val promptDesc = BiometricManager.from(activity).getStrings(BIOMETRIC_WEAK or DEVICE_CREDENTIAL)?.promptMessage
 
     val promptInfo = BiometricPrompt.PromptInfo.Builder()
         .setTitle("Authenticate to continue")
+        .setDescription(promptDesc)
         .setAllowedAuthenticators(BIOMETRIC_WEAK or DEVICE_CREDENTIAL)
         .build()
 

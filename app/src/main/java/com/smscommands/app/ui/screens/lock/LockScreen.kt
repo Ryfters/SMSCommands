@@ -24,15 +24,6 @@ fun LockScreen(
     val requirePin by viewModel.requirePin.collectAsState()
     val shouldShowLockScreen = !signedIn && requirePin
 
-    val promptBiometrics = remember {
-        getBiometricPrompt(activity,
-            onSuccess = { viewModel.updateSignedIn(true) },
-            onFailure = {  },
-            onError = { _, errorString ->
-                Toast.makeText(activity, errorString, Toast.LENGTH_SHORT).show()
-            }
-        )
-    }
 
     AnimatedVisibility(
         visible = shouldShowLockScreen,
@@ -43,13 +34,34 @@ fun LockScreen(
             targetOffsetY = { -it },
         )
     ) {
-        val transition = this.transition
+        val promptBiometrics = remember {
+            getBiometricPrompt(activity,
+                onSuccess = { viewModel.updateSignedIn(true) },
+                onFailure = {  },
+                onError = { _, errorString ->
+                    Toast.makeText(activity, errorString, Toast.LENGTH_SHORT).show()
+                }
+            )
+        }
 
+        val pin by viewModel.pin.collectAsState()
+
+        val transition = this.transition
         LaunchedEffect(transition.currentState) {
             if (shouldShowLockScreen && transition.targetState == transition.currentState)
                 promptBiometrics()
         }
 
-        LockScreenContent(onClick = promptBiometrics)
+        LockScreenContent(
+            onShowBiometricPrompt = promptBiometrics,
+            onPinUnlock = { pinInput, resetPin ->
+                if (pinInput == pin) viewModel.updateSignedIn(true)
+                else {
+                    resetPin()
+                    Toast.makeText(activity, "Incorrect PIN", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        )
     }
 }

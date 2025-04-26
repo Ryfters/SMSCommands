@@ -85,12 +85,10 @@ fun SettingsScreen(
 
 
 
-
         Column(
             modifier = Modifier.verticalScroll(rememberScrollState()),
         ) {
             Subtitle(stringResource(R.string.screen_settings_subtitle_preferences))
-            // FIXME
 //            MyListItem(
 //                title = stringResource(R.string.screen_settings_notifications_title),
 //                content = stringResource(R.string.screen_settings_notifications_content),
@@ -114,7 +112,7 @@ fun SettingsScreen(
                     Switch(
                         checked = requirePin,
                         onCheckedChange = { value ->
-                            viewModel.updateRequirePin(value) // TODO: Enter your pin to change this setting
+                            viewModel.updateRequirePin(value)
                         }
                     )
                 }

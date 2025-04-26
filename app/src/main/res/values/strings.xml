@@ -40,6 +40,7 @@
     <string name="common_are_you_sure">Are you sure?</string>
     <string name="common_auto">Auto</string>
     <string name="common_back">Back</string>
+    <string name="common_bullet_v1_colon_v2"> - %1$s: %2$s</string>
     <string name="common_cancel">Cancel</string>
     <string name="common_confirm">Confirm</string>
     <string name="common_disabled">Disabled</string>
@@ -52,7 +53,6 @@
     <string name="common_previous">Previous</string>
     <string name="common_skip">Skip</string>
     <string name="common_stop">Stop</string>
-    <string name="common_bullet_v1_colon_v2"> - %1$s: %2$s</string>
     <string name="common_v1_colon_v2">%1$s: %2$s</string>
     <string name="common_v1_comma_v2">%1$s, %2$s</string>
     <string name="common_warning">Warning</string>
@@ -118,12 +118,15 @@
     <string name="screen_home_pin_remove">Remove PIN</string>
     <string name="screen_home_pin_remove_rationale">Removing the PIN will allow anyone with your phone number to trigger commands</string>
     <string name="screen_home_title">Home</string>
-    <string name="screen_onboarding_parameters_content">"To use parameters, simply add them to the parameter section of the command, separated by spaces.\nThere are 2 types of parameters, flags and options\n - Flags: You just need include them in the parameters\n - Options: They require an argument, and are formatted like that: 'parameter:argument'"</string>
-    <string name="screen_onboarding_parameters_title">Parameters</string>
+    <string name="screen_lock_locked">Locked</string>
+    <string name="screen_lock_unlock_biometrics">Unlock with device lock</string>
+    <string name="screen_lock_unlock_pin">Unlock with PIN</string>
     <string name="screen_onboarding_command_content">To use a command, text yourself a message with the following structure:\n\'!!{PIN}/{command}/{parameters}\'\n - !!: This prefix is required for the app to process the command.\n - PIN: Your access pin, you can change it at any time on the home screen.\n - Command: The command you want to run, it must be enabled in the Commands screen\n - Parameters: More about them on the next page</string>
     <string name="screen_onboarding_command_title">Sending commands</string>
     <string name="screen_onboarding_intro_content">Welcome to SMS Commands! This app lets you easily perform basic tasks, such as locking your device or getting its location simply by sending yourself an SMS.</string>
     <string name="screen_onboarding_intro_title">Welcome</string>
+    <string name="screen_onboarding_parameters_content">"To use parameters, simply add them to the parameter section of the command, separated by spaces.\nThere are 2 types of parameters, flags and options\n - Flags: You just need include them in the parameters\n - Options: They require an argument, and are formatted like that: 'parameter:argument'"</string>
+    <string name="screen_onboarding_parameters_title">Parameters</string>
     <string name="screen_perms_decline_warning">On Android 11+, if you deny a permission more than once, the app won\'t be able to request it again, so you\'ll have to enable it yourself in the settings</string>
     <string name="screen_perms_decline_warning_settings">Go to settings</string>
     <string name="screen_perms_granted">Granted</string>
@@ -143,9 +146,13 @@
     <string name="screen_settings_dismiss_title">Dismiss Messages\' notifications</string>
     <string name="screen_settings_dynamic_color_content">Use dynamic colors</string>
     <string name="screen_settings_dynamic_color_title">Dynamic color</string>
+    <string name="screen_settings_history_content">Track your history</string>
     <string name="screen_settings_history_title">History</string>
     <string name="screen_settings_notifications_content">Manage notifications</string>
     <string name="screen_settings_notifications_title">Notifications</string>
+    <string name="screen_settings_require_pin_content">Authenticate with your device lock or PIN each time you open this app.</string>
+    <string name="screen_settings_require_pin_title">App lock</string>
+    <string name="screen_settings_source_code_content">Source code of this app</string>
     <string name="screen_settings_source_code_title">Source code</string>
     <string name="screen_settings_subtitle_appearance">Appearance</string>
     <string name="screen_settings_subtitle_other">Other</string>
@@ -167,8 +174,6 @@
     <string name="sms_reply_missing_permissions">Missing the following permission(s): %1$s</string>
     <string name="sms_reply_parameter_unknown">Unknown value for parameter \'%1$s\'</string>
     <string name="sms_reply_pin_invalid">Invalid pin</string>
-    <string name="screen_settings_history_content">Track your history</string>
-    <string name="screen_settings_source_code_content">Source code of this app</string>
     <string name="timeformat_dd_MM_at">dd/MM \'at\' HH:mm</string>
     <string name="timeformat_dd_MM_yy">dd/MM/yy</string>
     <string name="timeformat_dd_MM_yy_at">dd/MM/yy \'at\' HH:mm</string>
@@ -178,8 +183,4 @@
     <string name="url_github" translatable="false">https://github.com/RyfterWasTaken/SMSCommands</string>
     <string name="url_github_releases" translatable="false">https://github.com/RyfterWasTaken/SMSCommands/releases</string>
     <string name="url_maps" translatable="false"><![CDATA[https://www.google.com/maps/search/?api=1&query=%1$f,%2$f]]></string>
-    <string name="screen_settings_require_pin_title">App lock</string>
-    <string name="screen_settings_require_pin_content">Authenticate with your device lock to access this app.</string>
-    <string name="screen_lock_unlock">Unlock</string>
-    <string name="screen_lock_locked">Locked</string>
 </resources>
