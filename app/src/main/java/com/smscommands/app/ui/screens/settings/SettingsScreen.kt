@@ -84,20 +84,10 @@ fun SettingsScreen(
         )
 
 
-
         Column(
             modifier = Modifier.verticalScroll(rememberScrollState()),
         ) {
             Subtitle(stringResource(R.string.screen_settings_subtitle_preferences))
-//            MyListItem(
-//                title = stringResource(R.string.screen_settings_notifications_title),
-//                content = stringResource(R.string.screen_settings_notifications_content),
-//                onClick = {
-//                    val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
-//                        .putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
-//                    context.startActivity(intent)
-//                }
-//            )
             MyListItem(
                 title = stringResource(R.string.screen_settings_dismiss_title),
                 content = dismissMessagesContent,
@@ -112,6 +102,7 @@ fun SettingsScreen(
                     Switch(
                         checked = requirePin,
                         onCheckedChange = { value ->
+                            viewModel.updateSignedIn(true)
                             viewModel.updateRequirePin(value)
                         }
                     )
@@ -136,6 +127,7 @@ fun SettingsScreen(
                     )
                 }
             )
+
             Subtitle(stringResource(R.string.screen_settings_subtitle_appearance))
             MyListItem(
                 title = stringResource(R.string.screen_settings_dynamic_color_title),
@@ -149,14 +141,6 @@ fun SettingsScreen(
                     )
                 },
             )
-
-//            MyListItem(
-//                title = stringResource(R.string.screen_settings_color_theme_title),
-//                content =
-//                    if (dynamicColorsEnabled) ""
-//                    else stringResource(R.string.screen_settings_color_theme_content_dynamic_enabled),
-//                disabled = dynamicColorsEnabled,
-//            )
             MyListItem(
                 title = stringResource(R.string.screen_settings_dark_theme_title),
                 content = darkThemeContent,
@@ -164,6 +148,7 @@ fun SettingsScreen(
                     navController.navigate(Routes.DARK_THEME_DIALOG)
                 }
             )
+
             Subtitle(stringResource(R.string.screen_settings_subtitle_other))
             MyListItem(
                 title = stringResource(R.string.screen_settings_view_onboarding),
