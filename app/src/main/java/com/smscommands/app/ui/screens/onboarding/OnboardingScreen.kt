@@ -1,11 +1,14 @@
 package com.smscommands.app.ui.screens.onboarding
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LargeTopAppBar
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -44,9 +47,20 @@ fun OnboardingScreen(
         }
     }
 
-    val nextContent = if (pagerState.canScrollForward) stringResource(R.string.common_skip)
-                    else stringResource(R.string.common_ok)
-
+    val nextButton = @Composable { modifier: Modifier ->
+        AnimatedContent(
+            targetState = pagerState.canScrollForward,
+            modifier = modifier
+        ) { if (it)
+                OutlinedButton(onNextClicked) {
+                    Text(stringResource(R.string.common_skip))
+                }
+            else
+                Button(onNextClicked) {
+                    Text(stringResource(R.string.common_ok))
+                }
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -62,11 +76,10 @@ fun OnboardingScreen(
         },
         bottomBar = {
             ProgressNavBar(
-                nextContent = nextContent,
-                onNextClicked = onNextClicked,
                 pageIndex = currentPage,
                 pageCount = pageCount,
                 pageOffset = pageOffset,
+                nextButton = nextButton
             )
         }
     ) { padding ->
