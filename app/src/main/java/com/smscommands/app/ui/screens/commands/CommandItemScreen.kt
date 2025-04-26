@@ -59,6 +59,7 @@ fun CommandItemScreen(
 
         val flags = command.params.filter { it.value is FlagParamDefinition }
 
+        @Suppress("UNCHECKED_CAST")
         val params = command.params.filter { it.value is OptionParamDefinition }
             as Map<String, OptionParamDefinition>
 
