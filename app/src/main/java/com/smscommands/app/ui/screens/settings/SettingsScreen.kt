@@ -2,6 +2,11 @@ package com.smscommands.app.ui.screens.settings
 
 import android.content.Intent
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -191,6 +196,8 @@ fun SettingsScreen(
                 title = stringResource(R.string.screen_settings_version_title),
                 content = versionContent,
             )
+
+            Spacer(Modifier.padding(WindowInsets.navigationBars.asPaddingValues()))
         }
     }
 }

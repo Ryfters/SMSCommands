@@ -1,5 +1,8 @@
 package com.smscommands.app.ui.screens.perms
 
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -23,6 +26,7 @@ fun PermsScreen(
     navController: NavController,
     viewModel: UiStateViewModel,
 ) {
+
     MainScaffold(
         navController = navController,
         title = stringResource(R.string.screen_perms_title),
@@ -37,9 +41,10 @@ fun PermsScreen(
     ) {
         val permissionsState by viewModel.permissionsState.collectAsState()
 
-        LazyColumn {
+        LazyColumn(
+            contentPadding = WindowInsets.navigationBars.asPaddingValues()
+        ) {
             items(Permission.ALL) { permission ->
-
                 PermissionItem(
                     permission = permission,
                     isGranted = permissionsState[permission.id] == true,
