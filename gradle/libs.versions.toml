@@ -5,6 +5,7 @@ kotlin = "2.1.20"
 ksp = "2.1.20-1.0.32"
 
 activityCompose = "1.10.1"
+biometric = "1.4.0-alpha03"
 cameraX = "1.4.2"
 composeBom = "2025.04.01"
 coreKtx = "1.16.0"
@@ -17,25 +18,8 @@ navigationCompose = "2.8.9"
 room = "2.7.1"
 
 [libraries]
-androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
-androidx-camera-camera2 = { group = "androidx.camera", name = "camera-camera2", version.ref = "cameraX" }
-androidx-camera-core = { group = "androidx.camera", name = "camera-core", version.ref = "cameraX" }
-androidx-camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", version.ref = "cameraX" }
-androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" } # Sets this version to all androidx.compose dependencies (i think)
-androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" } # Imports main compose dependencies
-androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
-androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
-androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
-androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
-androidx-concurrent-futures-ktx = { group = "androidx.concurrent", name = "concurrent-futures-ktx", version.ref = "concurrentFuturesKtx" }
-androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastorePreferences" }
-androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle" }
-androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
-androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
-androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
-androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 androidx-activity-compose       = { group = "androidx.activity",        name = "activity-compose",  version.ref = "activityCompose" }
+androidx-biometric              = { group = "androidx.biometric",       name = "biometric",         version.ref = "biometric" }
 androidx-camera-camera2         = { group = "androidx.camera",          name = "camera-camera2",    version.ref = "cameraX" }
 androidx-camera-core            = { group = "androidx.camera",          name = "camera-core",       version.ref = "cameraX" }
 androidx-camera-lifecycle       = { group = "androidx.camera",          name = "camera-lifecycle",  version.ref = "cameraX" }

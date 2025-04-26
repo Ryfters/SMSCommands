@@ -11,4 +11,5 @@ object PreferenceKeys {
     val DISMISS_NOTIFICATION_TYPE = intPreferencesKey("dismiss_notification_type")
     val DYNAMIC_COLOR = booleanPreferencesKey("dynamic_color")
     val IS_FIRST_LAUNCH = booleanPreferencesKey("show_onboarding")
+    val REQUIRE_PIN = booleanPreferencesKey("require_pin")
 }

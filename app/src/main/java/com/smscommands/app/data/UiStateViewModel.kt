@@ -52,9 +52,8 @@ class UiStateViewModel(
         }
     }
 
-    private val _permissionsState: MutableStateFlow<Map<String, Boolean>> =
-        MutableStateFlow(Permission.ALL.associate { it.id to false} )
-
+    // Permissions
+    private val _permissionsState = MutableStateFlow(Permission.ALL.associate { it.id to false} )
     val permissionsState: StateFlow<Map<String, Boolean>> = _permissionsState
 
     fun updateSinglePermissionState(permissionId: String, isEnabled: Boolean) {
@@ -160,6 +159,32 @@ class UiStateViewModel(
                 preferences[PreferenceKeys.DISMISS_NOTIFICATION_TYPE] = value
             }
         }
+    }
+
+    // requirePin
+    val requirePin: StateFlow<Boolean> =
+        dataStore.data.map { preferences ->
+            preferences[PreferenceKeys.REQUIRE_PIN] ?: Defaults.REQUIRE_PIN
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = Defaults.REQUIRE_PIN
+        )
+
+    fun updateRequirePin(value: Boolean) {
+        viewModelScope.launch {
+            dataStore.edit { preferences ->
+                preferences[PreferenceKeys.REQUIRE_PIN] = value
+            }
+        }
+        }
+
+    // signedIn
+    private val _signedIn = MutableStateFlow(false)
+    val signedIn: StateFlow<Boolean> = _signedIn
+
+    fun updateSignedIn(value: Boolean) {
+        _signedIn.update { value }
     }
 
     // isFirstLaunch

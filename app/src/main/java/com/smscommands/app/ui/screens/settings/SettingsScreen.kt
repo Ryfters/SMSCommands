@@ -53,6 +53,8 @@ fun SettingsScreen(
             else -> stringResource(R.string.screen_settings_dismiss_mark_as_read)
         }
 
+        val requirePin by viewModel.requirePin.collectAsState()
+
         val historyEnabled by viewModel.historyEnabled.collectAsState()
 
         val dynamicColorsEnabled by viewModel.dynamicColorsEnabled.collectAsState()
@@ -85,8 +87,7 @@ fun SettingsScreen(
 
 
         Column(
-            modifier = Modifier
-                .verticalScroll(rememberScrollState())
+            modifier = Modifier.verticalScroll(rememberScrollState()),
         ) {
             Subtitle(stringResource(R.string.screen_settings_subtitle_preferences))
             // FIXME
@@ -104,6 +105,18 @@ fun SettingsScreen(
                 content = dismissMessagesContent,
                 onClick = {
                     navController.navigate(Routes.DISMISS_NOTIFICATIONS_DIALOG)
+                }
+            )
+            MyListItem(
+                title = stringResource(R.string.screen_settings_require_pin_title),
+                content = stringResource(R.string.screen_settings_require_pin_content),
+                action = {
+                    Switch(
+                        checked = requirePin,
+                        onCheckedChange = { value ->
+                            viewModel.updateRequirePin(value) // TODO: Enter your pin to change this setting
+                        }
+                    )
                 }
             )
             MyListItem(

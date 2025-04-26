@@ -8,4 +8,5 @@ object Defaults {
     const val DISMISS_NOTIFICATION_TYPE = 0
     const val DYNAMIC_COLOR = true
     const val IS_FIRST_LAUNCH = true
+    const val REQUIRE_PIN = false
 }

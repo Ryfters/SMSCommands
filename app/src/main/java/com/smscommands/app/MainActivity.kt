@@ -1,11 +1,11 @@
 package com.smscommands.app
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.MutableCreationExtras
@@ -16,7 +16,7 @@ import com.smscommands.app.ui.Root
 import com.smscommands.app.ui.navigation.dataStore
 
 
-class MainActivity : ComponentActivity() {
+class MainActivity : FragmentActivity() {
 
     private lateinit var viewModel: UiStateViewModel
 
@@ -50,5 +50,10 @@ class MainActivity : ComponentActivity() {
     override fun onResume() {
         super.onResume()
         viewModel.refreshPermissionsState(this)
+    }
+
+    override fun onPause() {
+        viewModel.updateSignedIn(false)
+        super.onPause()
     }
 }

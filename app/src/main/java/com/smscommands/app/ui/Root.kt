@@ -1,12 +1,14 @@
 package com.smscommands.app.ui
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.navigation.compose.rememberNavController
 import com.smscommands.app.data.UiStateViewModel
 import com.smscommands.app.ui.navigation.NavGraph
+import com.smscommands.app.ui.screens.lock.LockScreen
 import com.smscommands.app.ui.theme.SMSCommandsTheme
 
 @Composable
@@ -26,10 +28,14 @@ fun Root(
         dynamicColor = dynamicColors,
         darkTheme = darkTheme
     ) {
-        NavGraph(
-            navController = rememberNavController(),
-            viewModel = viewModel
-        )
+        Box {
+            NavGraph(
+                navController = rememberNavController(),
+                viewModel = viewModel
+            )
+
+            LockScreen(viewModel)
+        }
     }
 }
 

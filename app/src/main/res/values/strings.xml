@@ -178,4 +178,8 @@
     <string name="url_github" translatable="false">https://github.com/RyfterWasTaken/SMSCommands</string>
     <string name="url_github_releases" translatable="false">https://github.com/RyfterWasTaken/SMSCommands/releases</string>
     <string name="url_maps" translatable="false"><![CDATA[https://www.google.com/maps/search/?api=1&query=%1$f,%2$f]]></string>
+    <string name="screen_settings_require_pin_title">App lock</string>
+    <string name="screen_settings_require_pin_content">Authenticate with your device lock to access this app.</string>
+    <string name="screen_lock_unlock">Unlock</string>
+    <string name="screen_lock_locked">Locked</string>
 </resources>
