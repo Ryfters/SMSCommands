@@ -1,6 +1,5 @@
 package com.smscommands.app.ui.components
 
-import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
@@ -25,9 +24,7 @@ fun MainScaffold(
     subtitle: String? = null,
     actions: @Composable RowScope.() -> Unit = {},
     showUpButton: Boolean = false,
-    onUpButtonClicked: () -> Unit = {
-        navController.navigateUp()
-    },
+    onUpButtonClicked: () -> Unit = { navController.navigateUp() },
     scrollBehavior: TopAppBarScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState()),
     content: @Composable () -> Unit,
 ) {
@@ -45,9 +42,7 @@ fun MainScaffold(
             )
         },
     ) { padding ->
-        // Removes the bottom padding so it doesn't cut off the gesture bar
         val newPadding = PaddingValues(top = padding.calculateTopPadding())
-        Log.d("newPadding", newPadding.toString())
         Box(
             modifier = Modifier.padding(newPadding)
         ) {
