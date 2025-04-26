@@ -14,14 +14,18 @@ import com.smscommands.app.data.db.HistoryDatabase
 import com.smscommands.app.data.db.HistoryRepository
 import com.smscommands.app.ui.Root
 import com.smscommands.app.ui.navigation.dataStore
+import java.time.Instant
 
 
 class MainActivity : FragmentActivity() {
 
     private lateinit var viewModel: UiStateViewModel
+    private lateinit var lastUsed: Instant
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        lastUsed = Instant.now()
+
         val dataStore: DataStore<Preferences> = this.dataStore
 
         val database = HistoryRepository(
@@ -48,8 +52,9 @@ class MainActivity : FragmentActivity() {
     }
 
     override fun onResume() {
-        viewModel.updateSignedIn(false)
-        viewModel.refreshPermissionsState(this)
         super.onResume()
+        if (lastUsed.plusSeconds(30).isAfter(Instant.now())) // TODO: Set to 300
+            viewModel.updateSignedIn(false)
+        viewModel.refreshPermissionsState(this)
     }
 }
