@@ -32,8 +32,6 @@ fun PermissionItem(
 
     val request = permission.request(onResult = onGrant)
 
-
-
     MyListItem(
         title = stringResource(permission.label),
         content = stringResource(R.string.common_v1_comma_v2, isGrantedString, content),
