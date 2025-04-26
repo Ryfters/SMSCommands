@@ -95,5 +95,4 @@
             android:theme="@style/TransparentActivityTheme"/>
 
     </application>
-
 </manifest>
