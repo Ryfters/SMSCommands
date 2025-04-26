@@ -19,7 +19,7 @@ abstract class HistoryDatabase : RoomDatabase() {
         fun getDatabase(context: Context): HistoryDatabase {
             return Instance ?: synchronized(this) {
                 Room.databaseBuilder(context, HistoryDatabase::class.java, "history_database")
-                    .fallbackToDestructiveMigration()
+                    .fallbackToDestructiveMigration(true)
                     .build()
                     .also { Instance = it }
             }
