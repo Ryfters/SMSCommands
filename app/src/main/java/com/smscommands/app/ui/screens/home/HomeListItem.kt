@@ -1,5 +1,6 @@
 package com.smscommands.app.ui.screens.home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
@@ -35,6 +36,8 @@ fun HomeListItem(
                 )
             }
         },
-        modifier = Modifier.padding(vertical = 4.dp),
+        modifier = Modifier
+            .padding(vertical = 4.dp)
+            .clickable(onClick = onClick),
     )
 }
