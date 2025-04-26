@@ -12,6 +12,7 @@ class ManageNotificationsPermission : Permission {
     override val id = "android.permission.MANAGE_NOTIFICATIONS"
 
     override val label = R.string.permission_manage_notifications
+
     override val description = R.string.permission_manage_notifications_desc
 
     override val basePermission = true

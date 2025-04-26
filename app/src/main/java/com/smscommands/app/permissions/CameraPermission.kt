@@ -10,6 +10,7 @@ import com.smscommands.app.R
 
 class CameraPermission : Permission {
     override val id = "android.permission.CAMERA"
+
     override val label = R.string.permission_camera
 
     private val permissions = arrayOf(

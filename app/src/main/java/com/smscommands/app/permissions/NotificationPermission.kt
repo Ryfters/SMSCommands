@@ -12,6 +12,7 @@ class NotificationPermission : Permission {
     override val id = "android.permission.POST_NOTIFICATIONS"
 
     override val label = R.string.permission_notification
+
     override val description = R.string.permission_notification_desc
 
     override val basePermission = true

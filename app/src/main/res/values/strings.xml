@@ -51,10 +51,10 @@
     <string name="common_ok">OK</string>
     <string name="common_on">On</string>
     <string name="common_previous">Previous</string>
+Re    <string name="common_seperator">", "</string>
     <string name="common_skip">Skip</string>
     <string name="common_stop">Stop</string>
     <string name="common_v1_colon_v2">%1$s: %2$s</string>
-    <string name="common_v1_comma_v2">%1$s, %2$s</string>
     <string name="common_warning">Warning</string>
     <string name="param_choices_possible_values">Either of %1$s</string>
     <string name="param_int_error_range">Value must be an integer between %1$d and %2$d</string>

@@ -14,6 +14,7 @@ class SmsPermission : Permission {
     override val id = "android.permission.RECEIVE_SMS"
 
     override val label = R.string.permission_sms
+    
     override val description = R.string.permission_sms_desc
 
     override val basePermission = true

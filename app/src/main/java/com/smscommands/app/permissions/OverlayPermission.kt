@@ -13,6 +13,7 @@ class OverlayPermission : Permission {
     override val id = "android.permission.SYSTEM_ALERT_WINDOW"
 
     override val label = R.string.permission_overlay
+
     override val description = R.string.permission_overlay_desc
 
     override fun isGranted(context: Context): Boolean {

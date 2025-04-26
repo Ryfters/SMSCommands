@@ -32,11 +32,10 @@ fun HistoryItem(
         )
 
     val formattedTime = formatRelativeTime(context, historyItem.time)
-    val content = stringResource(
-        R.string.common_v1_comma_v2,
-        stringResource(getStatusRes(historyItem.status)),
+    val content =
+        stringResource(getStatusRes(historyItem.status)) +
+        stringResource(R.string.common_seperator) +
         formattedTime
-    )
 
     MyListItem(
         title = headline,

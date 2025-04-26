@@ -53,8 +53,8 @@ fun HomeScreen(
 
         val errorContent =
             if (errorCount > 0) {
-                val v2 = stringResource(R.string.screen_home_commands_errors, errorCount)
-                stringResource(R.string.common_v1_comma_v2,"", v2)
+                stringResource(R.string.common_seperator) +
+                stringResource(R.string.screen_home_commands_errors, errorCount)
             } else ""
 
         val commandContent = stringResource(
