@@ -33,9 +33,7 @@ class SmsPermission : Permission {
     override fun request(onResult: (Boolean) -> Unit): () -> Unit {
         val launcher = rememberLauncherForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions(),
-            onResult = { result ->
-                onResult(result.all { entry -> entry.value })
-            }
+            onResult = { result -> onResult(result.all { entry -> entry.value }) }
         )
         return {
             launcher.launch(permissions)

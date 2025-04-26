@@ -38,7 +38,6 @@ interface Permission {
         )
 
         val OPTIONAL = listOf(
-//            NOTIFICATION, FIXME
             MANAGE_NOTIFICATIONS,
         )
 
