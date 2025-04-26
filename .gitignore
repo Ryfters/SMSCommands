@@ -1,12 +1,9 @@
-.cxx
-.DS_Store
-.externalNativeBuild
-.gradle
-.idea
 *.iml
 *jks
-/app/build
-/app/release
+/.cxx
+/.DS_Store
+/.externalNativeBuild
+/.gradle
 /build
 /captures
-local.properties
+/local.properties

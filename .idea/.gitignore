@@ -1,0 +1,15 @@
+/caches/
+/modules/
+
+/AndroidProjectSystem.xml
+/appInsightsSettings.xml
+/assetWizardSettings.xml
+/deploymentTargetSelector.xml
+/gradle.xml
+/kotlinc.xml
+/migrations.xml
+/misc.xml
+/modules.xml
+/runConfigurations.xml
+/vcs.xml
+/workspace.xml
