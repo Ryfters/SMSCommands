@@ -11,6 +11,7 @@ composeBom = "2025.04.01"
 coreKtx = "1.16.0"
 datastorePreferences = "1.1.4" # Keep this version until 1.1.5 gets fixed (https://issuetracker.google.com/issues/413061399)
 espressoCore = "3.6.1"
+fragmentCompose = "1.8.6"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 lifecycle = "2.8.7"
@@ -32,6 +33,7 @@ androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui",  name = "
 androidx-concurrent-futures-ktx = { group = "androidx.concurrent",      name = "concurrent-futures-ktx", version.ref = "concurrentFuturesKtx" }
 androidx-core-ktx               = { group = "androidx.core",            name = "core-ktx",          version.ref = "coreKtx" }
 androidx-datastore-preferences  = { group = "androidx.datastore",       name = "datastore-preferences", version.ref = "datastorePreferences" }
+androidx-fragment-compose       = { group = "androidx.fragment",        name = "fragment-compose",  version.ref = "fragmentCompose" }
 androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle",  name = "lifecycle-viewmodel-compose", version.ref = "lifecycle" }
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle",      name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 androidx-navigation-compose     = { group = "androidx.navigation",      name = "navigation-compose", version.ref = "navigationCompose" }
@@ -39,17 +41,17 @@ androidx-room-ktx               = { group = "androidx.room",            name = "
 androidx-room-runtime           = { group = "androidx.room",            name = "room-runtime",      version.ref = "room" }
 
 # Testing dependencies
-androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
-junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-espresso-core          = { group = "androidx.test.espresso",   name = "espresso-core",     version.ref = "espressoCore" }
+androidx-junit                  = { group = "androidx.test.ext",        name = "junit",             version.ref = "junitVersion" }
+junit                           = { group = "junit",                    name = "junit",             version.ref = "junit" }
 
 # Annotations
-androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+androidx-room-compiler          = { group = "androidx.room",            name = "room-compiler",     version.ref = "room" }
 
 
 [plugins]
-android-application = { id = "com.android.application", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
+android-application             = { id = "com.android.application",                                 version.ref = "agp" }
+kotlin-android                  = { id = "org.jetbrains.kotlin.android",                            version.ref = "kotlin" }
+kotlin-compose                  = { id = "org.jetbrains.kotlin.plugin.compose",                     version.ref = "kotlin" }
+kotlin-ksp                      = { id = "com.google.devtools.ksp",                                 version.ref = "ksp"}
 
