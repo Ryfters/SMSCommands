@@ -50,7 +50,7 @@ class Call : Command {
         // TODO: add audioMode info?
 
         if (audioMode != NONE) {
-            var audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+            var audioManager = context.getSystemService(AudioManager::class.java)
 
             if (audioMode == SPEAKER) { // TODO: Test this on real device with earpiece
                 val audioDevices = audioManager.availableCommunicationDevices.filter { it.isSink }

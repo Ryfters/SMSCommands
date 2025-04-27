@@ -24,7 +24,7 @@ class AdminPermission : Permission {
     private var _onResult: (Boolean) -> Unit = {}
 
     override fun isGranted(context: Context): Boolean {
-        val devicePolicyManager = context.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+        val devicePolicyManager = context.getSystemService(DevicePolicyManager::class.java)
         val componentName = ComponentName(context, AdminReceiver::class.java)
         return devicePolicyManager.isAdminActive(componentName)
     }

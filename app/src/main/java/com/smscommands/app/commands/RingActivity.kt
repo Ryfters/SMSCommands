@@ -40,7 +40,7 @@ class RingActivity : ComponentActivity() {
 
         mediaPlayer = MediaPlayer.create(this, R.raw.ringtone)
 
-        val audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
+        val audioManager = getSystemService(AudioManager::class.java)
         val mediaMaxVol = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
         val setMaxStreamVolume = {
             audioManager.setStreamVolume(

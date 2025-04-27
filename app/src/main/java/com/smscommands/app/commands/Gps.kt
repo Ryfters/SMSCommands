@@ -24,7 +24,7 @@ class Gps : Command {
 
         var bestLocation: Location? = null
 
-        val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val locationManager = context.getSystemService(LocationManager::class.java)
         val providers = locationManager.getProviders(true)
         providers.forEach { provider ->
             val providerLocation = locationManager.getLastKnownLocation(provider) ?: return@forEach
