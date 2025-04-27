@@ -8,6 +8,7 @@ import androidx.navigation.compose.dialog
 import androidx.navigation.navArgument
 import com.smscommands.app.data.UiStateViewModel
 import com.smscommands.app.ui.navigation.Routes
+import com.smscommands.app.ui.screens.history.ClearHistoryDialog
 import com.smscommands.app.ui.screens.history.HistoryItemDialog
 import com.smscommands.app.ui.screens.history.HistoryScreen
 
@@ -26,6 +27,13 @@ fun NavGraphBuilder.history(navController: NavHostController, viewModel: UiState
             navController = navController,
             viewModel = viewModel,
             itemId = itemId
+        )
+    }
+
+    dialog(Routes.History.CLEAR_DIALOG) {
+        ClearHistoryDialog(
+            navController = navController,
+            viewModel = viewModel,
         )
     }
 }

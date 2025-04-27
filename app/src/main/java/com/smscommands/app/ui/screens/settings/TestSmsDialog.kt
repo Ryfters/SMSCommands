@@ -12,7 +12,6 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -31,6 +30,7 @@ import com.smscommands.app.receiver.SMSReceiver
 import com.smscommands.app.receiver.SMSReceiver.Companion.ACTION_PROCESS_MESSAGE
 import com.smscommands.app.receiver.SMSReceiver.Companion.MESSAGE_EXTRA
 import com.smscommands.app.receiver.SMSReceiver.Companion.SENDER_EXTRA
+import com.smscommands.app.ui.components.MyTextButton
 
 @Composable
 fun TestSmsDialog(
@@ -78,22 +78,18 @@ fun TestSmsDialog(
             }
         },
         confirmButton = {
-            TextButton(
-                onClick = {
-                    val intent = Intent(ACTION_PROCESS_MESSAGE).apply {
-                        putExtra(SENDER_EXTRA, senderInput)
-                        putExtra(MESSAGE_EXTRA, msgInput)
-                        component = ComponentName(context, SMSReceiver::class.java)
-                    }
-                    context.sendBroadcast(intent)
-                    navController.popBackStack()
+            MyTextButton(stringResource(R.string.common_send)) {
+                val intent = Intent(ACTION_PROCESS_MESSAGE).apply {
+                    putExtra(SENDER_EXTRA, senderInput)
+                    putExtra(MESSAGE_EXTRA, msgInput)
+                    component = ComponentName(context, SMSReceiver::class.java)
                 }
-            ) { Text(stringResource(R.string.common_send)) }
+                context.sendBroadcast(intent)
+                navController.popBackStack()
+            }
         },
         dismissButton = {
-            TextButton(onClick = { navController.popBackStack() }) {
-                Text(stringResource(R.string.common_cancel))
-            }
+            MyTextButton(stringResource(R.string.common_cancel)) { navController.popBackStack() }
         },
         onDismissRequest = {
             navController.popBackStack()

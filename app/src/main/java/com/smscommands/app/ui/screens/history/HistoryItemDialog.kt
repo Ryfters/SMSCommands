@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -16,6 +15,7 @@ import androidx.navigation.NavController
 import com.smscommands.app.R
 import com.smscommands.app.commands.Command
 import com.smscommands.app.data.UiStateViewModel
+import com.smscommands.app.ui.components.MyTextButton
 import com.smscommands.app.utils.formatRelativeTime
 import com.smscommands.app.utils.getStatusRes
 
@@ -60,23 +60,15 @@ fun HistoryItemDialog(
             }
         },
         confirmButton = {
-            TextButton(
-                onClick = { navController.popBackStack() }
-            ) {
-                Text(stringResource(R.string.common_ok))
-            }
+            MyTextButton(stringResource(R.string.common_ok)) { navController.popBackStack() }
         },
         dismissButton = {
-            TextButton(
-                onClick = {
-                    val uri = "smsto:${item.sender}".toUri()
-                    val intent = Intent(Intent.ACTION_VIEW).apply {
-                        data = uri
-                    }
-                    context.startActivity(intent)
+            MyTextButton(stringResource(R.string.screen_history_item_dialog_jump_to_conv)) {
+                val uri = "smsto:${item.sender}".toUri()
+                val intent = Intent(Intent.ACTION_VIEW).apply {
+                    data = uri
                 }
-            ) {
-                Text("Jump to conversation")
+                context.startActivity(intent)
             }
         }
     )

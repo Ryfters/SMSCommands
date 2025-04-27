@@ -213,7 +213,7 @@ class UiStateViewModel(
             initialValue = emptyList()
         )
 
-    fun deleteHistory() {
+    fun clearHistory() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 database.deleteAll()

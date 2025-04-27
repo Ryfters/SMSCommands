@@ -6,7 +6,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -19,6 +18,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.navigation.NavController
 import com.smscommands.app.R
 import com.smscommands.app.data.UiStateViewModel
+import com.smscommands.app.ui.components.MyTextButton
 
 @Composable
 fun EditPinDialog(
@@ -50,6 +50,10 @@ private fun EditPinDialog(
 ) {
     var editedPinValue by remember { mutableStateOf("")}
 
+    val confirmButtonText =
+        if (editedPinValue.isEmpty()) stringResource(R.string.screen_home_pin_remove)
+        else stringResource(R.string.common_confirm)
+
     AlertDialog(
         title = {
             Box(
@@ -68,30 +72,18 @@ private fun EditPinDialog(
             )
         },
         confirmButton = {
-            TextButton(
-                onClick = {
-                    if (editedPinValue.isEmpty()) {
-                        onRemovePin()
-                    } else {
-                        viewModel.updatePin(editedPinValue)
-                        navController.popBackStack()
-                    }
-                },
-            ) {
+            MyTextButton(confirmButtonText) {
                 if (editedPinValue.isEmpty()) {
-                    Text(stringResource(R.string.screen_home_pin_remove))
+                    onRemovePin()
                 } else {
-                    Text(stringResource(R.string.common_confirm))
+                    viewModel.updatePin(editedPinValue)
+                    navController.popBackStack()
                 }
             }
         },
         dismissButton = {
-            TextButton(
-                onClick = {
-                    navController.popBackStack()
-                }
-            ) {
-                Text(stringResource(R.string.common_cancel))
+            MyTextButton(stringResource(R.string.common_cancel)) {
+                navController.popBackStack()
             }
         },
         onDismissRequest = {
@@ -108,27 +100,19 @@ private fun NoPinWarningDialog(
 ) {
     AlertDialog(
         title = {
-            Text(stringResource(R.string.common_are_you_sure))
+            Text(stringResource(R.string.screen_home_pin_remove_title))
         },
         text = {
             Text(stringResource(R.string.screen_home_pin_remove_rationale))
         },
         confirmButton = {
-            TextButton(
-                onClick = {
-                    viewModel.updatePin("")
-                    navController.popBackStack()
-                }
-            ) {
-                Text(stringResource(R.string.screen_home_pin_remove))
+            MyTextButton(stringResource(R.string.screen_home_pin_remove)) {
+                viewModel.updatePin("")
+                navController.popBackStack()
             }
         },
         dismissButton = {
-            TextButton(
-                onClick = onCancel
-            ) {
-                Text(stringResource(R.string.common_cancel))
-            }
+            MyTextButton(stringResource(R.string.common_cancel)) { onCancel }
         },
         onDismissRequest = {
             navController.popBackStack()

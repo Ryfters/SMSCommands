@@ -121,7 +121,7 @@ fun SettingsScreen(
                     Switch(
                         checked = historyEnabled,
                         onCheckedChange = { value ->
-                            viewModel.deleteHistory()
+                            viewModel.clearHistory()
                             viewModel.updateHistoryEnabled(value)
                         }
                     )

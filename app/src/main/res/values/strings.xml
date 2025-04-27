@@ -3,8 +3,8 @@
     <string name="command_call_desc">Makes your device call you</string>
     <string name="command_call_label">Call</string>
     <string name="command_call_param_audio">audio</string>
-    <string name="command_call_param_audio_desc">Set the audio mode</string>
     <string name="command_call_param_audio_deafen">deafen</string>
+    <string name="command_call_param_audio_desc">Set the audio mode</string>
     <string name="command_call_param_audio_speaker">speaker</string>
     <string name="command_call_reply_success">Calling %1$s</string>
     <string name="command_call_usage">Usage for Call</string>
@@ -37,7 +37,6 @@
     <string name="command_ring_param_time_desc">Set the time to ring in seconds</string>
     <string name="command_ring_reply_stopped">Stopped ringing your device</string>
     <string name="command_ring_usage">Usage for Ring</string>
-    <string name="common_are_you_sure">Are you sure?</string>
     <string name="common_auto">Auto</string>
     <string name="common_back">Back</string>
     <string name="common_bullet_v1_colon_v2"> - %1$s: %2$s</string>
@@ -82,9 +81,13 @@
     <string name="screen_commands_status_missing_perms">Missing permissions</string>
     <string name="screen_commands_title">Commands</string>
     <string name="screen_commands_usage">Usage: %1$s</string>
+    <string name="screen_history_clear_confirm">Delete history</string>
+    <string name="screen_history_clear_message">Your entire command history will be cleared</string>
+    <string name="screen_history_clear_title">Clear history?</string>
     <string name="screen_history_error_empty">Nothing here yet</string>
     <string name="screen_history_error_not_enabled">You will need to enable history in the settings to use this feature</string>
     <string name="screen_history_item_dialog_command">Command: %1$s</string>
+    <string name="screen_history_item_dialog_jump_to_conv">Jump to conversation</string>
     <string name="screen_history_item_dialog_message">Message: %1$s</string>
     <string name="screen_history_item_dialog_sender">Sender: %1$s</string>
     <string name="screen_history_item_dialog_status">Status: %1$s</string>
@@ -118,6 +121,7 @@
     <string name="screen_home_pin_not_set">Pin not set</string>
     <string name="screen_home_pin_remove">Remove PIN</string>
     <string name="screen_home_pin_remove_rationale">Removing the PIN will allow anyone with your phone number to trigger commands</string>
+    <string name="screen_home_pin_remove_title">Remove PIN?</string>
     <string name="screen_home_title">Home</string>
     <string name="screen_lock_locked">Locked</string>
     <string name="screen_lock_unlock_biometrics">Unlock with device lock</string>

@@ -37,7 +37,7 @@ fun HistoryScreen(
         title = "History",
         actions = {
             IconButton(
-                onClick = { viewModel.deleteHistory() }
+                onClick = { navController.navigate(Routes.History.CLEAR_DIALOG) }
             ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_history_delete),
