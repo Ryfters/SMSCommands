@@ -53,8 +53,13 @@ class MainActivity : FragmentActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (lastUsed.plusSeconds(30).isAfter(Instant.now())) // TODO: Set to 300
+        if (Instant.now().isAfter(lastUsed.plusSeconds(300)))
             viewModel.updateSignedIn(false)
         viewModel.refreshPermissionsState(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        lastUsed = Instant.now()
     }
 }
