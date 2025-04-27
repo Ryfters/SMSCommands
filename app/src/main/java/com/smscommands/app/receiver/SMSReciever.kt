@@ -7,13 +7,27 @@ import android.provider.Telephony
 
 class SMSReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-        if(intent?.action != "android.provider.Telephony.SMS_RECEIVED" || context == null) return
 
-        val messages = Telephony.Sms.Intents.getMessagesFromIntent(intent)
-        val sender = messages[0]?.originatingAddress.toString()
-        val msgBody = messages[0].messageBody
+        if(context == null) return
+
+        val sender: String
+        val msgBody: String
+        if(intent?.action == "android.provider.Telephony.SMS_RECEIVED") {
+            val messages = Telephony.Sms.Intents.getMessagesFromIntent(intent)
+            sender = messages[0]?.originatingAddress.toString()
+            msgBody = messages[0].messageBody
+        } else if (intent?.action == ACTION_PROCESS_MESSAGE) {
+            sender = intent.getStringExtra(SENDER_EXTRA) ?: ""
+            msgBody = intent.getStringExtra(MESSAGE_EXTRA) ?: ""
+        } else return
 
         processMessage(context, sender, msgBody)
 
+    }
+
+    companion object {
+        const val ACTION_PROCESS_MESSAGE = "com.smscommands.app.ACTION_PROCESS_MESSAGE"
+        const val SENDER_EXTRA = "sender"
+        const val MESSAGE_EXTRA = "message"
     }
 }

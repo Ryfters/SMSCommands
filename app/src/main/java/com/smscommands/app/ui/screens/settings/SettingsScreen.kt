@@ -158,6 +158,17 @@ fun SettingsScreen(
                     }
                 }
             )
+
+            if (BuildConfig.DEBUG) {
+                MyListItem(
+                    title = stringResource(R.string.screen_settings_testsms_title),
+                    content = stringResource(R.string.screen_settings_testsms_content),
+                    onClick = {
+                        navController.navigate(Routes.Settings.TEST_SMS_DIALOG)
+                    }
+                )
+            }
+
             MyListItem(
                 title = stringResource(R.string.screen_settings_source_code_title),
                 content = stringResource(R.string.screen_settings_source_code_content),

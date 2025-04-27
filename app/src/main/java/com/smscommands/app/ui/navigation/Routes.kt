@@ -19,6 +19,7 @@ object Routes {
 
     object History {
         const val MAIN = "history_main"
+        const val CLEAR_DIALOG = "history_clear_dialog"
         const val ITEM_DIALOG = "history_item_dialog/"
     }
 
