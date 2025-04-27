@@ -47,7 +47,6 @@ class Call : Command {
 
         var reply = context.getString(R.string.command_call_reply_success, sender)
         onReply(reply)
-        // TODO: add audioMode info?
 
         if (audioMode != NONE) {
             var audioManager = context.getSystemService(AudioManager::class.java)
