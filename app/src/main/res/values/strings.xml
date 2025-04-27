@@ -4,7 +4,7 @@
     <string name="command_call_label">Call</string>
     <string name="command_call_param_audio">audio</string>
     <string name="command_call_param_audio_desc">Set the audio mode</string>
-    <string name="command_call_param_audio_mute">mute</string>
+    <string name="command_call_param_audio_deafen">deafen</string>
     <string name="command_call_param_audio_speaker">speaker</string>
     <string name="command_call_reply_success">Calling %1$s</string>
     <string name="command_call_usage">Usage for Call</string>

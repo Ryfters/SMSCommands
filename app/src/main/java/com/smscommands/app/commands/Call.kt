@@ -23,20 +23,19 @@ class Call : Command {
 
     private val audioParamChoices = mapOf<Any, Int>(
         SPEAKER to R.string.command_call_param_audio_speaker,
-        MUTE to R.string.command_call_param_audio_mute,
+        DEAFEN to R.string.command_call_param_audio_deafen,
     )
 
     override val params = mapOf(
         AUDIO_PARAM to ChoiceParamDefinition(
             name = R.string.command_call_param_audio,
             desc = R.string.command_call_param_audio_desc,
-            defaultValue = NONE,
             choices = audioParamChoices
         )
     )
 
     override fun onReceive(context: Context, parameters: Map<String, Any?>, sender: String, onReply: (String) -> Unit) {
-        val audioMode = parameters[AUDIO_PARAM] as String
+        val audioMode = parameters[AUDIO_PARAM] as String?
 
 
         val intent = Intent(Intent.ACTION_CALL).apply {
@@ -48,7 +47,7 @@ class Call : Command {
         var reply = context.getString(R.string.command_call_reply_success, sender)
         onReply(reply)
 
-        if (audioMode != NONE) {
+        if (audioMode != null) {
             var audioManager = context.getSystemService(AudioManager::class.java)
 
             if (audioMode == SPEAKER) { // TODO: Test this on real device with earpiece
@@ -66,7 +65,7 @@ class Call : Command {
                 )
             }
 
-            if (audioMode == MUTE) { // TODO: Test this too
+            if (audioMode == DEAFEN) { // TODO: Test this too
                 audioManager.setStreamVolume(
                     AudioManager.STREAM_VOICE_CALL,
                     0,
@@ -78,8 +77,7 @@ class Call : Command {
 
     companion object {
         private const val SPEAKER = "audiomode_speaker"
-        private const val MUTE = "audiomode_mute"
-        private const val NONE = "audiomode_none"
+        private const val DEAFEN = "audiomode_mute"
 
         const val AUDIO_PARAM = "audio"
     }
