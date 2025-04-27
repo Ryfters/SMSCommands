@@ -92,7 +92,7 @@ fun SettingsScreen(
                 title = stringResource(R.string.screen_settings_dismiss_title),
                 content = dismissMessagesContent,
                 onClick = {
-                    navController.navigate(Routes.DISMISS_NOTIFICATIONS_DIALOG)
+                    navController.navigate(Routes.Settings.DISMISS_NOTIFICATIONS_DIALOG)
                 }
             )
             MyListItem(
@@ -112,8 +112,8 @@ fun SettingsScreen(
                 title = stringResource(R.string.screen_settings_history_title),
                 content = stringResource(R.string.screen_settings_history_content),
                 onClick = {
-                    navController.navigate(Routes.HISTORY) {
-                        popUpTo(Routes.HOME)
+                    navController.navigate(Routes.History.MAIN) {
+                        popUpTo(Routes.Home.MAIN)
                     }
                 },
                 separator = true,
@@ -145,7 +145,7 @@ fun SettingsScreen(
                 title = stringResource(R.string.screen_settings_dark_theme_title),
                 content = darkThemeContent,
                 onClick = {
-                    navController.navigate(Routes.DARK_THEME_DIALOG)
+                    navController.navigate(Routes.Settings.DARK_THEME_DIALOG)
                 }
             )
 
@@ -153,8 +153,8 @@ fun SettingsScreen(
             MyListItem(
                 title = stringResource(R.string.screen_settings_view_onboarding),
                 onClick = {
-                    navController.navigate(Routes.ONBOARDING) {
-                        popUpTo(Routes.HOME)
+                    navController.navigate(Routes.Onboarding.MAIN) {
+                        popUpTo(Routes.Home.MAIN)
                     }
                 }
             )

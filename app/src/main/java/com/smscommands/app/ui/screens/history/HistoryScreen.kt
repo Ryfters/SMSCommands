@@ -85,7 +85,7 @@ fun HistoryScreen(
             items(history) { historyItem ->
                 HistoryItem(historyItem,
                     onInfoPressed = {
-                        navController.navigate(Routes.HISTORY_ITEM_DIALOG + historyItem.id)
+                        navController.navigate(Routes.History.ITEM_DIALOG + historyItem.id)
                     }
                 )
             }

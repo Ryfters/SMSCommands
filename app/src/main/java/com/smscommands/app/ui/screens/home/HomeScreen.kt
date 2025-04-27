@@ -34,7 +34,7 @@ fun HomeScreen(
     MainScaffold(
         navController = navController,
         title = stringResource(R.string.screen_home_title),
-        actions = { SettingsIcon(onClick = { navController.navigate(Routes.SETTINGS) }) },
+        actions = { SettingsIcon(onClick = { navController.navigate(Routes.Settings.MAIN) }) },
     ) {
 
         val totalCommandsCount = Command.LIST.count()
@@ -96,28 +96,28 @@ fun HomeScreen(
                 headline = stringResource(R.string.screen_commands_title),
                 content = commandContent,
                 onClick = {
-                    navController.navigate(Routes.COMMANDS)
+                    navController.navigate(Routes.Commands.MAIN)
                 }
             )
             HomeListItem(
                 headline = stringResource(R.string.screen_history_title),
                 content = historyContent,
                 onClick = {
-                    navController.navigate(Routes.HISTORY)
+                    navController.navigate(Routes.History.MAIN)
                 }
             )
             HomeListItem(
                 headline = stringResource(R.string.screen_home_pin),
                 content = pinContent,
                 onClick = {
-                    navController.navigate(Routes.EDIT_PIN_DIALOG)
+                    navController.navigate(Routes.Home.EDIT_PIN_DIALOG)
                 }
             )
             HomeListItem(
                 headline = stringResource(R.string.screen_perms_title),
                 content = permissionContent,
                 onClick = {
-                    navController.navigate(Routes.PERMISSIONS)
+                    navController.navigate(Routes.Perms.MAIN)
                 }
             )
             HorizontalDivider()

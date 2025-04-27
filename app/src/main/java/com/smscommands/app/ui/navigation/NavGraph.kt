@@ -1,35 +1,19 @@
 package com.smscommands.app.ui.navigation
 
-import android.content.Context
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.dialog
-import androidx.navigation.navArgument
 import com.smscommands.app.data.UiStateViewModel
-import com.smscommands.app.ui.screens.commands.CommandItemScreen
-import com.smscommands.app.ui.screens.commands.CommandsScreen
-import com.smscommands.app.ui.screens.history.HistoryItemDialog
-import com.smscommands.app.ui.screens.history.HistoryScreen
-import com.smscommands.app.ui.screens.home.EditPinDialog
-import com.smscommands.app.ui.screens.home.HomeScreen
-import com.smscommands.app.ui.screens.onboarding.OnboardingScreen
-import com.smscommands.app.ui.screens.perms.DeclineWarningDialog
-import com.smscommands.app.ui.screens.perms.PermsScreen
-import com.smscommands.app.ui.screens.settings.DarkThemeDialog
-import com.smscommands.app.ui.screens.settings.DismissNotificationsDialog
-import com.smscommands.app.ui.screens.settings.SettingsScreen
-
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore("userPrefs")
+import com.smscommands.app.ui.navigation.subgraphs.commands
+import com.smscommands.app.ui.navigation.subgraphs.history
+import com.smscommands.app.ui.navigation.subgraphs.home
+import com.smscommands.app.ui.navigation.subgraphs.onboarding
+import com.smscommands.app.ui.navigation.subgraphs.permissions
+import com.smscommands.app.ui.navigation.subgraphs.settings
 
 @Composable
 fun NavGraph(
@@ -40,8 +24,8 @@ fun NavGraph(
     val isFirstLaunch by viewModel.isFirstLaunch.collectAsState()
 
     val startDestination =
-        if (isFirstLaunch) Routes.ONBOARDING
-        else Routes.HOME
+        if (isFirstLaunch) Routes.Onboarding.MAIN
+        else Routes.Home.MAIN
 
 
     NavHost(
@@ -53,92 +37,17 @@ fun NavGraph(
         popExitTransition = { slideOutHorizontally(targetOffsetX = { it }) }
     ) {
 
-        // Main screen
-        composable(Routes.HOME) {
-            HomeScreen(
-                navController = navController,
-                viewModel = viewModel
-            )
-        }
-        composable(Routes.COMMANDS) {
-            CommandsScreen(
-                navController = navController,
-                viewModel = viewModel
-            )
-        }
-        composable(Routes.HISTORY) {
-            HistoryScreen(
-                navController = navController,
-                viewModel = viewModel
-            )
-        }
-        composable(Routes.PERMISSIONS) {
-            PermsScreen(
-                navController = navController,
-                viewModel = viewModel
-            )
-        }
+        home(navController, viewModel)
 
-        // Commands
-        composable(Routes.COMMAND_ITEM + "{commandId}", listOf(navArgument("commandId") { type = NavType.StringType })) {
-            val commandId = it.arguments?.getString("commandId") ?: ""
-            CommandItemScreen(
-                navController = navController,
-                viewModel = viewModel,
-                commandId = commandId
-            )
-        }
+        history(navController, viewModel)
 
+        permissions(navController, viewModel)
 
-        // Onboarding
-        composable(Routes.ONBOARDING) {
-            OnboardingScreen(
-                navController = navController,
-                viewModel = viewModel
-            )
-        }
+        commands(navController, viewModel)
 
+        onboarding(navController, viewModel)
 
-        // Settings
-        composable(Routes.SETTINGS) {
-            SettingsScreen(
-                navController = navController,
-                viewModel = viewModel
-            )
-        }
+        settings(navController, viewModel)
 
-        // Dialogs
-        dialog(Routes.EDIT_PIN_DIALOG) {
-            EditPinDialog(
-                navController = navController,
-                viewModel = viewModel
-            )
-        }
-        dialog(Routes.DARK_THEME_DIALOG) {
-            DarkThemeDialog(
-                navController = navController,
-                viewModel = viewModel
-            )
-        }
-        dialog(Routes.DISMISS_NOTIFICATIONS_DIALOG) {
-            DismissNotificationsDialog(
-                navController = navController,
-                viewModel = viewModel
-            )
-        }
-        dialog(Routes.DECLINE_WARNING_DIALOG) {
-            DeclineWarningDialog(
-                navController = navController
-            )
-        }
-
-        dialog(Routes.HISTORY_ITEM_DIALOG + "{itemId}", listOf(navArgument("itemId") { type = NavType.IntType })) {
-            val itemId = it.arguments?.getInt("itemId") ?: 0
-            HistoryItemDialog(
-                navController = navController,
-                viewModel = viewModel,
-                itemId = itemId
-            )
-        }
     }
 }

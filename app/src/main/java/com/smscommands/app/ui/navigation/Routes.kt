@@ -2,25 +2,34 @@ package com.smscommands.app.ui.navigation
 
 object Routes {
 
-    // Main
-    const val HOME = "main_home"
-    const val COMMANDS = "main_commands"
-    const val HISTORY = "main_history"
-    const val PERMISSIONS = "main_perms"
+    object Home {
+        const val MAIN = "home_main"
+        const val EDIT_PIN_DIALOG = "home_edit_pin_dialog"
+    }
 
-    // Onboarding
-    const val ONBOARDING = "onboarding_intro"
+    object Perms {
+        const val MAIN = "perms_main"
+        const val DECLINE_WARNING_DIALOG = "perms_decline_warning_dialog"
+    }
 
-    // Settings
-    const val SETTINGS = "settings_main"
+    object Commands {
+        const val MAIN = "commands_main"
+        const val ITEM = "commands_item/"
+    }
 
+    object History {
+        const val MAIN = "history_main"
+        const val ITEM_DIALOG = "history_item_dialog/"
+    }
 
-    // Dialogs
-    const val EDIT_PIN_DIALOG = "main_edit_pin_dialog"
-    const val DECLINE_WARNING_DIALOG = "perms_decline_warning_dialog"
-    const val DARK_THEME_DIALOG = "settings_dark_theme_dialog"
-    const val DISMISS_NOTIFICATIONS_DIALOG = "settings_dismiss_notifications_dialog"
+    object Onboarding {
+        const val MAIN = "onboarding_intro"
+    }
 
-    const val HISTORY_ITEM_DIALOG = "history_item_dialog/"
-    const val COMMAND_ITEM = "command_item_dialog/"
+    object Settings {
+        const val MAIN = "settings_main"
+        const val TEST_SMS_DIALOG = "settings_test_sms_dialog"
+        const val DARK_THEME_DIALOG = "settings_dark_theme_dialog"
+        const val DISMISS_NOTIFICATIONS_DIALOG = "settings_dismiss_notifications_dialog"
+    }
 }

@@ -33,7 +33,7 @@ fun PermsScreen(
         showUpButton = true,
         actions = {
             IconButton(
-                onClick = { navController.navigate(Routes.DECLINE_WARNING_DIALOG)}
+                onClick = { navController.navigate(Routes.Perms.DECLINE_WARNING_DIALOG)}
             ) {
                 Icon(painterResource(R.drawable.ic_warning), contentDescription = null)
             }

@@ -11,6 +11,7 @@ import com.smscommands.app.commands.params.OptionParamDefinition
 import com.smscommands.app.data.SyncPreferences
 import com.smscommands.app.data.db.HistoryDatabase
 import com.smscommands.app.data.db.HistoryRepository
+import com.smscommands.app.dataStore
 import com.smscommands.app.receiver.CommandStatus.DISABLED_COMMAND
 import com.smscommands.app.receiver.CommandStatus.INVALID_ARGS
 import com.smscommands.app.receiver.CommandStatus.INVALID_COMMAND
@@ -19,7 +20,6 @@ import com.smscommands.app.receiver.CommandStatus.INVALID_PIN
 import com.smscommands.app.receiver.CommandStatus.MISSING_PARAM
 import com.smscommands.app.receiver.CommandStatus.MISSING_PERMISSIONS
 import com.smscommands.app.receiver.CommandStatus.SUCCESS
-import com.smscommands.app.ui.navigation.dataStore
 import java.time.Instant
 
 fun processMessage(context: Context, sender: String, message: String) {

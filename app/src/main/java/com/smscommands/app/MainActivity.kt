@@ -1,10 +1,12 @@
 package com.smscommands.app
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
@@ -13,9 +15,9 @@ import com.smscommands.app.data.UiStateViewModel
 import com.smscommands.app.data.db.HistoryDatabase
 import com.smscommands.app.data.db.HistoryRepository
 import com.smscommands.app.ui.Root
-import com.smscommands.app.ui.navigation.dataStore
 import java.time.Instant
 
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore("userPrefs")
 
 class MainActivity : FragmentActivity() {
 

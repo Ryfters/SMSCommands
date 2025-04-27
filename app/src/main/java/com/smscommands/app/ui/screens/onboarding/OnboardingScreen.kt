@@ -42,8 +42,8 @@ fun OnboardingScreen(
 
     val onNextClicked = {
         viewModel.updateIsFirstLaunch(false)
-        navController.navigate(Routes.HOME) {
-            popUpTo(Routes.HOME)
+        navController.navigate(Routes.Home.MAIN) {
+            popUpTo(Routes.Home.MAIN)
         }
     }
 

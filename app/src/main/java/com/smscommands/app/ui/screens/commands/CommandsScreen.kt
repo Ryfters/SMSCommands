@@ -50,7 +50,7 @@ fun CommandsScreen(
                     title = stringResource(command.label),
                     content = content,
                     onClick = {
-                        navController.navigate(Routes.COMMAND_ITEM + command.id)
+                        navController.navigate(Routes.Commands.ITEM + command.id)
                     },
                     separator = true,
                     action = {

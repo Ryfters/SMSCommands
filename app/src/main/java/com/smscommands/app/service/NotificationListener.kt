@@ -4,7 +4,7 @@ import android.app.Notification
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import com.smscommands.app.data.SyncPreferences
-import com.smscommands.app.ui.navigation.dataStore
+import com.smscommands.app.dataStore
 
 class NotificationListener : NotificationListenerService() {
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
