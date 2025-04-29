@@ -119,9 +119,8 @@ fun processMessage(context: Context, sender: String, trigger: String) {
     } else null
 
     val smsManager: SmsManager = context.getSystemService(SmsManager::class.java)
-    for (message in messagesToSend) {
-        smsManager.sendTextMessage(sender, null, message, null, null)
-    }
+
+    messagesToSend.forEach { smsManager.sendTextMessage(sender, null, it, null, null) }
 
     val onReply: (String) -> Unit = { message ->
         smsManager.sendTextMessage(sender, null, message, null, null)
