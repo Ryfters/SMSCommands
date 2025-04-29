@@ -10,15 +10,15 @@ import com.smscommands.app.data.SyncPreferences
 import com.smscommands.app.receiver.CommandStatus.INVALID_COMMAND
 import java.time.Instant
 
-fun processMessage(context: Context, sender: String, message: String) {
-    if (message.startsWith("!!") == false) return
+fun processMessage(context: Context, sender: String, trigger: String) {
+    if (trigger.startsWith("!!") == false) return
 
     val syncPreferences = SyncPreferences.getPreferences(context)
 
-    val splitMessage = message.split("/")
-    val inputtedPin = splitMessage[0].removePrefix("!!")
-    val inputtedCommand = splitMessage.getOrElse(1) { "" }
-    val inputtedParams = splitMessage.getOrElse(2) { "" }
+    val splitTrigger = trigger.split("/")
+    val inputtedPin = splitTrigger[0].removePrefix("!!")
+    val inputtedCommand = splitTrigger.getOrElse(1) { "" }
+    val inputtedParams = splitTrigger.getOrElse(2) { "" }
             .split(" ")
             .filterNot { it == "" }
             .map { it.lowercase() }
@@ -113,6 +113,7 @@ fun processMessage(context: Context, sender: String, message: String) {
             commandId = commandId,
             status = status,
             sender = sender,
+            trigger = trigger,
             messages = messagesToSend
         )
     } else null

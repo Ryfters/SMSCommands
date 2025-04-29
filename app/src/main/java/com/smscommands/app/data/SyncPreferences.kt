@@ -46,6 +46,7 @@ class SyncPreferences private constructor(
         sender: String,
         commandId: String,
         status: Int,
+        trigger: String,
         messages: List<String>,
         time: Instant = Instant.now(),
     ): Long = runBlocking {
@@ -55,6 +56,7 @@ class SyncPreferences private constructor(
                 commandId = commandId,
                 status = status,
                 sender = sender,
+                trigger = trigger,
                 messages = messages
             )
         )

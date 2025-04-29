@@ -43,7 +43,7 @@ fun HistoryItemDialog(
     val statusContent = stringResource(R.string.screen_history_item_dialog_status, stringResource(item.status))
     val senderContent = stringResource(R.string.screen_history_item_dialog_sender, item.sender)
     val timeContent = stringResource(R.string.screen_history_item_dialog_time, formattedTime)
-    val messageContent = stringResource(R.string.screen_history_item_dialog_message, item.triggerMessage)
+    val messageContent = stringResource(R.string.screen_history_item_dialog_message, item.trigger)
 
     AlertDialog(
         onDismissRequest = { navController.popBackStack() },

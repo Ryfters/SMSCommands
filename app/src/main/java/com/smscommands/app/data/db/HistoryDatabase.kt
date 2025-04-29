@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 @TypeConverters(MyTypeConverters::class)
-@Database(entities = [HistoryItem::class], version = 5, exportSchema = false)
+@Database(entities = [HistoryItem::class], version = 6, exportSchema = false)
 abstract class HistoryDatabase : RoomDatabase() {
 
     abstract fun historyDao(): HistoryDao

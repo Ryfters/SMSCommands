@@ -12,6 +12,6 @@ data class HistoryItem(
     val commandId: String,
     val status: Int,
     val sender: String,
-    val triggerMessage: String,
+    val trigger: String,
     val messages: List<String>,
 )
