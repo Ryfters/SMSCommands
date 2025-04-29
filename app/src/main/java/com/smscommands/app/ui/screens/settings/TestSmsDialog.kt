@@ -2,6 +2,8 @@ package com.smscommands.app.ui.screens.settings
 
 import android.content.ComponentName
 import android.content.Intent
+import android.util.Log
+import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,6 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,12 +24,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.smscommands.app.R
-import com.smscommands.app.data.UiStateViewModel
 import com.smscommands.app.receiver.SMSReceiver
 import com.smscommands.app.receiver.SMSReceiver.Companion.ACTION_PROCESS_MESSAGE
 import com.smscommands.app.receiver.SMSReceiver.Companion.MESSAGE_EXTRA
@@ -34,10 +38,10 @@ import com.smscommands.app.ui.components.MyTextButton
 
 @Composable
 fun TestSmsDialog(
-    viewModel: UiStateViewModel,
     navController: NavController
 ) {
     val context = LocalContext.current
+    val activity = LocalActivity.current
 
     var senderInput by remember { mutableStateOf("+1 (650) 555-1212") }
     var msgInput by remember { mutableStateOf("") }
@@ -59,7 +63,24 @@ fun TestSmsDialog(
                     onValueChange = { msgInput = it },
                     label = { Text(stringResource(R.string.screen_settings_tester_dialog_message)) },
                     singleLine = true,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password) // So it doesn't auto correct
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password), // So it doesn't auto correct
+                    trailingIcon = {
+                        IconButton(
+                            onClick = {
+                                val intent = Intent(ACTION_PROCESS_MESSAGE).apply {
+                                    putExtra(SENDER_EXTRA, senderInput)
+                                    putExtra(MESSAGE_EXTRA, msgInput)
+                                    component = ComponentName(context, SMSReceiver::class.java)
+                                }
+                                context.sendBroadcast(intent)
+                                if (closeTaskOnSend)
+                                    if (activity != null) activity.finishAndRemoveTask()
+                                    else Log.e("TestSmsDialog", "Activity is null")
+                            }
+                        ) {
+                            Icon(painterResource(R.drawable.ic_send), contentDescription = null)
+                        }
+                    }
                 )
                 Row (
                     modifier = Modifier.fillMaxWidth(),
@@ -78,18 +99,7 @@ fun TestSmsDialog(
             }
         },
         confirmButton = {
-            MyTextButton(stringResource(R.string.common_send)) {
-                val intent = Intent(ACTION_PROCESS_MESSAGE).apply {
-                    putExtra(SENDER_EXTRA, senderInput)
-                    putExtra(MESSAGE_EXTRA, msgInput)
-                    component = ComponentName(context, SMSReceiver::class.java)
-                }
-                context.sendBroadcast(intent)
-                navController.popBackStack()
-            }
-        },
-        dismissButton = {
-            MyTextButton(stringResource(R.string.common_cancel)) { navController.popBackStack() }
+            MyTextButton(stringResource(R.string.common_close)) { navController.popBackStack() }
         },
         onDismissRequest = {
             navController.popBackStack()

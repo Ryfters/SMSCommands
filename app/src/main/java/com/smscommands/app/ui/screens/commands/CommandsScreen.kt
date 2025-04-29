@@ -7,6 +7,7 @@ import androidx.compose.material3.Switch
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.smscommands.app.R
@@ -24,6 +25,8 @@ fun CommandsScreen(
     navController: NavController,
     viewModel: UiStateViewModel
 ) {
+    val context = LocalContext.current
+
     MainScaffold(
         navController = navController,
         title = stringResource(R.string.screen_commands_title),
@@ -38,20 +41,17 @@ fun CommandsScreen(
 
                 val disabled = missingPermissions.isNotEmpty()
 
-                @Suppress("SimplifiableCallChain")
                 val content =
-                    if (disabled) {
-                        val missingPermsString = missingPermissions.map { stringResource(it.label) }.joinToString()
-                        stringResource(R.string.screen_commands_missing_permissions, missingPermsString)
-                    } else stringResource(command.description)
+                    if (disabled)
+                        stringResource(R.string.screen_commands_missing_permissions,
+                            missingPermissions.joinToString { context.getString(it.label) })
+                    else stringResource(command.description)
 
 
                 MyListItem(
                     title = stringResource(command.label),
                     content = content,
-                    onClick = {
-                        navController.navigate(Routes.Commands.ITEM + command.id)
-                    },
+                    onClick = { navController.navigate(Routes.Commands.ITEM + command.id) },
                     separator = true,
                     action = {
                         Switch(
@@ -61,7 +61,7 @@ fun CommandsScreen(
                             },
                             enabled = !disabled
                         )
-                    },
+                    }
                 )
             }
         }

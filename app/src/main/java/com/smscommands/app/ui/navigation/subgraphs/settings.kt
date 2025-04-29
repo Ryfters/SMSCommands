@@ -22,8 +22,7 @@ fun NavGraphBuilder.settings(navController: NavHostController, viewModel: UiStat
     
     dialog(Routes.Settings.TEST_SMS_DIALOG) {
         TestSmsDialog(
-            navController = navController,
-            viewModel = viewModel
+            navController = navController
         )
     }
     

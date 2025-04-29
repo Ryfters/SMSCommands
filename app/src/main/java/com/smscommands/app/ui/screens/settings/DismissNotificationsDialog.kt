@@ -60,12 +60,9 @@ fun DismissNotificationsDialog(
                         navController.popBackStack()
                     }
                 )
-
             }
         },
-        onDismissRequest = {
-            navController.popBackStack()
-        },
+        onDismissRequest = { navController.popBackStack() },
         confirmButton = {}
     )
 }

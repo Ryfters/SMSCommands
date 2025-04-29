@@ -26,7 +26,6 @@ fun PermsScreen(
     navController: NavController,
     viewModel: UiStateViewModel,
 ) {
-
     MainScaffold(
         navController = navController,
         title = stringResource(R.string.screen_perms_title),
@@ -50,6 +49,8 @@ fun PermsScreen(
                     isGranted = permissionsState[permission.id] == true,
                     onGrant = { isEnabled ->
                         viewModel.updateSinglePermissionState(permission.id, isEnabled)
+                        if (isEnabled == false)
+                            navController.navigate(Routes.Perms.DECLINE_WARNING_DIALOG)
                     }
                 )
             }

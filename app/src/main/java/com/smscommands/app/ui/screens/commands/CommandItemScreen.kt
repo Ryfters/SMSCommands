@@ -25,7 +25,6 @@ fun CommandItemScreen(
     viewModel: UiStateViewModel,
     commandId: String
 ) {
-
     val command = Command.LIST.find { it.id == commandId } ?: run {
         Log.e("CommandItemDialog", "Command not found: $commandId")
         navController.popBackStack()
@@ -38,7 +37,6 @@ fun CommandItemScreen(
         subtitle = stringResource(command.description),
         showUpButton = true,
     ) {
-
         val permissionsState by viewModel.permissionsState.collectAsState()
 
         val isMissingPerms = (command.requiredPermissions + Permission.BASE).any { permission ->
@@ -47,9 +45,10 @@ fun CommandItemScreen(
 
         val isEnabled = viewModel.commandPreferences.collectAsState().value[commandId] == true
 
-        val status = if (isMissingPerms) stringResource(R.string.screen_commands_status_missing_perms)
-                else if (isEnabled) stringResource(R.string.common_enabled)
-                else stringResource(R.string.common_disabled)
+        val status =
+                 if (isMissingPerms) stringResource(R.string.screen_commands_status_missing_perms)
+            else if (isEnabled) stringResource(R.string.common_enabled)
+            else stringResource(R.string.common_disabled)
 
         @Suppress("SimplifiableCallChain") // cant have composable in joinToString
         val requiredPermissions = command.requiredPermissions

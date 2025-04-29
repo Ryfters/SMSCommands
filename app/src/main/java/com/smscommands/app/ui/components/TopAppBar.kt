@@ -24,9 +24,9 @@ fun TopAppBar(
     actions: @Composable RowScope.() -> Unit,
     scrollBehavior: TopAppBarScrollBehavior?
 ) {
-
-    val expandedHeight = if (subtitle != null) 216.dp
-                       else 192.dp
+    val expandedHeight =
+        if (subtitle != null) 216.dp
+        else 192.dp
     LargeTopAppBar(
         title = {
             Column {

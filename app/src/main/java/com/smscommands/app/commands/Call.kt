@@ -13,7 +13,6 @@ class Call : Command {
     override val id = "command_call"
     override val label = R.string.command_call_label
     override val description = R.string.command_call_desc
-    override val usage = R.string.command_call_usage
 
     override val requiredPermissions = listOf(
         Permission.PHONE,

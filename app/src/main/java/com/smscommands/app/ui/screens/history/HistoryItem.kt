@@ -12,7 +12,6 @@ import com.smscommands.app.commands.Command
 import com.smscommands.app.data.db.HistoryItem
 import com.smscommands.app.ui.components.MyListItem
 import com.smscommands.app.utils.formatRelativeTime
-import com.smscommands.app.utils.getStatusRes
 
 @Composable
 fun HistoryItem(
@@ -22,7 +21,7 @@ fun HistoryItem(
     val context: Context = LocalContext.current
 
     val commandNameRes = Command.LIST.find { command -> command.id == historyItem.commandId }?.label
-        ?: R.string.screen_history_item_invalid_command
+        ?: R.string.command_status_invalid_command
 
     val headline =
         stringResource(
@@ -33,7 +32,7 @@ fun HistoryItem(
 
     val formattedTime = formatRelativeTime(context, historyItem.time)
     val content =
-        stringResource(getStatusRes(historyItem.status)) +
+        stringResource(historyItem.status) +
         stringResource(R.string.common_seperator) +
         formattedTime
 

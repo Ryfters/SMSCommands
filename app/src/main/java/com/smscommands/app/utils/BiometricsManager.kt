@@ -8,6 +8,7 @@ import androidx.biometric.BiometricPrompt.AuthenticationCallback
 import androidx.biometric.BiometricPrompt.AuthenticationResult
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
+import com.smscommands.app.R
 
 
 fun getBiometricPrompt(
@@ -31,7 +32,7 @@ fun getBiometricPrompt(
     val promptDesc = BiometricManager.from(activity).getStrings(BIOMETRIC_WEAK or DEVICE_CREDENTIAL)?.promptMessage
 
     val promptInfo = BiometricPrompt.PromptInfo.Builder()
-        .setTitle("Authenticate to continue")
+        .setTitle(activity.getString(R.string.screen_lock_prompt_title))
         .setDescription(promptDesc)
         .setAllowedAuthenticators(BIOMETRIC_WEAK or DEVICE_CREDENTIAL)
         .build()

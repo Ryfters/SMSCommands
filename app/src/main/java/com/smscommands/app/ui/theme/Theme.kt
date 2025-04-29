@@ -33,7 +33,7 @@ private val LightColorScheme = lightColorScheme(
 )
 
 private val customTypography = Typography(
-    headlineMedium = Typography.displayMedium
+    headlineMedium = Typography.displayMedium // Used for the LargeTopAppBar small title bar
 )
 
 @Composable

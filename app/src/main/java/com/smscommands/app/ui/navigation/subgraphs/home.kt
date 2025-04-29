@@ -10,12 +10,14 @@ import com.smscommands.app.ui.screens.home.EditPinDialog
 import com.smscommands.app.ui.screens.home.HomeScreen
 
 fun NavGraphBuilder.home(navController: NavHostController, viewModel: UiStateViewModel) {
+
     composable(Routes.Home.MAIN) {
         HomeScreen(
             navController = navController,
             viewModel = viewModel
         )
     }
+
     dialog(Routes.Home.EDIT_PIN_DIALOG) {
         EditPinDialog(
             navController = navController,

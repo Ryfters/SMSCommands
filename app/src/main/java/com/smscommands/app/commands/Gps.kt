@@ -13,7 +13,6 @@ class Gps : Command {
     override val id = "command_gps"
     override val label = R.string.command_gps_label
     override val description = R.string.command_gps_desc
-    override val usage = R.string.command_gps_usage
 
     override val requiredPermissions = listOf(
         Permission.LOCATION
@@ -29,9 +28,8 @@ class Gps : Command {
         providers.forEach { provider ->
             val providerLocation = locationManager.getLastKnownLocation(provider) ?: return@forEach
 
-            if (bestLocation == null || providerLocation.accuracy < bestLocation.accuracy) {
+            if (bestLocation == null || providerLocation.accuracy < bestLocation.accuracy)
                 bestLocation = providerLocation
-            }
         }
 
         if (bestLocation == null) {

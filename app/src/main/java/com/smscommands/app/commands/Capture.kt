@@ -17,12 +17,12 @@ class Capture : Command {
     override val id = "command_capture"
     override val label = R.string.command_capture_label
     override val description = R.string.command_capture_desc
-    override val usage = R.string.command_capture_usage
 
     override val requiredPermissions = listOf(
         Permission.OVERLAY,
         Permission.CAMERA
     )
+
 
     private val flashParamChoices = mapOf<Any, Int>(
         ImageCapture.FLASH_MODE_ON to R.string.common_on,
@@ -34,7 +34,6 @@ class Capture : Command {
         CAMERA_BACK to R.string.command_capture_param_camera_back,
         CAMERA_BOTH to R.string.command_capture_param_camera_both,
     )
-
 
     override val params = mapOf(
         FLASH_PARAM to ChoiceParamDefinition(

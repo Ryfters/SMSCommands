@@ -16,27 +16,26 @@ fun PermissionItem(
 ) {
     val context = LocalContext.current
 
-    val content = if (permission.basePermission) {
-        permission.description?.let { stringResource(it) } ?: ""
-    } else {
-        val permRequiredFor = Command.LIST.filter { command ->
-            command.requiredPermissions.any { it == permission }
-        }.joinToString { context.getString(it.label) }
+    val content =
+        if (!Permission.COMMANDS.contains(permission))
+            permission.description?.let { stringResource(it) } ?: ""
+        else
+            Command.LIST.filter { it.requiredPermissions.contains(permission) }
+                .joinToString { context.getString(it.label) }
+                .let { stringResource(R.string.screen_perms_perm_required_for, it) }
 
-        stringResource(R.string.screen_perms_perm_required_for, permRequiredFor)
-    }
 
     val isGrantedString =
         if (isGranted) stringResource(R.string.screen_perms_granted)
         else stringResource(R.string.screen_perms_not_granted)
 
-    val request = permission.request(onResult = onGrant)
+    val request =
+        if (!isGranted) permission.request(onResult = onGrant)
+        else null
 
     MyListItem(
         title = stringResource(permission.label),
-        content = (
-            isGrantedString + stringResource(R.string.common_seperator) + content
-        ),
+        content = isGrantedString + stringResource(R.string.common_seperator) + content,
         onClick = request
     )
 }

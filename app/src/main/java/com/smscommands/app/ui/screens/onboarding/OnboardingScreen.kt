@@ -30,7 +30,6 @@ fun OnboardingScreen(
     navController: NavController,
     viewModel: UiStateViewModel,
 ) {
-
     val pageCount = OnboardingPages.size
     val pagerState = rememberPagerState { pageCount }
 
@@ -38,7 +37,6 @@ fun OnboardingScreen(
     val pageOffset = pagerState.currentPageOffsetFraction
 
     val pageTitle = stringResource(OnboardingPages[currentPage].title)
-
 
     val onNextClicked = {
         viewModel.updateIsFirstLaunch(false)
@@ -51,14 +49,9 @@ fun OnboardingScreen(
         AnimatedContent(
             targetState = pagerState.canScrollForward,
             modifier = modifier
-        ) { if (it)
-                OutlinedButton(onNextClicked) {
-                    Text(stringResource(R.string.common_skip))
-                }
-            else
-                Button(onNextClicked) {
-                    Text(stringResource(R.string.common_ok))
-                }
+        ) {
+            if (it) OutlinedButton(onNextClicked) { Text(stringResource(R.string.common_skip)) }
+            else Button(onNextClicked) { Text(stringResource(R.string.common_ok)) }
         }
     }
 

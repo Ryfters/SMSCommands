@@ -27,7 +27,7 @@ import kotlinx.coroutines.withContext
 
 class UiStateViewModel(
     private val dataStore: DataStore<Preferences>,
-    private val database: HistoryRepository,
+    val database: HistoryRepository,
 ): ViewModel() {
 
     // CommandPreferences
@@ -42,7 +42,6 @@ class UiStateViewModel(
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = emptyMap()
         )
-
 
     fun updateCommandPreference(id: String, isEnabled: Boolean) {
         viewModelScope.launch {
@@ -239,13 +238,8 @@ class UiStateViewModel(
                     throw IllegalStateException("Missing database parameter in data.UiStateViewModel.Factory")
                 }
 
-                UiStateViewModel(
-                    dataStore = dataStore,
-                    database = database
-                )
+                UiStateViewModel(dataStore, database)
             }
         }
     }
 }
-
-

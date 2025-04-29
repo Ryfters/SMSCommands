@@ -14,9 +14,6 @@ interface Command {
     @get:StringRes
     val description: Int
 
-    @get:StringRes
-    val usage: Int
-
     val requiredPermissions: List<Permission>
 
     val params: Map<String, ParamsDefinition>

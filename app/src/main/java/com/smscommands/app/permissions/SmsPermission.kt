@@ -3,11 +3,11 @@ package com.smscommands.app.permissions
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import com.smscommands.app.R
-
 
 
 class SmsPermission : Permission {
@@ -16,8 +16,6 @@ class SmsPermission : Permission {
     override val label = R.string.permission_sms
     
     override val description = R.string.permission_sms_desc
-
-    override val basePermission = true
 
     private val permissions = arrayOf(
         Manifest.permission.SEND_SMS,

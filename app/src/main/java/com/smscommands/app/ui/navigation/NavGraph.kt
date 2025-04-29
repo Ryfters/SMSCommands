@@ -20,13 +20,11 @@ fun NavGraph(
     navController: NavHostController,
     viewModel: UiStateViewModel
 ) {
-
     val isFirstLaunch by viewModel.isFirstLaunch.collectAsState()
 
     val startDestination =
         if (isFirstLaunch) Routes.Onboarding.MAIN
         else Routes.Home.MAIN
-
 
     NavHost(
         navController = navController,

@@ -13,7 +13,6 @@ fun formatRelativeTime(
     context: Context,
     pastInstant: Instant
 ): String {
-
     val userTimeZone = TimeZone.getDefault().toZoneId()
     val now = LocalDateTime.now(userTimeZone)
 

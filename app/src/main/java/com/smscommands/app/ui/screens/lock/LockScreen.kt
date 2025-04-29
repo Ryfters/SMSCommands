@@ -11,6 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.fragment.app.FragmentActivity
+import com.smscommands.app.R
 import com.smscommands.app.data.UiStateViewModel
 import com.smscommands.app.utils.getBiometricPrompt
 
@@ -23,7 +24,6 @@ fun LockScreen(
     val signedIn by viewModel.signedIn.collectAsState()
     val requirePin by viewModel.requirePin.collectAsState()
     val shouldShowLockScreen = !signedIn && requirePin
-
 
     AnimatedVisibility(
         visible = shouldShowLockScreen,
@@ -58,7 +58,11 @@ fun LockScreen(
                 if (pinInput == pin) viewModel.updateSignedIn(true)
                 else {
                     resetPin()
-                    Toast.makeText(activity, "Incorrect PIN", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        activity,
+                        activity.getString(R.string.screen_lock_incorrect_pin),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 

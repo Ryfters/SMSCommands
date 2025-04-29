@@ -8,11 +8,11 @@ import android.provider.Telephony
 class SMSReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
 
-        if(context == null) return
+        if (context == null) return
 
         val sender: String
         val msgBody: String
-        if(intent?.action == "android.provider.Telephony.SMS_RECEIVED") {
+        if (intent?.action == "android.provider.Telephony.SMS_RECEIVED") {
             val messages = Telephony.Sms.Intents.getMessagesFromIntent(intent)
             sender = messages[0]?.originatingAddress.toString()
             msgBody = messages[0].messageBody

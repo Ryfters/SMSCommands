@@ -53,7 +53,6 @@ fun DarkThemeDialog(
                         navController.popBackStack()
                     }
                 )
-
             }
         },
         onDismissRequest = {

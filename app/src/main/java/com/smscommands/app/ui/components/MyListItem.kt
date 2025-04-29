@@ -26,7 +26,6 @@ fun MyListItem(
     separator: Boolean = false,
     action: @Composable (() -> Unit)? = null
 ) {
-
     val clickable = !disabled && onClick != null
 
     Row (

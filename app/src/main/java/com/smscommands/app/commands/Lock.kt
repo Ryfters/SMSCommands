@@ -9,7 +9,6 @@ class Lock : Command {
     override val id = "command_lock"
     override val label = R.string.command_lock_label
     override val description = R.string.command_lock_desc
-    override val usage = R.string.command_lock_usage
 
     override val requiredPermissions = listOf(
         Permission.ADMIN

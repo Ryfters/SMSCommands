@@ -17,7 +17,6 @@ import com.smscommands.app.commands.Command
 import com.smscommands.app.data.UiStateViewModel
 import com.smscommands.app.ui.components.MyTextButton
 import com.smscommands.app.utils.formatRelativeTime
-import com.smscommands.app.utils.getStatusRes
 
 @Composable
 fun HistoryItemDialog(
@@ -37,12 +36,12 @@ fun HistoryItemDialog(
     }
 
     val commandName = Command.LIST.find { it.id == item.commandId }?.label
-        ?: R.string.screen_history_item_invalid_command
+        ?: R.string.command_status_invalid_command
 
     val formattedTime = formatRelativeTime(context, item.time).replaceFirstChar { it.uppercase() }
 
     val commandContent = stringResource(R.string.screen_history_item_dialog_command, stringResource(commandName))
-    val statusContent = stringResource(R.string.screen_history_item_dialog_status, stringResource(getStatusRes(item.status)))
+    val statusContent = stringResource(R.string.screen_history_item_dialog_status, stringResource(item.status))
     val senderContent = stringResource(R.string.screen_history_item_dialog_sender, item.sender)
     val timeContent = stringResource(R.string.screen_history_item_dialog_time, formattedTime)
     val messageContent = stringResource(R.string.screen_history_item_dialog_message, item.message)

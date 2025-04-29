@@ -14,7 +14,7 @@ val OnboardingPages = listOf(
     ),
     OnboardingPage(
         title = R.string.screen_onboarding_parameters_title,
-        content = R.string.screen_onboarding_parameters_content,
+        content = R.string.screen_onboarding_parameters_content, // TODO: Switch to composables for more control
     ),
 )
 

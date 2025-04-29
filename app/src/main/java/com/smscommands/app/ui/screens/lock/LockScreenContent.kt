@@ -38,7 +38,6 @@ fun LockScreenContent(
     onShowBiometricPrompt: () -> Unit,
     onPinUnlock: (String, () -> Unit) -> Unit,
 ) {
-
     var pinInput by remember { mutableStateOf("") }
 
     Column(
@@ -46,11 +45,9 @@ fun LockScreenContent(
         modifier = Modifier
             .fillMaxSize()
             .shadow(elevation = 4.dp) // Makes slide in&out animation look better
-            .clickable(false) {}
+            .clickable(false) {} // Consume the click so that you can't click under
             .background(MaterialTheme.colorScheme.background),
-
     ) {
-
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier.weight(1f)
@@ -69,7 +66,7 @@ fun LockScreenContent(
                 onValueChange = { if (it.isDigitsOnly()) pinInput = it },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                label = { Text("Enter PIN") },
+                label = { Text(stringResource(R.string.screen_lock_enter_pin)) },
                 visualTransformation = PasswordVisualTransformation(),
             )
 

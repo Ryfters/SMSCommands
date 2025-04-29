@@ -36,7 +36,6 @@ fun HomeScreen(
         title = stringResource(R.string.screen_home_title),
         actions = { SettingsIcon(onClick = { navController.navigate(Routes.Settings.MAIN) }) },
     ) {
-
         val totalCommandsCount = Command.LIST.count()
         val commandPreferences by viewModel.commandPreferences.collectAsState()
         val enabledCommandsCount = Command.LIST.count { command ->
@@ -86,9 +85,9 @@ fun HomeScreen(
         val missingPerms = permissions.count { !it.value }
         val totalPerms = Permission.ALL.count()
         val permissionContent =
-            if (missingPerms == 0) stringResource(R.string.screen_home_perms_all)
-            else if(missingPerms == totalPerms) stringResource(R.string.screen_home_perms_none)
-            else if(missingPerms == 1) stringResource(R.string.screen_home_perms_one)
+                 if (missingPerms == 0) stringResource(R.string.screen_home_perms_all)
+            else if (missingPerms == totalPerms) stringResource(R.string.screen_home_perms_none)
+            else if (missingPerms == 1) stringResource(R.string.screen_home_perms_one)
             else stringResource(R.string.screen_home_perms_many, missingPerms)
 
         Column {

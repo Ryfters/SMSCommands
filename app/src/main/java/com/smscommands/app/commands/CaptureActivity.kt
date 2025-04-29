@@ -7,7 +7,6 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.telephony.SmsManager
 import androidx.activity.ComponentActivity
-import androidx.activity.enableEdgeToEdge
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
@@ -25,6 +24,7 @@ import java.util.concurrent.Executors
 import kotlin.coroutines.resume
 
 class CaptureActivity : ComponentActivity() {
+
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var cameraProvider: ProcessCameraProvider
 
@@ -83,7 +83,26 @@ class CaptureActivity : ComponentActivity() {
         }
     }
 
-    private suspend fun takePhoto(cameraSelector: CameraSelector, captureMode: Int, flashMode: Int): Boolean {
+    private suspend fun takePhoto(
+        camera: Int,
+        captureMode: Int,
+        flashMode: Int
+    ) {
+        val cameraSelector: CameraSelector
+        val cameraLabel: String
+
+        when (camera) {
+            CAMERA_FRONT -> {
+                cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
+                cameraLabel = getString(R.string.command_capture_camera_front)
+
+            }
+            CAMERA_BACK -> {
+                cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+                cameraLabel = getString(R.string.command_capture_camera_back)
+            }
+            else -> throw Exception("Invalid camera in takePhoto()")
+        }
 
         val imageCapture = ImageCapture.Builder()
             .setCaptureMode(captureMode)
@@ -109,17 +128,18 @@ class CaptureActivity : ComponentActivity() {
             contentValues
         ).build()
 
-        return suspendCancellableCoroutine<Boolean> { continuation ->
+        return suspendCancellableCoroutine<Unit> { continuation ->
             imageCapture.takePicture(
                 outputOptions,
                 cameraExecutor,
                 object : ImageCapture.OnImageSavedCallback {
                     override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                        continuation.resume(true)
+                        onReply("Captured photo on the $cameraLabel")
+                        continuation.resume(Unit)
                     }
-
                     override fun onError(exception: ImageCaptureException) {
-                        continuation.resume(false)
+                        onReply("An error occurred while taking a photo on the $cameraLabel")
+                        continuation.resume(Unit)
                     }
                 }
             )

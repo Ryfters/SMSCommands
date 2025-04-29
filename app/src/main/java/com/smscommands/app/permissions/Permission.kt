@@ -15,10 +15,6 @@ interface Permission {
     val description: Int?
         get() = null
 
-    val basePermission: Boolean
-        get() = false
-
-
     fun isGranted(context: Context): Boolean
 
     @Composable

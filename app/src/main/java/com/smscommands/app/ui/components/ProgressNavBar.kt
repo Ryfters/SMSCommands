@@ -16,8 +16,7 @@ fun ProgressNavBar(
     pageCount: Int,
     pageOffset: Float = 0f,
     nextButton: @Composable (Modifier) -> Unit,
-
-    ) {
+) {
     Box (
         contentAlignment = Alignment.Center,
         modifier = Modifier
@@ -25,9 +24,7 @@ fun ProgressNavBar(
             .padding(16.dp)
             .height(IntrinsicSize.Min)
     ) {
-
         DotProgressIndicator(pageIndex, pageCount, pageOffset, Modifier)
-
         nextButton(Modifier.align(Alignment.CenterEnd))
     }
 }

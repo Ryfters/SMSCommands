@@ -59,7 +59,6 @@ fun DotProgressIndicator(
         modifier = modifier
             .fillMaxHeight()
     ) {
-
         for (i in 0 until totalScreens) {
             val xOffset = (i * dotSpacing) - totalWidth/2
             val offset = Offset(xOffset, this.center.y)

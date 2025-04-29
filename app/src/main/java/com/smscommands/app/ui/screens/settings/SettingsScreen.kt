@@ -43,7 +43,6 @@ fun SettingsScreen(
         title = stringResource(R.string.screen_settings_title),
         showUpButton = true,
     ) {
-
         val context = LocalContext.current
 
         val hideMessagesNotifications by viewModel.dismissNotificationType.collectAsState()
@@ -65,7 +64,6 @@ fun SettingsScreen(
             1 -> stringResource(R.string.screen_settings_theme_light)
             else -> stringResource(R.string.screen_settings_theme_dark)
         }
-
 
         val versionName = BuildConfig.VERSION_NAME
         val versionCode = BuildConfig.VERSION_CODE

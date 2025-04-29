@@ -12,7 +12,6 @@ class Ring : Command {
     override val id = "command_ring"
     override val label = R.string.command_ring_label
     override val description = R.string.command_ring_desc
-    override val usage = R.string.command_ring_usage
 
     override val requiredPermissions = listOf(
         Permission.OVERLAY,
