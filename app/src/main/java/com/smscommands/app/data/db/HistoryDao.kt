@@ -10,11 +10,20 @@ import kotlinx.coroutines.flow.Flow
 interface HistoryDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(item: HistoryItem)
+    suspend fun insert(item: HistoryItem): Long
 
-    @Query("DELETE FROM command_history")
-    fun deleteAll()
+    @Query("UPDATE command_history SET status = :status WHERE id = :id")
+    suspend fun updateItemStatus(id: Long, status: Int)
+
+    @Query("UPDATE command_history SET messages = :messages WHERE id = :id")
+    suspend fun updateItemMessages(id: Long, messages: List<String>)
+
+    @Query("SELECT * FROM command_history WHERE id = :id")
+    suspend fun getHistoryItem(id: Long): HistoryItem
 
     @Query("SELECT * FROM command_history ORDER BY time DESC")
     fun getHistory(): Flow<List<HistoryItem>>
+
+    @Query("DELETE FROM command_history")
+    fun deleteAll()
 }

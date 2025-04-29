@@ -63,7 +63,6 @@
     <string name="common_ok">OK</string>
     <string name="common_on">On</string>
     <string name="common_previous">Previous</string>
-    <string name="common_send">Send</string>
     <string name="common_seperator">", "</string>
     <string name="common_skip">Skip</string>
     <string name="common_stop">Stop</string>
@@ -105,17 +104,6 @@
     <string name="screen_history_item_dialog_sender">Sender: %1$s</string>
     <string name="screen_history_item_dialog_status">Status: %1$s</string>
     <string name="screen_history_item_dialog_time">Time: %1$s</string>
-    <string name="screen_history_item_disabled_command">Disabled command</string>
-    <string name="screen_history_item_invalid_command">Invalid command</string>
-    <string name="screen_history_item_invalid_pin">Wrong PIN</string>
-    <string name="screen_history_item_status_disabled_command">Command disabled</string>
-    <string name="screen_history_item_status_invalid_args">Invalid arguments</string>
-    <string name="screen_history_item_status_invalid_command">Invalid command</string>
-    <string name="screen_history_item_status_missing_param">Missing required parameters</string>
-    <string name="screen_history_item_status_missing_permissions">Missing permissions</string>
-    <string name="screen_history_item_status_success">Success</string>
-    <string name="screen_history_item_status_unknown">Unknown status</string>
-    <string name="screen_history_item_statuse_invalid_param">Invalid parameters</string>
     <string name="screen_history_title">History</string>
     <string name="screen_home_commands_errors">%1$d error(s)</string>
     <string name="screen_home_commands_title">Commands</string>

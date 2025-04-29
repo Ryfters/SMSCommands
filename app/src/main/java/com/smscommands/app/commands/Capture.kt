@@ -9,6 +9,7 @@ import com.smscommands.app.commands.CaptureActivity.Companion.CAMERA_BOTH
 import com.smscommands.app.commands.CaptureActivity.Companion.CAMERA_EXTRA
 import com.smscommands.app.commands.CaptureActivity.Companion.CAMERA_FRONT
 import com.smscommands.app.commands.CaptureActivity.Companion.FLASH_MODE_EXTRA
+import com.smscommands.app.commands.Command.Companion.ID_EXTRA
 import com.smscommands.app.commands.Command.Companion.SENDER_EXTRA
 import com.smscommands.app.commands.params.ChoiceParamDefinition
 import com.smscommands.app.permissions.Permission
@@ -50,7 +51,14 @@ class Capture : Command {
         )
     )
 
-    override fun onReceive(context: Context, parameters: Map<String, Any?>, sender: String, onReply: (String) -> Unit) {
+    override fun onReceive(
+        context: Context,
+        parameters: Map<String, Any?>,
+        sender: String,
+        onReply: (String) -> Unit,
+        historyId: Long?
+    ) {
+
         val flashMode = parameters[FLASH_PARAM] as Int
         val camera = parameters[CAMERA_PARAM] as Int
 
@@ -59,6 +67,7 @@ class Capture : Command {
                     Intent.FLAG_ACTIVITY_CLEAR_TASK or
                     Intent.FLAG_ACTIVITY_NO_ANIMATION
 
+            putExtra(ID_EXTRA, historyId)
             putExtra(SENDER_EXTRA, sender)
             putExtra(FLASH_MODE_EXTRA, flashMode)
             putExtra(CAMERA_EXTRA, camera)

@@ -19,10 +19,17 @@ interface Command {
     val params: Map<String, ParamsDefinition>
         get() = emptyMap()
 
-    fun onReceive(context: Context, parameters: Map<String, Any?>, sender: String, onReply: (String) -> Unit, )
+    fun onReceive(
+        context: Context,
+        parameters: Map<String, Any?>,
+        sender: String,
+        onReply: (String) -> Unit,
+        historyId: Long?
+    )
 
     companion object {
         const val SENDER_EXTRA = "sender"
+        const val ID_EXTRA = "id"
 
         val CALL = Call()
         val CAPTURE = Capture()

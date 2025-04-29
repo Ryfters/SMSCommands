@@ -2,32 +2,18 @@ package com.smscommands.app.receiver
 
 import android.content.Context
 import android.telephony.SmsManager
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
 import com.smscommands.app.R
 import com.smscommands.app.commands.Command
 import com.smscommands.app.commands.params.FlagParamDefinition
 import com.smscommands.app.commands.params.OptionParamDefinition
 import com.smscommands.app.data.SyncPreferences
-import com.smscommands.app.data.db.HistoryDatabase
-import com.smscommands.app.data.db.HistoryRepository
-import com.smscommands.app.dataStore
-import com.smscommands.app.receiver.CommandStatus.DISABLED_COMMAND
-import com.smscommands.app.receiver.CommandStatus.INVALID_ARGS
 import com.smscommands.app.receiver.CommandStatus.INVALID_COMMAND
-import com.smscommands.app.receiver.CommandStatus.INVALID_PARAM
-import com.smscommands.app.receiver.CommandStatus.INVALID_PIN
-import com.smscommands.app.receiver.CommandStatus.MISSING_PARAM
-import com.smscommands.app.receiver.CommandStatus.MISSING_PERMISSIONS
-import com.smscommands.app.receiver.CommandStatus.SUCCESS
 import java.time.Instant
 
 fun processMessage(context: Context, sender: String, message: String) {
     if (message.startsWith("!!") == false) return
 
-    val dataStore: DataStore<Preferences> = context.dataStore
-    val database = HistoryRepository(HistoryDatabase.getDatabase(context).historyDao())
-    val syncPreferences = SyncPreferences(dataStore, database)
+    val syncPreferences = SyncPreferences.getPreferences(context)
 
     val splitMessage = message.split("/")
     val inputtedPin = splitMessage[0].removePrefix("!!")
@@ -38,11 +24,6 @@ fun processMessage(context: Context, sender: String, message: String) {
             .map { it.lowercase() }
             .toMutableList()
 
-    val onReply: (String) -> Unit = { message ->
-        val smsManager: SmsManager = context.getSystemService(SmsManager::class.java)
-        smsManager.sendTextMessage(sender, null, message, null, null)
-    }
-
     val pinCorrect = inputtedPin == syncPreferences.readPin()
 
     val selectedCommand: Command? = Command.LIST.find { command ->
@@ -50,19 +31,20 @@ fun processMessage(context: Context, sender: String, message: String) {
         commandLabel.lowercase() == inputtedCommand.lowercase()
     }
 
-    var status = SUCCESS
+    val messagesToSend = mutableListOf<String>()
+    var status: Int = R.string.command_status_success
     var commandId: String = selectedCommand?.id ?: INVALID_COMMAND
     val commandParams = mutableMapOf<String, Any?>()
 
     if (pinCorrect == false) {
-        onReply(context.getString(R.string.sms_reply_pin_invalid))
-        status = INVALID_PIN
+        messagesToSend.add(context.getString(R.string.sms_reply_pin_invalid))
+        status = R.string.command_status_invalid_pin
     } else if (selectedCommand == null) {
-        onReply(context.getString(R.string.sms_reply_command_invalid))
-        status = INVALID_COMMAND
+        messagesToSend.add(context.getString(R.string.sms_reply_command_invalid))
+        status = R.string.command_status_invalid_command
     } else if (syncPreferences.readCommandEnabled(selectedCommand.id) == false) {
-        onReply(context.getString(R.string.sms_reply_command_disabled))
-        status = DISABLED_COMMAND
+        messagesToSend.add(context.getString(R.string.sms_reply_command_disabled))
+        status = R.string.command_status_disabled_command
     } else if (
         selectedCommand.requiredPermissions.filterNot { it.isGranted(context) }.isNotEmpty()
     ) {
@@ -70,8 +52,8 @@ fun processMessage(context: Context, sender: String, message: String) {
             val replyContent = missingPermissions.joinToString { permission ->
                 context.getString(permission.label)
             }
-            onReply(context.getString(R.string.sms_reply_missing_permissions, replyContent))
-            status = MISSING_PERMISSIONS
+            messagesToSend.add(context.getString(R.string.sms_reply_missing_permissions, replyContent))
+            status = R.string.command_status_missing_permissions
     } else {
         for (param in selectedCommand.params) {
             val paramName = context.getString(param.value.name).lowercase()
@@ -88,8 +70,8 @@ fun processMessage(context: Context, sender: String, message: String) {
 
             if (inputtedParamIndex == -1) {
                 if (optionParam.required) {
-                    onReply(context.getString(R.string.sms_reply_missing_param, paramName))
-                    status = MISSING_PARAM
+                    messagesToSend.add(context.getString(R.string.sms_reply_missing_param, paramName))
+                    status = R.string.command_status_missing_param
                     break
                 }
                 commandParams[param.key] = optionParam.defaultValue
@@ -100,12 +82,12 @@ fun processMessage(context: Context, sender: String, message: String) {
             val inputtedArgument = inputtedParams[inputtedParamIndex].removePrefix("$paramName:")
 
             if (!optionParam.verifyParam(context, inputtedArgument)) {
-                onReply(context.getString(
+                messagesToSend.add(context.getString(
                     R.string.sms_reply_invalid_args,
                     paramName,
                     optionParam.possibleValues(context)
                 ))
-                status = INVALID_ARGS
+                status = R.string.command_status_invalid_args
                 break
             }
 
@@ -113,38 +95,42 @@ fun processMessage(context: Context, sender: String, message: String) {
 
             inputtedParams.removeAt(inputtedParamIndex)
         }
-        if (inputtedParams.isNotEmpty()) {
-            status = INVALID_PARAM
-            onReply(context.getString(
+        if (
+            inputtedParams.isNotEmpty() &&
+            status == R.string.command_status_success  // Don't trigger this if an error already occured
+        ) {
+            status = R.string.command_status_invalid_param
+            messagesToSend.add(context.getString(
                 R.string.sms_reply_invalid_params,
                 inputtedParams.joinToString { "'$it'" }
             ))
         }
     }
 
-    if (syncPreferences.readHistoryEnabled()) {
+    val historyId = if (syncPreferences.readHistoryEnabled()) {
         syncPreferences.saveHistoryItem(
             time = Instant.now(),
             commandId = commandId,
             status = status,
             sender = sender,
-            message = message
+            messages = messagesToSend
         )
+    } else null
+
+    val smsManager: SmsManager = context.getSystemService(SmsManager::class.java)
+    for (message in messagesToSend) {
+        smsManager.sendTextMessage(sender, null, message, null, null)
     }
 
-    if (status == SUCCESS) {
-        selectedCommand?.onReceive(context, commandParams, sender, onReply)
+    val onReply: (String) -> Unit = { message ->
+        smsManager.sendTextMessage(sender, null, message, null, null)
+        historyId?.let { syncPreferences.addToResponse(it, message) }
     }
+
+    if (status == R.string.command_status_success)
+        selectedCommand?.onReceive(context, commandParams, sender, onReply, historyId)
 }
 
 object CommandStatus {
-    const val DISABLED_COMMAND = "disabled_command"
-    const val INVALID_ARGS = "invalid_param_value"
     const val INVALID_COMMAND = "invalid_command"
-    const val INVALID_PARAM = "invalid_param"
-    const val INVALID_PIN = "invalid_pin"
-    const val MISSING_PARAM = "missing_param"
-    const val MISSING_PERMISSIONS = "missing_permissions"
-    const val SUCCESS = "success"
-
 }

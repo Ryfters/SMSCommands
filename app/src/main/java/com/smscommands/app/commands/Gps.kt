@@ -5,6 +5,7 @@ import android.content.Context
 import android.location.Location
 import android.location.LocationManager
 import com.smscommands.app.R
+import com.smscommands.app.data.SyncPreferences
 import com.smscommands.app.permissions.Permission
 import com.smscommands.app.utils.formatRelativeTime
 import java.time.Instant
@@ -19,7 +20,15 @@ class Gps : Command {
     )
 
     @SuppressLint("MissingPermission") // Already checked in .receiver.processCommands()
-    override fun onReceive(context: Context, parameters: Map<String, Any?>, sender: String, onReply: (String) -> Unit) {
+    override fun onReceive(
+        context: Context,
+        parameters: Map<String, Any?>,
+        sender: String,
+        onReply: (String) -> Unit,
+        historyId: Long?
+    ) {
+
+        var syncPreferences = SyncPreferences.getPreferences(context)
 
         var bestLocation: Location? = null
 
@@ -34,6 +43,9 @@ class Gps : Command {
 
         if (bestLocation == null) {
             onReply(context.getString(R.string.command_gps_reply_error))
+            historyId?.let {
+                syncPreferences.updateItemStatus(it, R.string.command_gps_error_location_unavailabe)
+            }
             return
         }
 

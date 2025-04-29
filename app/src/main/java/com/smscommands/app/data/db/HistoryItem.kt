@@ -7,10 +7,11 @@ import java.time.Instant
 @Entity(tableName = "command_history")
 data class HistoryItem(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    val id: Long = 0,
     val time: Instant,
     val commandId: String,
-    val status: String,
+    val status: Int,
     val sender: String,
-    val message: String,
+    val triggerMessage: String,
+    val messages: List<String>,
 )

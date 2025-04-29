@@ -22,7 +22,7 @@ fun NavGraphBuilder.history(navController: NavHostController, viewModel: UiState
     }
     
     dialog(Routes.History.ITEM_DIALOG + "{itemId}", listOf(navArgument("itemId") { type = NavType.IntType })) {
-        val itemId = it.arguments?.getInt("itemId") ?: 0
+        val itemId = it.arguments?.getInt("itemId")?.toLong() ?: 0L
         HistoryItemDialog(
             navController = navController,
             viewModel = viewModel,

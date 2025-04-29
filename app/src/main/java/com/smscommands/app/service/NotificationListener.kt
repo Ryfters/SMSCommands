@@ -4,7 +4,6 @@ import android.app.Notification
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import com.smscommands.app.data.SyncPreferences
-import com.smscommands.app.dataStore
 
 class NotificationListener : NotificationListenerService() {
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
@@ -16,7 +15,7 @@ class NotificationListener : NotificationListenerService() {
         val commandRegex = "!!\\d{0,8}/[\\s\\S]*".toRegex()
         if (!text.matches(commandRegex)) return
 
-        val syncPrefs = SyncPreferences(applicationContext.dataStore, null)
+        val syncPrefs = SyncPreferences.getPreferences(applicationContext)
         val dismissMessages = syncPrefs.readDismissNotificationType()
 
         if (dismissMessages == 0) return

@@ -14,7 +14,9 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.concurrent.futures.await
 import androidx.lifecycle.lifecycleScope
 import com.smscommands.app.R
+import com.smscommands.app.commands.Command.Companion.ID_EXTRA
 import com.smscommands.app.commands.Command.Companion.SENDER_EXTRA
+import com.smscommands.app.data.SyncPreferences
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.text.SimpleDateFormat
@@ -28,6 +30,9 @@ class CaptureActivity : ComponentActivity() {
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var cameraProvider: ProcessCameraProvider
 
+    private var syncPreferences: SyncPreferences? = null
+
+    var id: Long? = null
     var sender: String? = null
     var flashMode: Int? = null
     var camera: Int? = null
@@ -38,16 +43,20 @@ class CaptureActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         cameraExecutor = Executors.newSingleThreadExecutor()
 
+        id = intent.getLongExtra(ID_EXTRA, -1L).takeIf { it != -1L }
+
         sender = intent.getStringExtra(SENDER_EXTRA)
 
         camera = intent.getIntExtra(CAMERA_EXTRA, CAMERA_BOTH)
         flashMode = intent.getIntExtra(FLASH_MODE_EXTRA, ImageCapture.FLASH_MODE_OFF)
 
-        enableEdgeToEdge()
 
+        id?.let { syncPreferences = SyncPreferences.getPreferences(applicationContext) }
+
+        val smsManager: SmsManager = this.getSystemService(SmsManager::class.java)
         onReply = { message ->
-            val smsManager: SmsManager = this.getSystemService(SmsManager::class.java)
             smsManager.sendTextMessage(sender, null, message, null, null)
+            id?.let { syncPreferences?.addToResponse(it, message) }
         }
 
     }
@@ -57,27 +66,16 @@ class CaptureActivity : ComponentActivity() {
         val captureMode = ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY
         val flashMode = ImageCapture.FLASH_MODE_OFF
 
-        var attempts = mutableListOf<Boolean>()
-
         lifecycleScope.launch {
             cameraProvider = ProcessCameraProvider.getInstance(applicationContext).await()
 
             if (camera == CAMERA_BACK || camera == CAMERA_BOTH) {
-                val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-
-                attempts.add(
-                    takePhoto(cameraSelector, captureMode, flashMode)
-                )
+                takePhoto(CAMERA_BACK, captureMode, flashMode)
             }
 
             if (camera == CAMERA_FRONT || camera == CAMERA_BOTH) {
-                val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
-                attempts.add(
-                    takePhoto(cameraSelector, captureMode, flashMode)
-                )
+                takePhoto(CAMERA_FRONT, captureMode, flashMode)
             }
-
-            processResults(attempts)
 
             finishAndRemoveTask()
         }
@@ -144,14 +142,6 @@ class CaptureActivity : ComponentActivity() {
                 }
             )
         }
-    }
-
-    private fun processResults(attempts: MutableList<Boolean>) {
-        val successCount = attempts.count { it }
-        val attemptsCount = attempts.count()
-
-        onReply(getString(R.string.command_capture_reply_success, successCount, attemptsCount))
-
     }
 
     override fun onDestroy() {

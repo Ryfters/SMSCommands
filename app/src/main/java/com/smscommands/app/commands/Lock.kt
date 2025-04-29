@@ -14,7 +14,14 @@ class Lock : Command {
         Permission.ADMIN
     )
 
-    override fun onReceive(context: Context, parameters: Map<String, Any?>, sender: String, onReply: (String) -> Unit) {
+    override fun onReceive(
+        context: Context,
+        parameters: Map<String, Any?>,
+        sender: String,
+        onReply: (String) -> Unit,
+        historyId: Long?
+    ) {
+
         val devicePolicyManager = context.getSystemService(DevicePolicyManager::class.java)
         devicePolicyManager.lockNow()
         onReply(context.getString(R.string.command_lock_reply_success))

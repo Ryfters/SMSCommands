@@ -22,9 +22,8 @@ import com.smscommands.app.utils.formatRelativeTime
 fun HistoryItemDialog(
     navController: NavController,
     viewModel: UiStateViewModel,
-    itemId: Int
+    itemId: Long
 ) {
-
     val context = LocalContext.current
 
     val history by viewModel.history.collectAsState()
@@ -44,7 +43,7 @@ fun HistoryItemDialog(
     val statusContent = stringResource(R.string.screen_history_item_dialog_status, stringResource(item.status))
     val senderContent = stringResource(R.string.screen_history_item_dialog_sender, item.sender)
     val timeContent = stringResource(R.string.screen_history_item_dialog_time, formattedTime)
-    val messageContent = stringResource(R.string.screen_history_item_dialog_message, item.message)
+    val messageContent = stringResource(R.string.screen_history_item_dialog_message, item.triggerMessage)
 
     AlertDialog(
         onDismissRequest = { navController.popBackStack() },

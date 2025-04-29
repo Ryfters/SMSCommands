@@ -33,9 +33,15 @@ class Call : Command {
         )
     )
 
-    override fun onReceive(context: Context, parameters: Map<String, Any?>, sender: String, onReply: (String) -> Unit) {
-        val audioMode = parameters[AUDIO_PARAM] as String?
+    override fun onReceive(
+        context: Context,
+        parameters: Map<String, Any?>,
+        sender: String,
+        onReply: (String) -> Unit,
+        historyId: Long?
+    ) {
 
+        val audioMode = parameters[AUDIO_PARAM] as String?
 
         val intent = Intent(Intent.ACTION_CALL).apply {
             data = "tel:$sender".toUri()
