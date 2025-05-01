@@ -1,6 +1,7 @@
 package com.smscommands.app.ui.screens.onboarding
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
@@ -83,12 +84,9 @@ fun OnboardingScreen(
                 .padding(padding)
                 .fillMaxSize()
         ) { page ->
-            Text(
-                text = stringResource(OnboardingPages[page].content),
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-            )
+            Column(Modifier.padding(16.dp)) {
+                OnboardingPages[page].Content()
+            }
         }
     }
 }
-

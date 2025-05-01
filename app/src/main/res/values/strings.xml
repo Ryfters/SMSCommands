@@ -7,7 +7,6 @@
     <string name="command_call_param_audio_desc">Set the audio mode</string>
     <string name="command_call_param_audio_speaker">speaker</string>
     <string name="command_call_reply_success">Calling %1$s</string>
-    <string name="command_call_usage">Usage for Call</string>
     <string name="command_capture_camera_back">front camera</string>
     <string name="command_capture_camera_front">back camera</string>
     <string name="command_capture_desc">Takes a photo from your phone\'s cameras</string>
@@ -19,12 +18,9 @@
     <string name="command_capture_param_camera_front">front</string>
     <string name="command_capture_param_flash">flash</string>
     <string name="command_capture_param_flash_desc">Sets the flash mode</string>
-    <string name="command_capture_reply_success">Successfully captured %1$d/%2$d photos</string>
-    <string name="command_capture_usage">usage</string>
     <string name="command_gps_desc">Returns your device\'s current location</string>
     <string name="command_gps_error_location_disabled">Location disabled</string>
     <string name="command_gps_error_location_unavailabe">Location unavailable</string>
-    <string name="command_gps_id">gps</string>
     <string name="command_gps_label">GPS</string>
     <string name="command_gps_param_mode">mode</string>
     <string name="command_gps_param_mode_current">current</string>
@@ -34,11 +30,9 @@
     <string name="command_gps_reply">Device location: %1$s\nDetails: \n    Accurate within: %2$dm\n    Collected: %3$s</string>
     <string name="command_gps_reply_error">An error occurred, couldn\'t get last known location</string>
     <string name="command_gps_reply_no_providers">An error occurred, no provider available</string>
-    <string name="command_gps_usage">Long description for GPS</string>
     <string name="command_lock_desc">Locks your device</string>
     <string name="command_lock_label">Lock</string>
     <string name="command_lock_reply_success">Locked device</string>
-    <string name="command_lock_usage">Usage for Lock</string>
     <string name="command_ring_desc">Rings your device</string>
     <string name="command_ring_dialog_desc">Received ring request</string>
     <string name="command_ring_label">Ring</string>
@@ -46,7 +40,6 @@
     <string name="command_ring_param_time">time</string>
     <string name="command_ring_param_time_desc">Set the time to ring in seconds</string>
     <string name="command_ring_reply_stopped">Stopped ringing your device</string>
-    <string name="command_ring_usage">Usage for Ring</string>
     <string name="command_status_disabled_command">Command disabled</string>
     <string name="command_status_invalid_args">Invalid arguments</string>
     <string name="command_status_invalid_command">Invalid command</string>
@@ -55,42 +48,31 @@
     <string name="command_status_missing_param">Missing required parameters</string>
     <string name="command_status_missing_permissions">Missing permissions</string>
     <string name="command_status_success">Success</string>
-    <string name="command_status_unknown">Unknown status</string>
     <string name="common_auto">Auto</string>
-    <string name="common_back">Back</string>
-    <string name="common_bullet_v1_colon_v2"> - %1$s: %2$s</string>
     <string name="common_cancel">Cancel</string>
     <string name="common_close">Close</string>
     <string name="common_confirm">Confirm</string>
     <string name="common_disabled">Disabled</string>
     <string name="common_enabled">Enabled</string>
-    <string name="common_next">Next</string>
     <string name="common_none">None</string>
     <string name="common_off">Off</string>
     <string name="common_ok">OK</string>
     <string name="common_on">On</string>
-    <string name="common_previous">Previous</string>
     <string name="common_seperator">", "</string>
+    <string name="common_seperator_colon">": "</string>
     <string name="common_skip">Skip</string>
     <string name="common_stop">Stop</string>
-    <string name="common_v1_colon_v2">%1$s: %2$s</string>
     <string name="common_warning">Warning</string>
     <string name="param_choices_possible_values">Either of %1$s</string>
-    <string name="param_int_error_range">Value must be an integer between %1$d and %2$d</string>
     <string name="param_int_possible_values">Integer between %1$d and %2$d</string>
     <string name="permission_admin">Device Admin</string>
-    <string name="permission_admin_desc">Device admin desc</string>
     <string name="permission_camera">Camera</string>
-    <string name="permission_device_admin">Device admin</string>
     <string name="permission_location">Location (All the time)</string>
     <string name="permission_manage_notifications">Manage notifications</string>
     <string name="permission_manage_notifications_desc">Optional, required to dismiss Messages\' notifications when they include a command</string>
-    <string name="permission_notification">Notifications</string>
-    <string name="permission_notification_desc">Required for the app to send you notifications</string>
     <string name="permission_overlay">Display over apps</string>
     <string name="permission_overlay_desc">Most actions need to be accomplished within an activity(aka in the foreground)</string>
     <string name="permission_phone">Phone</string>
-    <string name="permission_phone_desc">Required to make phone calls</string>
     <string name="permission_sms">SMS</string>
     <string name="permission_sms_desc">Required for the app to function correctly</string>
     <string name="ringing_device_for_seconds">Ringing device for %1$d seconds</string>
@@ -99,7 +81,6 @@
     <string name="screen_commands_status">Status</string>
     <string name="screen_commands_status_missing_perms">Missing permissions</string>
     <string name="screen_commands_title">Commands</string>
-    <string name="screen_commands_usage">Usage: %1$s</string>
     <string name="screen_history_clear_confirm">Delete history</string>
     <string name="screen_history_clear_message">Your entire command history will be cleared</string>
     <string name="screen_history_clear_title">Clear history?</string>
@@ -113,7 +94,6 @@
     <string name="screen_history_item_dialog_time">Time: %1$s</string>
     <string name="screen_history_title">History</string>
     <string name="screen_home_commands_errors">%1$d error(s)</string>
-    <string name="screen_home_commands_title">Commands</string>
     <string name="screen_home_enabled_count">%1$d/%2$d enabled</string>
     <string name="screen_home_history_disabled">History is disabled</string>
     <string name="screen_home_history_empty">Start by sending a command first</string>
@@ -137,21 +117,16 @@
     <string name="screen_lock_prompt_title">Authenticate to continue</string>
     <string name="screen_lock_unlock_biometrics">Unlock with device lock</string>
     <string name="screen_lock_unlock_pin">Unlock with PIN</string>
-    <string name="screen_onboarding_command_content">To use a command, text yourself a message with the following structure:\n\'!!{PIN}/{command}/{parameters}\'\n - !!: This prefix is required for the app to process the command.\n - PIN: Your access pin, you can change it at any time on the home screen.\n - Command: The command you want to run, it must be enabled in the Commands screen\n - Parameters: More about them on the next page</string>
     <string name="screen_onboarding_command_title">Sending commands</string>
     <string name="screen_onboarding_intro_content">Welcome to SMS Commands! This app lets you easily perform basic tasks, such as locking your device or getting its location simply by sending yourself an SMS.</string>
     <string name="screen_onboarding_intro_title">Welcome</string>
-    <string name="screen_onboarding_parameters_content">"To use parameters, simply add them to the parameter section of the command, separated by spaces.\nThere are 2 types of parameters, flags and options\n - Flags: You just need include them in the parameters\n - Options: They require an argument, and are formatted like that: 'parameter:argument'"</string>
     <string name="screen_onboarding_parameters_title">Parameters</string>
     <string name="screen_perms_decline_warning">On Android 11+, if you deny a permission more than once, the app won\'t be able to request it again, so you\'ll have to enable it yourself in the settings</string>
     <string name="screen_perms_decline_warning_settings">Go to settings</string>
     <string name="screen_perms_granted">Granted</string>
     <string name="screen_perms_not_granted">Not granted</string>
-    <string name="screen_perms_notification_rationale">getting notified when someone uses the app (recommended)</string>
     <string name="screen_perms_perm_required_for">required for %1$s</string>
     <string name="screen_perms_title">Permissions</string>
-    <string name="screen_settings_color_theme_content_dynamic_enabled">Dynamic colors must be disabled</string>
-    <string name="screen_settings_color_theme_title">Custom color theme</string>
     <string name="screen_settings_dark_theme">Dark theme</string>
     <string name="screen_settings_dark_theme_title">Dark theme</string>
     <string name="screen_settings_dismiss_desc">Dismisses Google Messages\' notifications if they include a command.</string>
@@ -164,8 +139,6 @@
     <string name="screen_settings_dynamic_color_title">Dynamic color</string>
     <string name="screen_settings_history_content">Track your history</string>
     <string name="screen_settings_history_title">History</string>
-    <string name="screen_settings_notifications_content">Manage notifications</string>
-    <string name="screen_settings_notifications_title">Notifications</string>
     <string name="screen_settings_require_pin_content">Authenticate with your device lock or PIN each time you open this app.</string>
     <string name="screen_settings_require_pin_title">App lock</string>
     <string name="screen_settings_source_code_content">Source code of this app</string>
@@ -194,7 +167,6 @@
     <string name="sms_reply_invalid_params">The following parameters are invalid: %1$s</string>
     <string name="sms_reply_missing_param">Missing required parameter \'%1$s\'</string>
     <string name="sms_reply_missing_permissions">Missing the following permission(s): %1$s</string>
-    <string name="sms_reply_parameter_unknown">Unknown value for parameter \'%1$s\'</string>
     <string name="sms_reply_pin_invalid">Invalid pin</string>
     <string name="timeformat_dd_MM_at">dd/MM \'at\' HH:mm</string>
     <string name="timeformat_dd_MM_yy">dd/MM/yy</string>
@@ -206,4 +178,5 @@
     <string name="url_github_releases" translatable="false">https://github.com/RyfterWasTaken/SMSCommands/releases</string>
     <string name="url_maps" translatable="false"><![CDATA[https://www.google.com/maps/search/?api=1&query=%1$f,%2$f]]></string>
     <string name="command_gps_reply_location_disabled">Location is disabled</string>
+    <string name="screen_onboarding_permissions_title">Permissions</string>
 </resources>

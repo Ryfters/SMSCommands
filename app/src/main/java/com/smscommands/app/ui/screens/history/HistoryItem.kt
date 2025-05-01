@@ -24,11 +24,9 @@ fun HistoryItem(
         ?: R.string.command_status_invalid_command
 
     val headline =
-        stringResource(
-            R.string.common_v1_colon_v2,
-            historyItem.sender,
-            stringResource(commandNameRes)
-        )
+        historyItem.sender +
+                stringResource(R.string.common_seperator_colon) +
+                stringResource(commandNameRes)
 
     val formattedTime = formatRelativeTime(context, historyItem.time)
     val content =
