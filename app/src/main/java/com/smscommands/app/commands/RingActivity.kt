@@ -61,8 +61,7 @@ class RingActivity : ComponentActivity() {
         }
 
         keepVolUpJob = GlobalScope.launch {
-            // In case for some reason the job doesn't cancel
-            (1..60).forEach { i ->
+            while (true) {
                 delay(5_000)
                 setMaxStreamVolume()
             }
