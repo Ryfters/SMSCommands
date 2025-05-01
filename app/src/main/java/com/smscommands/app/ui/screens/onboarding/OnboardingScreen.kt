@@ -31,13 +31,13 @@ fun OnboardingScreen(
     navController: NavController,
     viewModel: UiStateViewModel,
 ) {
-    val pageCount = OnboardingPages.size
+    val pageCount = OnboardingPage.LIST.size
     val pagerState = rememberPagerState { pageCount }
 
     val currentPage = pagerState.currentPage
     val pageOffset = pagerState.currentPageOffsetFraction
 
-    val pageTitle = stringResource(OnboardingPages[currentPage].title)
+    val pageTitle = stringResource(OnboardingPage.LIST[currentPage].title)
 
     val onNextClicked = {
         viewModel.updateIsFirstLaunch(false)
@@ -85,7 +85,7 @@ fun OnboardingScreen(
                 .fillMaxSize()
         ) { page ->
             Column(Modifier.padding(16.dp)) {
-                OnboardingPages[page].Content()
+                OnboardingPage.LIST[page].Content()
             }
         }
     }
