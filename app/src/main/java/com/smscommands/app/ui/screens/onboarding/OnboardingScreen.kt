@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.smscommands.app.R
 import com.smscommands.app.data.UiStateViewModel
-import com.smscommands.app.ui.components.ProgressNavBar
+import com.smscommands.app.ui.components.PagerProgressBar
 import com.smscommands.app.ui.navigation.Routes
 import kotlin.math.absoluteValue
 
@@ -69,10 +69,8 @@ fun OnboardingScreen(
             )
         },
         bottomBar = {
-            ProgressNavBar(
-                pageIndex = currentPage,
-                pageCount = pageCount,
-                pageOffset = pageOffset,
+            PagerProgressBar(
+                pagerState = pagerState,
                 nextButton = nextButton
             )
         }

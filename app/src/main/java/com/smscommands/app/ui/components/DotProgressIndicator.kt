@@ -3,6 +3,7 @@ package com.smscommands.app.ui.components
 import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -10,71 +11,86 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.StrokeCap
-import kotlin.math.absoluteValue
 
 
 @Composable
 fun DotProgressIndicator(
-    currentPage: Int,
-    totalScreens: Int,
-    pageOffset: Float,
+    pagerState: PagerState,
     modifier: Modifier = Modifier
 ) {
-    val selectedColor = MaterialTheme.colorScheme.primary
-    val unselectedColor = MaterialTheme.colorScheme.primaryContainer
+    val totalPages = pagerState.pageCount
+
+    if (totalPages <= 1) return
+
+    val currentPage = pagerState.currentPage
+    val pageOffset = pagerState.currentPageOffsetFraction
+
+    val activeColor = MaterialTheme.colorScheme.primary
+    val inactiveColor = MaterialTheme.colorScheme.primaryContainer
 
     val dotRadius = 9f
     val dotSpacing = 30f
 
-    val totalWidth = dotSpacing * (totalScreens - 1) + dotRadius * 2
+    val totalWidth = dotSpacing * (totalPages - 1) + dotRadius * 2
 
-    // Inverting the length 1 page /2 so animation doesnt switch from -.5 to .5 when page changes
-    val sign = if (currentPage % 2 == 0) 1 else -1
 
-    val animatedValue = remember { Animatable(0f) }
-    val lineLength = animatedValue.value * sign
+    // Doing this ensures the animation has fully extended before retracting the other side
 
-    val targetLength = when {
-        pageOffset < -0.1f -> -dotSpacing
-        pageOffset > 0.1f -> dotSpacing
-        else -> 0f
+    val animationTarget = currentPage + pageOffset
+
+    val animatedPosition = remember { Animatable(animationTarget) }
+    LaunchedEffect(animationTarget) {
+        animatedPosition.animateTo(animationTarget)
     }
 
-    LaunchedEffect(targetLength) {
-        animatedValue.animateTo(targetLength * sign)
-    }
+    val constrainedAnimationValue =
+        animatedPosition.value.coerceIn(animationTarget - 0.5f, animationTarget + 0.5f)
 
-    // Forcing minimum line length to stop jumps whenever it switches before reaching max length
-    LaunchedEffect(pageOffset) {
-        if (pageOffset.absoluteValue > 0.25f) {
-            val minOffset = (pageOffset.absoluteValue - 0.25f) * 4 * targetLength * sign
-            if (animatedValue.value.absoluteValue < minOffset.absoluteValue) {
-                animatedValue.snapTo(minOffset)
-            }
+    val animatedCurrentOffset =
+        (constrainedAnimationValue - constrainedAnimationValue.toInt()).let {
+            if (it < 0.5) it.coerceAtMost(0.25f) * 4
+            else (it - 1).coerceAtLeast(-0.25f) * 4
         }
-    }
+
+    val animatedCurrentPage =
+        if (animatedCurrentOffset < 0) constrainedAnimationValue.toInt() + 1
+        else constrainedAnimationValue.toInt()
+
+
+    // Forcing minimum line length to catch up faster in case the user scrolls fast
+//    LaunchedEffect(pageOffset) {
+//        if ((animationTarget - lineAnimation.value) > 0.5f) {
+//            lineAnimation.snapTo(animationTarget - 0.5f)
+//        } else if ((animationTarget - lineAnimation.value) < -0.5f) {
+//            lineAnimation.snapTo(animationTarget + 0.5f)
+//        }
+//    }
+
+
 
 
     Canvas(
         modifier = modifier
             .fillMaxHeight()
     ) {
-        for (i in 0 until totalScreens) {
+        for (i in 0 until totalPages) {
             val xOffset = (i * dotSpacing) - totalWidth/2
             val offset = Offset(xOffset, this.center.y)
             drawCircle(
-                color = unselectedColor,
+                color = inactiveColor,
                 radius = dotRadius,
                 center = offset
             )
         }
 
-        val xOffset = (currentPage * dotSpacing) - totalWidth/2
-        val lineStartOffset = Offset(xOffset, this.center.y)
-        val lineEndOffset = Offset(lineStartOffset.x + lineLength, this.center.y)
+        val xStartOffset = (animatedCurrentPage * dotSpacing) - totalWidth / 2
+        val xEndOffset =
+            ((animatedCurrentPage + animatedCurrentOffset) * dotSpacing) - totalWidth / 2
+        val lineStartOffset = Offset(xStartOffset, this.center.y)
+        val lineEndOffset = Offset(xEndOffset, this.center.y)
 
         drawLine(
-            color = selectedColor,
+            color = activeColor,
             start = lineStartOffset,
             end = lineEndOffset,
             strokeWidth = dotRadius * 2,
