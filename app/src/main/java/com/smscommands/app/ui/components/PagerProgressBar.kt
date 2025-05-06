@@ -24,7 +24,6 @@ fun PagerProgressBar(
             .height(IntrinsicSize.Min)
     ) {
         DotProgressIndicator(pagerState)
-//        PagerDots(pagerState, MaterialTheme.colorScheme.primary, MaterialTheme.colorScheme.primaryContainer)
         nextButton(Modifier.align(Alignment.CenterEnd))
     }
 }

@@ -35,8 +35,8 @@ fun DotProgressIndicator(
 
 
     // Doing this ensures the animation has fully extended before retracting the other side
-
-    val animationTarget = currentPage + pageOffset
+    // FIXME: getOffsetDistanceInPages is wrong?
+    val animationTarget = -pagerState.getOffsetDistanceInPages(0)
 
     val animatedPosition = remember { Animatable(animationTarget) }
     LaunchedEffect(animationTarget) {
@@ -55,17 +55,6 @@ fun DotProgressIndicator(
     val animatedCurrentPage =
         if (animatedCurrentOffset < 0) constrainedAnimationValue.toInt() + 1
         else constrainedAnimationValue.toInt()
-
-
-    // Forcing minimum line length to catch up faster in case the user scrolls fast
-//    LaunchedEffect(pageOffset) {
-//        if ((animationTarget - lineAnimation.value) > 0.5f) {
-//            lineAnimation.snapTo(animationTarget - 0.5f)
-//        } else if ((animationTarget - lineAnimation.value) < -0.5f) {
-//            lineAnimation.snapTo(animationTarget + 0.5f)
-//        }
-//    }
-
 
 
 
