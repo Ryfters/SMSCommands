@@ -1,6 +1,7 @@
 package com.smscommands.app.ui.screens.onboarding
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -13,6 +14,7 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -23,6 +25,7 @@ import com.smscommands.app.R
 import com.smscommands.app.data.UiStateViewModel
 import com.smscommands.app.ui.components.PagerProgressBar
 import com.smscommands.app.ui.navigation.Routes
+import kotlinx.coroutines.delay
 import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -39,7 +42,14 @@ fun OnboardingScreen(
 
     val pageTitle = stringResource(OnboardingPage.LIST[currentPage].title)
 
-    val onNextClicked = {
+    LaunchedEffect(Unit) {
+        delay(1000L)
+        (0..1).forEach {
+            pagerState.animateScrollBy(-pagerState.animateScrollBy(86f))
+        }
+    }
+
+    val onNextClicked: () -> Unit = {
         viewModel.updateIsFirstLaunch(false)
         navController.navigate(Routes.Home.MAIN) {
             popUpTo(Routes.Home.MAIN)
