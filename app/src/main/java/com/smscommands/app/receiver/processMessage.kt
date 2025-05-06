@@ -32,19 +32,19 @@ fun processMessage(context: Context, sender: String, trigger: String) {
     }
 
     val messagesToSend = mutableListOf<String>()
-    var status: Int = R.string.command_status_success
+    var status: Int = R.string.status_success
     var commandId: String = selectedCommand?.id ?: INVALID_COMMAND
     val commandParams = mutableMapOf<String, Any?>()
 
     if (pinCorrect == false) {
         messagesToSend.add(context.getString(R.string.sms_reply_pin_invalid))
-        status = R.string.command_status_invalid_pin
+        status = R.string.status_invalid_pin
     } else if (selectedCommand == null) {
         messagesToSend.add(context.getString(R.string.sms_reply_command_invalid))
-        status = R.string.command_status_invalid_command
+        status = R.string.status_invalid_command
     } else if (syncPreferences.readCommandEnabled(selectedCommand.id) == false) {
         messagesToSend.add(context.getString(R.string.sms_reply_command_disabled))
-        status = R.string.command_status_disabled_command
+        status = R.string.status_disabled_command
     } else if (
         selectedCommand.requiredPermissions.filterNot { it.isGranted(context) }.isNotEmpty()
     ) {
@@ -53,7 +53,7 @@ fun processMessage(context: Context, sender: String, trigger: String) {
                 context.getString(permission.label)
             }
             messagesToSend.add(context.getString(R.string.sms_reply_missing_permissions, replyContent))
-            status = R.string.command_status_missing_permissions
+        status = R.string.status_missing_permissions
     } else {
         for (param in selectedCommand.params) {
             val paramName = context.getString(param.value.name).lowercase()
@@ -71,7 +71,7 @@ fun processMessage(context: Context, sender: String, trigger: String) {
             if (inputtedParamIndex == -1) {
                 if (optionParam.required) {
                     messagesToSend.add(context.getString(R.string.sms_reply_missing_param, paramName))
-                    status = R.string.command_status_missing_param
+                    status = R.string.status_missing_param
                     break
                 }
                 commandParams[param.key] = optionParam.defaultValue
@@ -87,7 +87,7 @@ fun processMessage(context: Context, sender: String, trigger: String) {
                     paramName,
                     optionParam.possibleValues(context)
                 ))
-                status = R.string.command_status_invalid_args
+                status = R.string.status_invalid_args
                 break
             }
 
@@ -97,9 +97,9 @@ fun processMessage(context: Context, sender: String, trigger: String) {
         }
         if (
             inputtedParams.isNotEmpty() &&
-            status == R.string.command_status_success  // Don't trigger this if an error already occured
+            status == R.string.status_success  // Don't trigger this if an error already occured
         ) {
-            status = R.string.command_status_invalid_param
+            status = R.string.status_invalid_param
             messagesToSend.add(context.getString(
                 R.string.sms_reply_invalid_params,
                 inputtedParams.joinToString { "'$it'" }
@@ -127,7 +127,7 @@ fun processMessage(context: Context, sender: String, trigger: String) {
         historyId?.let { syncPreferences.addToResponse(it, message) }
     }
 
-    if (status == R.string.command_status_success)
+    if (status == R.string.status_success)
         selectedCommand?.onReceive(context, commandParams, sender, onReply, historyId)
 }
 

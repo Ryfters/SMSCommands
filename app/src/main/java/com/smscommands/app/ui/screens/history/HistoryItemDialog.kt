@@ -35,7 +35,7 @@ fun HistoryItemDialog(
     }
 
     val commandName = Command.LIST.find { it.id == item.commandId }?.label
-        ?: R.string.command_status_invalid_command
+        ?: R.string.status_invalid_command
 
     val formattedTime = formatRelativeTime(context, item.time).replaceFirstChar { it.uppercase() }
 

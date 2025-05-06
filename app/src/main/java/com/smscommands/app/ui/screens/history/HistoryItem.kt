@@ -21,7 +21,7 @@ fun HistoryItem(
     val context: Context = LocalContext.current
 
     val commandNameRes = Command.LIST.find { command -> command.id == historyItem.commandId }?.label
-        ?: R.string.command_status_invalid_command
+        ?: R.string.status_invalid_command
 
     val headline =
         historyItem.sender +

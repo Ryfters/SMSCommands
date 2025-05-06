@@ -29,6 +29,7 @@
     <string name="command_gps_param_mode_last_recent">lastRecent</string>
     <string name="command_gps_reply">Device location: %1$s\nDetails: \n    Accurate within: %2$dm\n    Collected: %3$s</string>
     <string name="command_gps_reply_error">An error occurred, couldn\'t get last known location</string>
+    <string name="command_gps_reply_location_disabled">Location is disabled</string>
     <string name="command_gps_reply_no_providers">An error occurred, no provider available</string>
     <string name="command_lock_desc">Locks your device</string>
     <string name="command_lock_label">Lock</string>
@@ -40,14 +41,6 @@
     <string name="command_ring_param_time">time</string>
     <string name="command_ring_param_time_desc">Set the time to ring in seconds</string>
     <string name="command_ring_reply_stopped">Stopped ringing your device</string>
-    <string name="command_status_disabled_command">Command disabled</string>
-    <string name="command_status_invalid_args">Invalid arguments</string>
-    <string name="command_status_invalid_command">Invalid command</string>
-    <string name="command_status_invalid_param">Invalid parameters</string>
-    <string name="command_status_invalid_pin">Wrong PIN</string>
-    <string name="command_status_missing_param">Missing required parameters</string>
-    <string name="command_status_missing_permissions">Missing permissions</string>
-    <string name="command_status_success">Success</string>
     <string name="common_auto">Auto</string>
     <string name="common_cancel">Cancel</string>
     <string name="common_close">Close</string>
@@ -121,6 +114,7 @@
     <string name="screen_onboarding_intro_content">Welcome to SMS Commands! This app lets you easily perform basic tasks, such as locking your device or getting its location simply by sending yourself an SMS.</string>
     <string name="screen_onboarding_intro_title">Welcome</string>
     <string name="screen_onboarding_parameters_title">Parameters</string>
+    <string name="screen_onboarding_permissions_title">Permissions</string>
     <string name="screen_perms_decline_warning">On Android 11+, if you deny a permission more than once, the app won\'t be able to request it again, so you\'ll have to enable it yourself in the settings</string>
     <string name="screen_perms_decline_warning_settings">Go to settings</string>
     <string name="screen_perms_granted">Granted</string>
@@ -168,6 +162,14 @@
     <string name="sms_reply_missing_param">Missing required parameter \'%1$s\'</string>
     <string name="sms_reply_missing_permissions">Missing the following permission(s): %1$s</string>
     <string name="sms_reply_pin_invalid">Invalid pin</string>
+    <string name="status_disabled_command">Command disabled</string>
+    <string name="status_invalid_args">Invalid arguments</string>
+    <string name="status_invalid_command">Invalid command</string>
+    <string name="status_invalid_param">Invalid parameters</string>
+    <string name="status_invalid_pin">Wrong PIN</string>
+    <string name="status_missing_param">Missing required parameters</string>
+    <string name="status_missing_permissions">Missing permissions</string>
+    <string name="status_success">Success</string>
     <string name="timeformat_dd_MM_at">dd/MM \'at\' HH:mm</string>
     <string name="timeformat_dd_MM_yy">dd/MM/yy</string>
     <string name="timeformat_dd_MM_yy_at">dd/MM/yy \'at\' HH:mm</string>
@@ -177,6 +179,4 @@
     <string name="url_github" translatable="false">https://github.com/RyfterWasTaken/SMSCommands</string>
     <string name="url_github_releases" translatable="false">https://github.com/RyfterWasTaken/SMSCommands/releases</string>
     <string name="url_maps" translatable="false"><![CDATA[https://www.google.com/maps/search/?api=1&query=%1$f,%2$f]]></string>
-    <string name="command_gps_reply_location_disabled">Location is disabled</string>
-    <string name="screen_onboarding_permissions_title">Permissions</string>
 </resources>
