@@ -22,9 +22,6 @@ fun DotProgressIndicator(
 
     if (totalPages <= 1) return
 
-    val currentPage = pagerState.currentPage
-    val pageOffset = pagerState.currentPageOffsetFraction
-
     val activeColor = MaterialTheme.colorScheme.primary
     val inactiveColor = MaterialTheme.colorScheme.primaryContainer
 
