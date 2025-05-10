@@ -45,6 +45,7 @@
     <string name="common_cancel">Cancel</string>
     <string name="common_close">Close</string>
     <string name="common_confirm">Confirm</string>
+    <string name="common_details">Details</string>
     <string name="common_disabled">Disabled</string>
     <string name="common_enabled">Enabled</string>
     <string name="common_none">None</string>

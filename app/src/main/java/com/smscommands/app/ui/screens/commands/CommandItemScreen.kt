@@ -63,7 +63,7 @@ fun CommandItemScreen(
             as Map<String, OptionParamDefinition>
 
         Column {
-            Subtitle("Details")
+            Subtitle(stringResource(R.string.common_details))
             MyListItem(
                 title = stringResource(R.string.screen_commands_status),
                 content = status,
