@@ -97,7 +97,7 @@ fun processMessage(context: Context, sender: String, trigger: String) {
         }
         if (
             inputtedParams.isNotEmpty() &&
-            status == R.string.status_success  // Don't trigger this if an error already occured
+            status == R.string.status_success  // Don't trigger this if an error already occurred
         ) {
             status = R.string.status_invalid_param
             messagesToSend.add(context.getString(
