@@ -1,7 +1,11 @@
 package com.smscommands.app.ui.screens.history
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -88,6 +92,10 @@ fun HistoryScreen(
                         navController.navigate(Routes.History.ITEM_DIALOG + historyItem.id)
                     }
                 )
+            }
+
+            item {
+                Spacer(Modifier.padding(WindowInsets.navigationBars.asPaddingValues()))
             }
         }
     }
