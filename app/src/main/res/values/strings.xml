@@ -80,12 +80,12 @@
     <string name="screen_history_clear_title">Clear history?</string>
     <string name="screen_history_error_empty">Nothing here yet</string>
     <string name="screen_history_error_not_enabled">You will need to enable history in the settings to use this feature</string>
-    <string name="screen_history_item_dialog_command">Command: %1$s</string>
+    <string name="screen_history_item_dialog_command">Command</string>
     <string name="screen_history_item_dialog_jump_to_conv">Jump to conversation</string>
-    <string name="screen_history_item_dialog_message">Message: %1$s</string>
-    <string name="screen_history_item_dialog_sender">Sender: %1$s</string>
-    <string name="screen_history_item_dialog_status">Status: %1$s</string>
-    <string name="screen_history_item_dialog_time">Time: %1$s</string>
+    <string name="screen_history_item_dialog_message">Message</string>
+    <string name="screen_history_item_dialog_sender">Sender</string>
+    <string name="screen_history_item_dialog_status">Status</string>
+    <string name="screen_history_item_dialog_time">Time</string>
     <string name="screen_history_title">History</string>
     <string name="screen_home_commands_errors">%1$d error(s)</string>
     <string name="screen_home_enabled_count">%1$d/%2$d enabled</string>

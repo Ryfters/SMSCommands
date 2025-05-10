@@ -9,7 +9,7 @@ import androidx.navigation.navArgument
 import com.smscommands.app.data.UiStateViewModel
 import com.smscommands.app.ui.navigation.Routes
 import com.smscommands.app.ui.screens.history.ClearHistoryDialog
-import com.smscommands.app.ui.screens.history.HistoryItemDialog
+import com.smscommands.app.ui.screens.history.HistoryItemScreen
 import com.smscommands.app.ui.screens.history.HistoryScreen
 
 fun NavGraphBuilder.history(navController: NavHostController, viewModel: UiStateViewModel) {
@@ -20,10 +20,13 @@ fun NavGraphBuilder.history(navController: NavHostController, viewModel: UiState
             viewModel = viewModel
         )
     }
-    
-    dialog(Routes.History.ITEM_DIALOG + "{itemId}", listOf(navArgument("itemId") { type = NavType.IntType })) {
+
+    composable(
+        Routes.History.ITEM_DIALOG + "{itemId}",
+        listOf(navArgument("itemId") { type = NavType.IntType })
+    ) {
         val itemId = it.arguments?.getInt("itemId")?.toLong() ?: 0L
-        HistoryItemDialog(
+        HistoryItemScreen(
             navController = navController,
             viewModel = viewModel,
             itemId = itemId
