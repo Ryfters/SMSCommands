@@ -1,7 +1,6 @@
 package com.smscommands.app.ui.screens.history
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -50,6 +49,7 @@ fun HistoryScreen(
             }
         },
         showUpButton = true,
+        consumeNavPadding = false
     ) {
         val historyEnabled by viewModel.historyEnabled.collectAsState()
         val history by viewModel.history.collectAsState()
@@ -85,17 +85,15 @@ fun HistoryScreen(
             return@MainScaffold
         }
 
-        LazyColumn {
+        LazyColumn(
+            contentPadding = WindowInsets.navigationBars.asPaddingValues()
+        ) {
             items(history) { historyItem ->
                 HistoryItem(historyItem,
                     onInfoPressed = {
                         navController.navigate(Routes.History.ITEM_DIALOG + historyItem.id)
                     }
                 )
-            }
-
-            item {
-                Spacer(Modifier.padding(WindowInsets.navigationBars.asPaddingValues()))
             }
         }
     }

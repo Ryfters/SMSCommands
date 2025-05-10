@@ -1,7 +1,5 @@
 package com.smscommands.app.ui.screens.commands
 
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Switch
 import androidx.compose.runtime.Composable
@@ -34,36 +32,36 @@ fun CommandsScreen(
     ) {
         val commandPreferences by viewModel.commandPreferences.collectAsState()
         val permissionsState by viewModel.permissionsState.collectAsState()
-        LazyColumn {
-            items(Command.LIST) { command ->
-                val missingPermissions = (command.requiredPermissions + Permission.BASE)
-                    .filter { permission -> permissionsState[permission.id] == false }
 
-                val disabled = missingPermissions.isNotEmpty()
+        Command.LIST.forEach { command ->
+            val missingPermissions = (command.requiredPermissions + Permission.BASE)
+                .filter { permission -> permissionsState[permission.id] == false }
 
-                val content =
-                    if (disabled)
-                        stringResource(R.string.screen_commands_missing_permissions,
-                            missingPermissions.joinToString { context.getString(it.label) })
-                    else stringResource(command.description)
+            val disabled = missingPermissions.isNotEmpty()
+
+            val content =
+                if (disabled)
+                    stringResource(
+                        R.string.screen_commands_missing_permissions,
+                        missingPermissions.joinToString { context.getString(it.label) })
+                else stringResource(command.description)
 
 
-                MyListItem(
-                    title = stringResource(command.label),
-                    content = content,
-                    onClick = { navController.navigate(Routes.Commands.ITEM + command.id) },
-                    separator = true,
-                    action = {
-                        Switch(
-                            checked = commandPreferences[command.id] == true,
-                            onCheckedChange = { value ->
-                                viewModel.updateCommandPreference(command.id, value)
-                            },
-                            enabled = !disabled
-                        )
-                    }
-                )
-            }
+            MyListItem(
+                title = stringResource(command.label),
+                content = content,
+                onClick = { navController.navigate(Routes.Commands.ITEM + command.id) },
+                separator = true,
+                action = {
+                    Switch(
+                        checked = commandPreferences[command.id] == true,
+                        onCheckedChange = { value ->
+                            viewModel.updateCommandPreference(command.id, value)
+                        },
+                        enabled = !disabled
+                    )
+                }
+            )
         }
     }
 }

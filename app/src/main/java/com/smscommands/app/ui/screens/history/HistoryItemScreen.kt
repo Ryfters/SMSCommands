@@ -2,12 +2,6 @@ package com.smscommands.app.ui.screens.history
 
 import android.content.Intent
 import android.util.Log
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.navigationBars
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -41,7 +35,8 @@ fun HistoryItemScreen(
     MainScaffold(
         navController = navController,
         title = "History",
-        showUpButton = true
+        showUpButton = true,
+        modifier = Modifier.verticalScroll(rememberScrollState())
     ) {
         val context = LocalContext.current
 
@@ -60,59 +55,53 @@ fun HistoryItemScreen(
             formatRelativeTime(context, item.time).replaceFirstChar { it.uppercase() }
 
 
-        Column(
-            modifier = Modifier.verticalScroll(rememberScrollState())
-        ) {
-            Subtitle(stringResource(R.string.common_details))
-            MyListItem(
-                title = stringResource(R.string.screen_history_item_dialog_command),
-                content = stringResource(commandName)
-            )
-            MyListItem(
-                title = stringResource(R.string.screen_history_item_dialog_status),
-                content = stringResource(item.status)
-            )
-            MyListItem(
-                title = stringResource(R.string.screen_history_item_dialog_sender),
-                content = item.sender
-            )
-            MyListItem(
-                title = stringResource(R.string.screen_history_item_dialog_time),
-                content = formattedTime
-            )
+        Subtitle(stringResource(R.string.common_details))
+        MyListItem(
+            title = stringResource(R.string.screen_history_item_dialog_command),
+            content = stringResource(commandName)
+        )
+        MyListItem(
+            title = stringResource(R.string.screen_history_item_dialog_status),
+            content = stringResource(item.status)
+        )
+        MyListItem(
+            title = stringResource(R.string.screen_history_item_dialog_sender),
+            content = item.sender
+        )
+        MyListItem(
+            title = stringResource(R.string.screen_history_item_dialog_time),
+            content = formattedTime
+        )
 
-            // TODO: Better
-            Subtitle("Conversation")
+        // TODO: Better
+        Subtitle("Conversation")
 //            MyListItem(
 //                title = stringResource(R.string.screen_history_item_dialog_jump_to_conv),
 //
 //            )
-            MyListItem(
-                title = "Conversation",
-                action = {
-                    IconButton(
-                        onClick = {
-                            val intent = Intent(Intent.ACTION_VIEW).apply {
-                                data = "smsto:${item.sender}".toUri()
-                            }
-                            context.startActivity(intent)
+        MyListItem(
+            title = "Conversation",
+            action = {
+                IconButton(
+                    onClick = {
+                        val intent = Intent(Intent.ACTION_VIEW).apply {
+                            data = "smsto:${item.sender}".toUri()
                         }
-                    ) {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_open_in),
-                            contentDescription = null
-                        )
+                        context.startActivity(intent)
                     }
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_open_in),
+                        contentDescription = null
+                    )
                 }
-            )
+            }
+        )
 
-            HorizontalDivider()
-            ChatPreview(
-                triggerMessage = item.trigger,
-                responses = item.messages
-            )
-
-            Spacer(Modifier.padding(WindowInsets.navigationBars.asPaddingValues()))
-        }
+        HorizontalDivider()
+        ChatPreview(
+            triggerMessage = item.trigger,
+            responses = item.messages
+        )
     }
 }

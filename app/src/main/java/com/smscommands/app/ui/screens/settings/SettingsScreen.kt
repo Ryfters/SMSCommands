@@ -1,12 +1,6 @@
 package com.smscommands.app.ui.screens.settings
 
 import android.content.Intent
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.navigationBars
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -42,6 +36,7 @@ fun SettingsScreen(
         navController = navController,
         title = stringResource(R.string.screen_settings_title),
         showUpButton = true,
+        modifier = Modifier.verticalScroll(rememberScrollState())
     ) {
         val context = LocalContext.current
 
@@ -82,128 +77,122 @@ fun SettingsScreen(
         )
 
 
-        Column(
-            modifier = Modifier.verticalScroll(rememberScrollState()),
-        ) {
-            Subtitle(stringResource(R.string.screen_settings_subtitle_preferences))
-            MyListItem(
-                title = stringResource(R.string.screen_settings_dismiss_title),
-                content = dismissMessagesContent,
-                onClick = {
-                    navController.navigate(Routes.Settings.DISMISS_NOTIFICATIONS_DIALOG)
-                }
-            )
-            MyListItem(
-                title = stringResource(R.string.screen_settings_require_pin_title),
-                content = stringResource(R.string.screen_settings_require_pin_content),
-                action = {
-                    Switch(
-                        checked = requirePin,
-                        onCheckedChange = { value ->
-                            viewModel.updateSignedIn(true)
-                            viewModel.updateRequirePin(value)
-                        }
-                    )
-                }
-            )
-            MyListItem(
-                title = stringResource(R.string.screen_settings_history_title),
-                content = stringResource(R.string.screen_settings_history_content),
-                onClick = {
-                    navController.navigate(Routes.History.MAIN) {
-                        popUpTo(Routes.Home.MAIN)
-                    }
-                },
-                separator = true,
-                action = {
-                    Switch(
-                        checked = historyEnabled,
-                        onCheckedChange = { value ->
-                            viewModel.clearHistory()
-                            viewModel.updateHistoryEnabled(value)
-                        }
-                    )
-                }
-            )
-
-            Subtitle(stringResource(R.string.screen_settings_subtitle_appearance))
-            MyListItem(
-                title = stringResource(R.string.screen_settings_dynamic_color_title),
-                content = stringResource(R.string.screen_settings_dynamic_color_content),
-                action = {
-                    Switch(
-                        checked = dynamicColorsEnabled,
-                        onCheckedChange = { value ->
-                            viewModel.updateDynamicColorsEnabled(value)
-                        }
-                    )
-                },
-            )
-            MyListItem(
-                title = stringResource(R.string.screen_settings_dark_theme_title),
-                content = darkThemeContent,
-                onClick = {
-                    navController.navigate(Routes.Settings.DARK_THEME_DIALOG)
-                }
-            )
-
-            Subtitle(stringResource(R.string.screen_settings_subtitle_other))
-            MyListItem(
-                title = stringResource(R.string.screen_settings_view_onboarding),
-                onClick = {
-                    navController.navigate(Routes.Onboarding.MAIN) {
-                        popUpTo(Routes.Home.MAIN)
-                    }
-                }
-            )
-
-            if (BuildConfig.DEBUG) {
-                MyListItem(
-                    title = stringResource(R.string.screen_settings_testsms_title),
-                    content = stringResource(R.string.screen_settings_testsms_content),
-                    onClick = {
-                        navController.navigate(Routes.Settings.TEST_SMS_DIALOG)
+        Subtitle(stringResource(R.string.screen_settings_subtitle_preferences))
+        MyListItem(
+            title = stringResource(R.string.screen_settings_dismiss_title),
+            content = dismissMessagesContent,
+            onClick = {
+                navController.navigate(Routes.Settings.DISMISS_NOTIFICATIONS_DIALOG)
+            }
+        )
+        MyListItem(
+            title = stringResource(R.string.screen_settings_require_pin_title),
+            content = stringResource(R.string.screen_settings_require_pin_content),
+            action = {
+                Switch(
+                    checked = requirePin,
+                    onCheckedChange = { value ->
+                        viewModel.updateSignedIn(true)
+                        viewModel.updateRequirePin(value)
                     }
                 )
             }
+        )
+        MyListItem(
+            title = stringResource(R.string.screen_settings_history_title),
+            content = stringResource(R.string.screen_settings_history_content),
+            onClick = {
+                navController.navigate(Routes.History.MAIN) {
+                    popUpTo(Routes.Home.MAIN)
+                }
+            },
+            separator = true,
+            action = {
+                Switch(
+                    checked = historyEnabled,
+                    onCheckedChange = { value ->
+                        viewModel.clearHistory()
+                        viewModel.updateHistoryEnabled(value)
+                    }
+                )
+            }
+        )
 
+        Subtitle(stringResource(R.string.screen_settings_subtitle_appearance))
+        MyListItem(
+            title = stringResource(R.string.screen_settings_dynamic_color_title),
+            content = stringResource(R.string.screen_settings_dynamic_color_content),
+            action = {
+                Switch(
+                    checked = dynamicColorsEnabled,
+                    onCheckedChange = { value ->
+                        viewModel.updateDynamicColorsEnabled(value)
+                    }
+                )
+            },
+        )
+        MyListItem(
+            title = stringResource(R.string.screen_settings_dark_theme_title),
+            content = darkThemeContent,
+            onClick = {
+                navController.navigate(Routes.Settings.DARK_THEME_DIALOG)
+            }
+        )
+
+        Subtitle(stringResource(R.string.screen_settings_subtitle_other))
+        MyListItem(
+            title = stringResource(R.string.screen_settings_view_onboarding),
+            onClick = {
+                navController.navigate(Routes.Onboarding.MAIN) {
+                    popUpTo(Routes.Home.MAIN)
+                }
+            }
+        )
+
+        if (BuildConfig.DEBUG) {
             MyListItem(
-                title = stringResource(R.string.screen_settings_source_code_title),
-                content = stringResource(R.string.screen_settings_source_code_content),
+                title = stringResource(R.string.screen_settings_testsms_title),
+                content = stringResource(R.string.screen_settings_testsms_content),
                 onClick = {
-                    val uri = context.getString(R.string.url_github).toUri()
-                    val intent = Intent(Intent.ACTION_VIEW, uri)
-                    context.startActivity(intent)
-                },
-                action = {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_open_in),
-                        contentDescription = null
-                    )
+                    navController.navigate(Routes.Settings.TEST_SMS_DIALOG)
                 }
             )
-            MyListItem(
-                title = stringResource(R.string.screen_settings_update_title),
-                content = stringResource(R.string.screen_settings_update_content),
-                onClick = {
-                    val uri = context.getString(R.string.url_github_releases).toUri()
-                    val intent = Intent(Intent.ACTION_VIEW, uri)
-                    context.startActivity(intent)
-                },
-                action = {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_download),
-                        contentDescription = null
-                    )
-                }
-            )
-            MyListItem(
-                title = stringResource(R.string.screen_settings_version_title),
-                content = versionContent,
-            )
-
-            Spacer(Modifier.padding(WindowInsets.navigationBars.asPaddingValues()))
         }
+
+        MyListItem(
+            title = stringResource(R.string.screen_settings_source_code_title),
+            content = stringResource(R.string.screen_settings_source_code_content),
+            onClick = {
+                val uri = context.getString(R.string.url_github).toUri()
+                val intent = Intent(Intent.ACTION_VIEW, uri)
+                context.startActivity(intent)
+            },
+            action = {
+                Icon(
+                    painter = painterResource(R.drawable.ic_open_in),
+                    contentDescription = null
+                )
+            }
+        )
+        MyListItem(
+            title = stringResource(R.string.screen_settings_update_title),
+            content = stringResource(R.string.screen_settings_update_content),
+            onClick = {
+                val uri = context.getString(R.string.url_github_releases).toUri()
+                val intent = Intent(Intent.ACTION_VIEW, uri)
+                context.startActivity(intent)
+            },
+            action = {
+                Icon(
+                    painter = painterResource(R.drawable.ic_download),
+                    contentDescription = null
+                )
+            }
+        )
+        MyListItem(
+            title = stringResource(R.string.screen_settings_version_title),
+            content = versionContent,
+        )
     }
 }
 

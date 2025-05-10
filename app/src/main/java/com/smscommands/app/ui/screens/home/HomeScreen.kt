@@ -1,7 +1,6 @@
 package com.smscommands.app.ui.screens.home
 
 import android.content.Context
-import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -90,37 +89,35 @@ fun HomeScreen(
             else if (missingPerms == 1) stringResource(R.string.screen_home_perms_one)
             else stringResource(R.string.screen_home_perms_many, missingPerms)
 
-        Column {
-            HomeListItem(
-                headline = stringResource(R.string.screen_commands_title),
-                content = commandContent,
-                onClick = {
-                    navController.navigate(Routes.Commands.MAIN)
-                }
-            )
-            HomeListItem(
-                headline = stringResource(R.string.screen_history_title),
-                content = historyContent,
-                onClick = {
-                    navController.navigate(Routes.History.MAIN)
-                }
-            )
-            HomeListItem(
-                headline = stringResource(R.string.screen_home_pin),
-                content = pinContent,
-                onClick = {
-                    navController.navigate(Routes.Home.EDIT_PIN_DIALOG)
-                }
-            )
-            HomeListItem(
-                headline = stringResource(R.string.screen_perms_title),
-                content = permissionContent,
-                onClick = {
-                    navController.navigate(Routes.Perms.MAIN)
-                }
-            )
-            HorizontalDivider()
-        }
+        HomeListItem(
+            headline = stringResource(R.string.screen_commands_title),
+            content = commandContent,
+            onClick = {
+                navController.navigate(Routes.Commands.MAIN)
+            }
+        )
+        HomeListItem(
+            headline = stringResource(R.string.screen_history_title),
+            content = historyContent,
+            onClick = {
+                navController.navigate(Routes.History.MAIN)
+            }
+        )
+        HomeListItem(
+            headline = stringResource(R.string.screen_home_pin),
+            content = pinContent,
+            onClick = {
+                navController.navigate(Routes.Home.EDIT_PIN_DIALOG)
+            }
+        )
+        HomeListItem(
+            headline = stringResource(R.string.screen_perms_title),
+            content = permissionContent,
+            onClick = {
+                navController.navigate(Routes.Perms.MAIN)
+            }
+        )
+        HorizontalDivider()
     }
 }
 

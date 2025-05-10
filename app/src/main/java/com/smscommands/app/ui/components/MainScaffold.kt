@@ -1,14 +1,18 @@
 package com.smscommands.app.ui.components
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -25,13 +29,12 @@ fun MainScaffold(
     actions: @Composable RowScope.() -> Unit = {},
     showUpButton: Boolean = false,
     onUpButtonClicked: () -> Unit = { navController.navigateUp() },
-    scrollBehavior: TopAppBarScrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
-        rememberTopAppBarState()
-    ),
-    content: @Composable () -> Unit,
+    scrollBehavior: TopAppBarScrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(),
+    consumeNavPadding: Boolean = true,
+    content: @Composable ColumnScope.() -> Unit,
 ) {
     Scaffold(
-        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopAppBar(
                 title = title,
@@ -44,10 +47,12 @@ fun MainScaffold(
         },
     ) { padding ->
         val newPadding = PaddingValues(top = padding.calculateTopPadding())
-        Box(
-            modifier = Modifier.padding(newPadding)
+        Column(
+            modifier = modifier.padding(newPadding),
         ) {
             content()
+            if (consumeNavPadding)
+                Spacer(Modifier.padding(WindowInsets.navigationBars.asPaddingValues()))
         }
     }
 }

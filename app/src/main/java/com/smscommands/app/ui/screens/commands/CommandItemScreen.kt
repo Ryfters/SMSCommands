@@ -1,7 +1,6 @@
 package com.smscommands.app.ui.screens.commands
 
 import android.util.Log
-import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -62,39 +61,38 @@ fun CommandItemScreen(
         val params = command.params.filter { it.value is OptionParamDefinition }
             as Map<String, OptionParamDefinition>
 
-        Column {
-            Subtitle(stringResource(R.string.common_details))
-            MyListItem(
-                title = stringResource(R.string.screen_commands_status),
-                content = status,
-            )
-            MyListItem(
-                title = stringResource(R.string.screen_commands_permissions_required),
-                content = requiredPermissions,
-            )
 
-            Subtitle("Flags")
-            if (flags.isEmpty()) {
-                MyListItem(stringResource(R.string.common_none))
-            } else {
-                flags.values.forEach { param ->
-                    MyListItem(
-                        title = stringResource(param.name),
-                        content = stringResource(param.desc)
-                    )
-                }
+        Subtitle(stringResource(R.string.common_details))
+        MyListItem(
+            title = stringResource(R.string.screen_commands_status),
+            content = status,
+        )
+        MyListItem(
+            title = stringResource(R.string.screen_commands_permissions_required),
+            content = requiredPermissions,
+        )
+
+        Subtitle("Flags")
+        if (flags.isEmpty()) {
+            MyListItem(stringResource(R.string.common_none))
+        } else {
+            flags.values.forEach { param ->
+                MyListItem(
+                    title = stringResource(param.name),
+                    content = stringResource(param.desc)
+                )
             }
+        }
 
-            Subtitle("Parameters")
-            if (params.isEmpty()) {
-                MyListItem(stringResource(R.string.common_none))
-            } else {
-                params.values.forEach { param ->
-                    MyListItem(
-                        title = stringResource(param.name),
-                        content = stringResource(param.desc)
-                    )
-                }
+        Subtitle("Parameters")
+        if (params.isEmpty()) {
+            MyListItem(stringResource(R.string.common_none))
+        } else {
+            params.values.forEach { param ->
+                MyListItem(
+                    title = stringResource(param.name),
+                    content = stringResource(param.desc)
+                )
             }
         }
     }

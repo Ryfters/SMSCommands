@@ -1,10 +1,5 @@
 package com.smscommands.app.ui.screens.perms
 
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.navigationBars
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -40,20 +35,16 @@ fun PermsScreen(
     ) {
         val permissionsState by viewModel.permissionsState.collectAsState()
 
-        LazyColumn(
-            contentPadding = WindowInsets.navigationBars.asPaddingValues()
-        ) {
-            items(Permission.ALL) { permission ->
-                PermissionItem(
-                    permission = permission,
-                    isGranted = permissionsState[permission.id] == true,
-                    onGrant = { isEnabled ->
-                        viewModel.updateSinglePermissionState(permission.id, isEnabled)
-                        if (isEnabled == false)
-                            navController.navigate(Routes.Perms.DECLINE_WARNING_DIALOG)
-                    }
-                )
-            }
+        Permission.ALL.forEach { permission ->
+            PermissionItem(
+                permission = permission,
+                isGranted = permissionsState[permission.id] == true,
+                onGrant = { isEnabled ->
+                    viewModel.updateSinglePermissionState(permission.id, isEnabled)
+                    if (isEnabled == false)
+                        navController.navigate(Routes.Perms.DECLINE_WARNING_DIALOG)
+                }
+            )
         }
     }
 }
