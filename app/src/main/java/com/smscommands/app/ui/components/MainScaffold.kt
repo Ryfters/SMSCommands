@@ -25,7 +25,9 @@ fun MainScaffold(
     actions: @Composable RowScope.() -> Unit = {},
     showUpButton: Boolean = false,
     onUpButtonClicked: () -> Unit = { navController.navigateUp() },
-    scrollBehavior: TopAppBarScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState()),
+    scrollBehavior: TopAppBarScrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
+        rememberTopAppBarState()
+    ),
     content: @Composable () -> Unit,
 ) {
     Scaffold(
