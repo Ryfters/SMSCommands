@@ -5,6 +5,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.smscommands.app.R
@@ -36,6 +37,8 @@ fun CommandItemScreen(
         subtitle = stringResource(command.description),
         showUpButton = true,
     ) {
+        val context = LocalContext.current
+
         val permissionsState by viewModel.permissionsState.collectAsState()
 
         val isMissingPerms = (command.requiredPermissions + Permission.BASE).any { permission ->
@@ -49,11 +52,9 @@ fun CommandItemScreen(
             else if (isEnabled) stringResource(R.string.common_enabled)
             else stringResource(R.string.common_disabled)
 
-        @Suppress("SimplifiableCallChain") // cant have composable in joinToString
-        val requiredPermissions = command.requiredPermissions
-            .map { stringResource(it.label) }
-            .joinToString()
-            .takeIf { it.isNotEmpty() } ?: stringResource(R.string.common_none)
+        val requiredPermissions =
+            command.requiredPermissions.joinToString { context.getString(it.label) }
+                .takeIf { it.isNotEmpty() } ?: stringResource(R.string.common_none)
 
         val flags = command.params.filter { it.value is FlagParamDefinition }
 
