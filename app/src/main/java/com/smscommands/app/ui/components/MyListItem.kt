@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.style.TextOverflow.Companion.Ellipsis
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -24,6 +25,8 @@ fun MyListItem(
     disabled: Boolean = false,
     onClick: (() -> Unit)? = null,
     separator: Boolean = false,
+    maxContentLines: Int = 2,
+    onContentLayout: ((TextLayoutResult) -> Unit)? = null,
     action: @Composable (() -> Unit)? = null
 ) {
     val clickable = !disabled && onClick != null
@@ -47,11 +50,13 @@ fun MyListItem(
                 overflow = Ellipsis
             )
             content?.let {
+                // TODO: sliding animation
                 Text(
                     text = it,
                     style = MaterialTheme.typography.bodyMedium,
-                    maxLines = 2,
-                    overflow = Ellipsis
+                    maxLines = maxContentLines,
+                    overflow = Ellipsis,
+                    onTextLayout = onContentLayout
                 )
             }
         }
