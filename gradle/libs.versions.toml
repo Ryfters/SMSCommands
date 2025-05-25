@@ -7,15 +7,15 @@ ksp = "2.1.20-1.0.32"
 activityCompose = "1.10.1"
 biometric = "1.4.0-alpha03"
 cameraX = "1.4.2"
-composeBom = "2025.04.01"
+composeBom = "2025.05.00"
 coreKtx = "1.16.0"
-datastorePreferences = "1.1.4" # Keep this version until 1.1.5 gets fixed (https://issuetracker.google.com/issues/413061399)
+datastorePreferences = "1.1.6" # Keep this version until 1.1.5 gets fixed (https://issuetracker.google.com/issues/413061399)
 espressoCore = "3.6.1"
 fragmentCompose = "1.8.6"
 junit = "4.13.2"
 junitVersion = "1.2.1"
-lifecycle = "2.8.7"
-navigationCompose = "2.8.9"
+lifecycle = "2.9.0"
+navigationCompose = "2.9.0"
 room = "2.7.1"
 
 [libraries]
