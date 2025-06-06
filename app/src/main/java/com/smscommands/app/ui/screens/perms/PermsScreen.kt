@@ -1,13 +1,18 @@
 package com.smscommands.app.ui.screens.perms
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.smscommands.app.R
 import com.smscommands.app.data.UiStateViewModel
@@ -35,16 +40,21 @@ fun PermsScreen(
     ) {
         val permissionsState by viewModel.permissionsState.collectAsState()
 
-        Permission.ALL.forEach { permission ->
-            PermissionItem(
-                permission = permission,
-                isGranted = permissionsState[permission.id] == true,
-                onGrant = { isEnabled ->
-                    viewModel.updateSinglePermissionState(permission.id, isEnabled)
-                    if (isEnabled == false)
-                        navController.navigate(Routes.Perms.DECLINE_WARNING_DIALOG)
-                }
-            )
+        Column(
+            modifier = Modifier.clip(RoundedCornerShape(26.dp))
+        ) {
+
+            Permission.ALL.forEach { permission ->
+                PermissionItem(
+                    permission = permission,
+                    isGranted = permissionsState[permission.id] == true,
+                    onGrant = { isEnabled ->
+                        viewModel.updateSinglePermissionState(permission.id, isEnabled)
+                        if (isEnabled == false)
+                            navController.navigate(Routes.Perms.DECLINE_WARNING_DIALOG)
+                    }
+                )
+            }
         }
     }
 }

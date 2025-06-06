@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
@@ -19,6 +18,8 @@ import com.smscommands.app.data.UiStateViewModel
 import com.smscommands.app.data.db.HistoryItem
 import com.smscommands.app.permissions.Permission
 import com.smscommands.app.ui.components.MainScaffold
+import com.smscommands.app.ui.components.MyList
+import com.smscommands.app.ui.components.MyListItem
 import com.smscommands.app.ui.navigation.Routes
 import com.smscommands.app.utils.formatRelativeTime
 
@@ -89,35 +90,40 @@ fun HomeScreen(
             else if (missingPerms == 1) stringResource(R.string.screen_home_perms_one)
             else stringResource(R.string.screen_home_perms_many, missingPerms)
 
-        HomeListItem(
-            headline = stringResource(R.string.screen_commands_title),
-            content = commandContent,
-            onClick = {
-                navController.navigate(Routes.Commands.MAIN)
-            }
-        )
-        HomeListItem(
-            headline = stringResource(R.string.screen_history_title),
-            content = historyContent,
-            onClick = {
-                navController.navigate(Routes.History.MAIN)
-            }
-        )
-        HomeListItem(
-            headline = stringResource(R.string.screen_home_pin),
-            content = pinContent,
-            onClick = {
-                navController.navigate(Routes.Home.EDIT_PIN_DIALOG)
-            }
-        )
-        HomeListItem(
-            headline = stringResource(R.string.screen_perms_title),
-            content = permissionContent,
-            onClick = {
-                navController.navigate(Routes.Perms.MAIN)
-            }
-        )
-        HorizontalDivider()
+        MyList {
+            MyListItem(
+                title = stringResource(R.string.screen_commands_title),
+                content = commandContent,
+                onClick = {
+                    navController.navigate(Routes.Commands.MAIN)
+                },
+                largeText = true
+            )
+            MyListItem(
+                title = stringResource(R.string.screen_history_title),
+                content = historyContent,
+                onClick = {
+                    navController.navigate(Routes.History.MAIN)
+                },
+                largeText = true,
+            )
+            MyListItem(
+                title = stringResource(R.string.screen_home_pin),
+                content = pinContent,
+                onClick = {
+                    navController.navigate(Routes.Home.EDIT_PIN_DIALOG)
+                },
+                largeText = true
+            )
+            MyListItem(
+                title = stringResource(R.string.screen_perms_title),
+                content = permissionContent,
+                onClick = {
+                    navController.navigate(Routes.Perms.MAIN)
+                },
+                largeText = true
+            )
+        }
     }
 }
 

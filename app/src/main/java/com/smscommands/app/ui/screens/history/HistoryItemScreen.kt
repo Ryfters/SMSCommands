@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
@@ -21,6 +20,7 @@ import com.smscommands.app.R
 import com.smscommands.app.commands.Command
 import com.smscommands.app.data.UiStateViewModel
 import com.smscommands.app.ui.components.MainScaffold
+import com.smscommands.app.ui.components.MyList
 import com.smscommands.app.ui.components.MyListItem
 import com.smscommands.app.ui.components.Subtitle
 import com.smscommands.app.utils.formatRelativeTime
@@ -55,23 +55,25 @@ fun HistoryItemScreen(
             formatRelativeTime(context, item.time).replaceFirstChar { it.uppercase() }
 
 
-        Subtitle(stringResource(R.string.common_details))
-        MyListItem(
-            title = stringResource(R.string.screen_history_item_dialog_command),
-            content = stringResource(commandName)
-        )
-        MyListItem(
-            title = stringResource(R.string.screen_history_item_dialog_status),
-            content = stringResource(item.status)
-        )
-        MyListItem(
-            title = stringResource(R.string.screen_history_item_dialog_sender),
-            content = item.sender
-        )
-        MyListItem(
-            title = stringResource(R.string.screen_history_item_dialog_time),
-            content = formattedTime
-        )
+        Subtitle(stringResource(R.string.common_details), topPadding = false)
+        MyList {
+            MyListItem(
+                title = stringResource(R.string.screen_history_item_dialog_command),
+                content = stringResource(commandName)
+            )
+            MyListItem(
+                title = stringResource(R.string.screen_history_item_dialog_status),
+                content = stringResource(item.status)
+            )
+            MyListItem(
+                title = stringResource(R.string.screen_history_item_dialog_sender),
+                content = item.sender
+            )
+            MyListItem(
+                title = stringResource(R.string.screen_history_item_dialog_time),
+                content = formattedTime
+            )
+        }
 
         // TODO: Better
         Subtitle("Conversation")
@@ -79,29 +81,30 @@ fun HistoryItemScreen(
 //                title = stringResource(R.string.screen_history_item_dialog_jump_to_conv),
 //
 //            )
-        MyListItem(
-            title = "Conversation",
-            action = {
-                IconButton(
-                    onClick = {
-                        val intent = Intent(Intent.ACTION_VIEW).apply {
-                            data = "smsto:${item.sender}".toUri()
+        MyList {
+            MyListItem(
+                title = "Conversation",
+                action = {
+                    IconButton(
+                        onClick = {
+                            val intent = Intent(Intent.ACTION_VIEW).apply {
+                                data = "smsto:${item.sender}".toUri()
+                            }
+                            context.startActivity(intent)
                         }
-                        context.startActivity(intent)
+                    ) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_open_in),
+                            contentDescription = null
+                        )
                     }
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_open_in),
-                        contentDescription = null
-                    )
                 }
-            }
-        )
+            )
 
-        HorizontalDivider()
-        ChatPreview(
-            triggerMessage = item.trigger,
-            responses = item.messages
-        )
+            ChatPreview(
+                triggerMessage = item.trigger,
+                responses = item.messages
+            )
+        }
     }
 }

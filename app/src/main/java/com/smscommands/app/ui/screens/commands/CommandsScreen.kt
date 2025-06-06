@@ -1,7 +1,6 @@
 package com.smscommands.app.ui.screens.commands
 
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Switch
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -13,7 +12,9 @@ import com.smscommands.app.commands.Command
 import com.smscommands.app.data.UiStateViewModel
 import com.smscommands.app.permissions.Permission
 import com.smscommands.app.ui.components.MainScaffold
+import com.smscommands.app.ui.components.MyList
 import com.smscommands.app.ui.components.MyListItem
+import com.smscommands.app.ui.components.MySwitch
 import com.smscommands.app.ui.navigation.Routes
 
 
@@ -33,35 +34,37 @@ fun CommandsScreen(
         val commandPreferences by viewModel.commandPreferences.collectAsState()
         val permissionsState by viewModel.permissionsState.collectAsState()
 
-        Command.LIST.forEach { command ->
-            val missingPermissions = (command.requiredPermissions + Permission.BASE)
-                .filter { permission -> permissionsState[permission.id] == false }
+        MyList {
+            Command.LIST.forEach { command ->
+                val missingPermissions = (command.requiredPermissions + Permission.BASE)
+                    .filter { permission -> permissionsState[permission.id] == false }
 
-            val disabled = missingPermissions.isNotEmpty()
+                val disabled = missingPermissions.isNotEmpty()
 
-            val content =
-                if (disabled)
-                    stringResource(
-                        R.string.screen_commands_missing_permissions,
-                        missingPermissions.joinToString { context.getString(it.label) })
-                else stringResource(command.description)
+                val content =
+                    if (disabled)
+                        stringResource(
+                            R.string.screen_commands_missing_permissions,
+                            missingPermissions.joinToString { context.getString(it.label) })
+                    else stringResource(command.description)
 
 
-            MyListItem(
-                title = stringResource(command.label),
-                content = content,
-                onClick = { navController.navigate(Routes.Commands.ITEM + command.id) },
-                separator = true,
-                action = {
-                    Switch(
-                        checked = commandPreferences[command.id] == true,
-                        onCheckedChange = { value ->
-                            viewModel.updateCommandPreference(command.id, value)
-                        },
-                        enabled = !disabled
-                    )
-                }
-            )
+                MyListItem(
+                    title = stringResource(command.label),
+                    content = content,
+                    onClick = { navController.navigate(Routes.Commands.ITEM + command.id) },
+                    divider = true,
+                    action = {
+                        MySwitch(
+                            checked = commandPreferences[command.id] == true,
+                            onCheckedChange = { value ->
+                                viewModel.updateCommandPreference(command.id, value)
+                            },
+                            enabled = !disabled
+                        )
+                    }
+                )
+            }
         }
     }
 }

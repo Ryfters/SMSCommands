@@ -19,54 +19,58 @@ fun ChatPreview(
     triggerMessage: String,
     responses: List<String>
 ) {
-    Column(
-        modifier = Modifier
-            .padding(8.dp)
-            .fillMaxWidth()
+    Surface(
+        shape = RoundedCornerShape(4.dp),
     ) {
-        Surface(
-            color = MaterialTheme.colorScheme.surfaceContainer,
-            shape = RoundedCornerShape(20.dp),
-            modifier = Modifier.align(Alignment.Start)
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
         ) {
-            Text(
-                text = triggerMessage,
-                color = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.padding(8.dp)
-            )
-        }
-        Spacer(Modifier.padding(2.dp))
-
-        responses.forEachIndexed { index, response ->
+            Surface(
+                color = MaterialTheme.colorScheme.surfaceContainer,
+                shape = RoundedCornerShape(26.dp),
+                modifier = Modifier.align(Alignment.Start)
+            ) {
+                Text(
+                    text = triggerMessage,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.padding(8.dp)
+                )
+            }
             Spacer(Modifier.padding(2.dp))
 
-            var roundedCornerTop = 2.dp
-            var roundedCornerBottom = 2.dp
+            responses.forEachIndexed { index, response ->
+                Spacer(Modifier.padding(2.dp))
 
-            if (responses.lastIndex == index)
-                roundedCornerBottom = 20.dp
+                var roundedCornerTop = 2.dp
+                var roundedCornerBottom = 2.dp
 
-            if (index == 0)
-                roundedCornerTop = 20.dp
+                if (responses.lastIndex == index)
+                    roundedCornerBottom = 20.dp
 
-            val chatBubbleShape = RoundedCornerShape(
-                topStart = 20.dp,
-                bottomStart = 20.dp,
-                topEnd = roundedCornerTop,
-                bottomEnd = roundedCornerBottom
-            )
+                if (index == 0)
+                    roundedCornerTop = 20.dp
 
-            Row(modifier = Modifier.align(Alignment.End)) {
-                Spacer(Modifier.fillMaxWidth(0.3f)) // So it can only fill up to 7/10th before wrapping to a new line
-                Surface(
-                    color = MaterialTheme.colorScheme.secondaryContainer,
-                    shape = chatBubbleShape
-                ) {
-                    Text(
-                        text = response,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-                    )
+                val chatBubbleShape = RoundedCornerShape(
+                    topStart = 20.dp,
+                    bottomStart = 20.dp,
+                    topEnd = roundedCornerTop,
+                    bottomEnd = roundedCornerBottom
+                )
+
+                Row(modifier = Modifier.align(Alignment.End)) {
+                    Spacer(Modifier.fillMaxWidth(0.3f)) // So it can only fill up to 7/10th before wrapping to a new line
+                    Surface(
+                        color = MaterialTheme.colorScheme.secondaryContainer,
+                        shape = chatBubbleShape
+                    ) {
+                        Text(
+                            text = response,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                        )
+                    }
                 }
             }
         }

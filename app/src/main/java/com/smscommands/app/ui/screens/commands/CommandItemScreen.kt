@@ -24,6 +24,7 @@ import com.smscommands.app.data.UiStateViewModel
 import com.smscommands.app.permissions.Permission
 import com.smscommands.app.ui.components.MainScaffold
 import com.smscommands.app.ui.components.MyIconButton
+import com.smscommands.app.ui.components.MyList
 import com.smscommands.app.ui.components.MyListItem
 import com.smscommands.app.ui.components.Subtitle
 
@@ -71,59 +72,65 @@ fun CommandItemScreen(
         val params = command.params.filter { it.value is OptionParamDefinition }
             as Map<String, OptionParamDefinition>
 
-        Subtitle(stringResource(R.string.common_details))
-        MyListItem(
-            title = stringResource(R.string.screen_commands_status),
-            content = status,
-        )
-        MyListItem(
-            title = stringResource(R.string.screen_commands_permissions_required),
-            content = requiredPermissions,
-        )
+        Subtitle(stringResource(R.string.common_details), topPadding = false)
+        MyList {
+            MyListItem(
+                title = stringResource(R.string.screen_commands_status),
+                content = status,
+            )
+            MyListItem(
+                title = stringResource(R.string.screen_commands_permissions_required),
+                content = requiredPermissions,
+            )
+        }
 
         Subtitle("Flags")
-        if (flags.isEmpty()) {
-            MyListItem(stringResource(R.string.common_none))
-        } else {
-            flags.values.forEach { param ->
-                MyListItem(
-                    title = stringResource(param.name),
-                    content = stringResource(param.desc)
-                )
+        MyList {
+            if (flags.isEmpty()) {
+                MyListItem(stringResource(R.string.common_none))
+            } else {
+                flags.values.forEach { param ->
+                    MyListItem(
+                        title = stringResource(param.name),
+                        content = stringResource(param.desc)
+                    )
+                }
             }
         }
 
         Subtitle("Parameters")
-        if (params.isEmpty()) {
-            MyListItem(stringResource(R.string.common_none))
-        } else {
-            params.values.forEach { param ->
-                var expandable by remember { mutableStateOf(false) }
-                var expanded by remember { mutableStateOf(false) }
+        MyList {
+            if (params.isEmpty()) {
+                MyListItem(stringResource(R.string.common_none))
+            } else {
+                params.values.forEach { param ->
+                    var expandable by remember { mutableStateOf(false) }
+                    var expanded by remember { mutableStateOf(false) }
 
-                val maxContentLines by animateIntAsState(if (expanded) Int.MAX_VALUE else 2)
+                    val maxContentLines by animateIntAsState(if (expanded) Int.MAX_VALUE else 2)
 
 
-                val targetRotation = if (expanded) -90f else 0f
-                val animatedRotation by animateFloatAsState(targetRotation)
+                    val targetRotation = if (expanded) -90f else 0f
+                    val animatedRotation by animateFloatAsState(targetRotation)
 
-                MyListItem(
-                    title = stringResource(param.name),
-                    content = stringResource(param.desc),
-                    action = {
-                        if (expandable || expanded) {
-                            MyIconButton(
-                                icon = painterResource(R.drawable.ic_expand),
-                                onClick = { expanded = !expanded },
-                                modifier = Modifier.rotate(animatedRotation)
-                            )
+                    MyListItem(
+                        title = stringResource(param.name),
+                        content = stringResource(param.desc),
+                        action = {
+                            if (expandable || expanded) {
+                                MyIconButton(
+                                    icon = painterResource(R.drawable.ic_expand),
+                                    onClick = { expanded = !expanded },
+                                    modifier = Modifier.rotate(animatedRotation)
+                                )
+                            }
+                        },
+                        maxContentLines = if (maxContentLines > 1) maxContentLines else 1,
+                        onContentLayout = { result ->
+                            expandable = result.hasVisualOverflow
                         }
-                    },
-                    maxContentLines = if (maxContentLines > 1) maxContentLines else 1,
-                    onContentLayout = { result ->
-                        expandable = result.hasVisualOverflow
-                    }
-                )
+                    )
+                }
             }
         }
     }

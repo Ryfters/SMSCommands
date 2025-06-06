@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 fun Subtitle(
     text: String,
     modifier: Modifier = Modifier,
+    topPadding: Boolean = true
 ) {
     Text(
         text = text,
@@ -19,6 +20,6 @@ fun Subtitle(
         style = MaterialTheme.typography.labelLarge,
         modifier = modifier
             .fillMaxWidth()
-            .padding(top = 8.dp, start = 16.dp)
+            .padding(top = if (topPadding) 24.dp else 8.dp, bottom = 8.dp, start = 12.dp)
     )
 }

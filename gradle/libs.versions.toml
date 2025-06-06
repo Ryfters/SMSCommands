@@ -1,22 +1,24 @@
 [versions]
-agp = "8.9.2"
+agp = "8.9.3"
 concurrentFuturesKtx = "1.2.0"
 kotlin = "2.1.20"
 ksp = "2.1.20-1.0.32"
 
 activityCompose = "1.10.1"
-biometric = "1.4.0-alpha03"
+biometric = "1.4.0-alpha04"
 cameraX = "1.4.2"
-composeBom = "2025.05.00"
+composeBom = "2025.05.01"
 coreKtx = "1.16.0"
-datastorePreferences = "1.1.6" # Keep this version until 1.1.5 gets fixed (https://issuetracker.google.com/issues/413061399)
+datastorePreferences = "1.1.7"
 espressoCore = "3.6.1"
-fragmentCompose = "1.8.6"
+fragmentCompose = "1.8.7"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 lifecycle = "2.9.0"
 navigationCompose = "2.9.0"
 room = "2.7.1"
+
+m3alpha = "1.4.0-alpha15"
 
 [libraries]
 androidx-activity-compose       = { group = "androidx.activity",        name = "activity-compose",  version.ref = "activityCompose" }
@@ -25,7 +27,8 @@ androidx-camera-camera2         = { group = "androidx.camera",          name = "
 androidx-camera-core            = { group = "androidx.camera",          name = "camera-core",       version.ref = "cameraX" }
 androidx-camera-lifecycle       = { group = "androidx.camera",          name = "camera-lifecycle",  version.ref = "cameraX" }
 androidx-compose-bom            = { group = "androidx.compose",         name = "compose-bom",       version.ref = "composeBom" } # Sets this version to all androidx.compose dependencies (i think)
-androidx-compose-material3      = { group = "androidx.compose.material3", name = "material3" }      # Imports main compose dependencies
+androidx-compose-material3x = { group = "androidx.compose.material3", name = "material3", version.ref = "m3alpha" }
+androidx-compose-material3-icons = { group = "androidx.compose.material", name = "material-icons-core" }# Imports main compose dependencies
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui",      name = "ui-test-junit4" }
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui",    name = "ui-test-manifest" }
 androidx-compose-ui-tooling     = { group = "androidx.compose.ui",      name = "ui-tooling" }
