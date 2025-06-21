@@ -14,7 +14,7 @@ import com.smscommands.app.R
 fun BoldedKeyValue(key: String, value: String, modifier: Modifier = Modifier) {
     Text(buildAnnotatedString {
         withStyle(SpanStyle(fontWeight = FontWeight.Bold)) { append(key) }
-        append(stringResource(R.string.common_seperator_colon))
+        append(stringResource(R.string.common_colon))
         append(value)
     }, modifier = modifier)
 }

@@ -35,7 +35,7 @@ fun PermissionItem(
 
     MyListItem(
         title = stringResource(permission.label),
-        content = isGrantedString + stringResource(R.string.common_seperator) + content,
+        content = isGrantedString + stringResource(R.string.common_separator) + content,
         onClick = request
     )
 }

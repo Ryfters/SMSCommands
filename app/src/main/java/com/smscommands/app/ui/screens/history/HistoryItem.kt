@@ -25,13 +25,13 @@ fun HistoryItem(
 
     val headline =
         historyItem.sender +
-                stringResource(R.string.common_seperator_colon) +
+                stringResource(R.string.common_colon) +
                 stringResource(commandNameRes)
 
     val formattedTime = formatRelativeTime(context, historyItem.time)
     val content =
         stringResource(historyItem.status) +
-        stringResource(R.string.common_seperator) +
+                stringResource(R.string.common_separator) +
         formattedTime
 
     MyListItem(
