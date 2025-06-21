@@ -33,6 +33,7 @@ interface Command {
         val CALL = Call()
         val CAPTURE = Capture()
         val GPS = Gps()
+        val HELP = Help()
         val LOCK = Lock()
         val RING = Ring()
 
@@ -40,6 +41,7 @@ interface Command {
             CALL,
             CAPTURE,
             GPS,
+            HELP,
             LOCK,
             RING,
         )

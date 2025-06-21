@@ -180,4 +180,12 @@
     <string name="url_github" translatable="false">https://github.com/RyfterWasTaken/SMSCommands</string>
     <string name="url_github_releases" translatable="false">https://github.com/RyfterWasTaken/SMSCommands/releases</string>
     <string name="url_maps" translatable="false"><![CDATA[https://www.google.com/maps/search/?api=1&query=%1$f,%2$f]]></string>
+    <string name="command_help_label">Help</string>
+    <string name="command_help_desc">Shows a help message</string>
+    <string name="command_help_param_command">command</string>
+    <string name="command_help_param_command_desc">Get help on a command</string>
+    <string name="command_help_reply_command">%1$s\n%2$s\n\n  Required permissions:%3$s\n    \n  Parameters:%4$s\n    \n  Flags:%5$s</string>
+    <string name="command_capture_reply_success">Captured photo on the %1$s</string>
+    <string name="command_capture_reply_error">An error occurred while taking a photo on the %1$s</string>
+    <string name="common_new_line">\n</string>
 </resources>

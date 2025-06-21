@@ -51,7 +51,7 @@ fun HomeScreen(
 
         val errorContent =
             if (errorCount > 0) {
-                stringResource(R.string.common_seperator) +
+                stringResource(R.string.common_separator) +
                 stringResource(R.string.screen_home_commands_errors, errorCount)
             } else ""
 
