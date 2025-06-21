@@ -8,6 +8,7 @@ import androidx.core.net.toUri
 import com.smscommands.app.R
 import com.smscommands.app.commands.params.ChoiceParamDefinition
 import com.smscommands.app.permissions.Permission
+import com.smscommands.app.utils.reply
 
 class Call : Command {
     override val id = "command_call"
@@ -37,8 +38,7 @@ class Call : Command {
         context: Context,
         parameters: Map<String, Any?>,
         sender: String,
-        onReply: (String) -> Unit,
-        historyId: Long?
+        id: Long?
     ) {
 
         val audioMode = parameters[AUDIO_PARAM] as String?
@@ -50,7 +50,7 @@ class Call : Command {
         context.startActivity(intent)
 
         var reply = context.getString(R.string.command_call_reply_success, sender)
-        onReply(reply)
+        reply(context, reply, sender, id)
 
         if (audioMode != null) {
             var audioManager = context.getSystemService(AudioManager::class.java)

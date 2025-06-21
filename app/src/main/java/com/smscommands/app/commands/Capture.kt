@@ -55,8 +55,7 @@ class Capture : Command {
         context: Context,
         parameters: Map<String, Any?>,
         sender: String,
-        onReply: (String) -> Unit,
-        historyId: Long?
+        id: Long?
     ) {
 
         val flashMode = parameters[FLASH_PARAM] as Int
@@ -67,7 +66,7 @@ class Capture : Command {
                     Intent.FLAG_ACTIVITY_CLEAR_TASK or
                     Intent.FLAG_ACTIVITY_NO_ANIMATION
 
-            putExtra(ID_EXTRA, historyId)
+            putExtra(ID_EXTRA, id)
             putExtra(SENDER_EXTRA, sender)
             putExtra(FLASH_MODE_EXTRA, flashMode)
             putExtra(CAMERA_EXTRA, camera)

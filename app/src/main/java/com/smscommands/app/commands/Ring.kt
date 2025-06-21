@@ -7,6 +7,7 @@ import com.smscommands.app.commands.RingActivity.Companion.STOP_RINGING_INTENT
 import com.smscommands.app.commands.params.FlagParamDefinition
 import com.smscommands.app.commands.params.IntParamDefinition
 import com.smscommands.app.permissions.Permission
+import com.smscommands.app.utils.reply
 
 class Ring : Command {
     override val id = "command_ring"
@@ -33,8 +34,7 @@ class Ring : Command {
         context: Context,
         parameters: Map<String, Any?>,
         sender: String,
-        onReply: (String) -> Unit,
-        historyId: Long?
+        id: Long?
     ) {
 
         val timeInS = parameters[TIME_PARAM] as Int
@@ -43,7 +43,7 @@ class Ring : Command {
         if (stop) {
             val stopIntent = Intent(STOP_RINGING_INTENT)
             context.sendBroadcast(stopIntent)
-            onReply(context.getString(R.string.command_ring_reply_stopped))
+            reply(context, context.getString(R.string.command_ring_reply_stopped), sender, id)
             return
         }
 
@@ -57,8 +57,8 @@ class Ring : Command {
 
 
         context.startActivity(intent)
-        
-        onReply(context.getString(R.string.ringing_device_for_seconds, timeInS))
+
+        reply(context, context.getString(R.string.ringing_device_for_seconds, timeInS), sender, id)
     }
 
     companion object {

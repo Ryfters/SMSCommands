@@ -5,7 +5,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.telephony.SmsManager
 import androidx.activity.ComponentActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
@@ -17,6 +16,7 @@ import com.smscommands.app.R
 import com.smscommands.app.commands.Command.Companion.ID_EXTRA
 import com.smscommands.app.commands.Command.Companion.SENDER_EXTRA
 import com.smscommands.app.data.SyncPreferences
+import com.smscommands.app.utils.reply
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.text.SimpleDateFormat
@@ -32,12 +32,12 @@ class CaptureActivity : ComponentActivity() {
 
     private var syncPreferences: SyncPreferences? = null
 
-    var id: Long? = null
-    var sender: String? = null
-    var flashMode: Int? = null
-    var camera: Int? = null
+    private var id: Long? = null
+    private var sender: String? = null
+    private var flashMode: Int? = null
+    private var camera: Int? = null
 
-    lateinit var onReply: (String) -> Unit
+    private lateinit var _reply: (String) -> Unit
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +45,7 @@ class CaptureActivity : ComponentActivity() {
 
         id = intent.getLongExtra(ID_EXTRA, -1L).takeIf { it != -1L }
 
-        sender = intent.getStringExtra(SENDER_EXTRA)
+        sender = intent.getStringExtra(SENDER_EXTRA) as String
 
         camera = intent.getIntExtra(CAMERA_EXTRA, CAMERA_BOTH)
         flashMode = intent.getIntExtra(FLASH_MODE_EXTRA, ImageCapture.FLASH_MODE_OFF)
@@ -53,10 +53,8 @@ class CaptureActivity : ComponentActivity() {
 
         id?.let { syncPreferences = SyncPreferences.getPreferences(applicationContext) }
 
-        val smsManager: SmsManager = this.getSystemService(SmsManager::class.java)
-        onReply = { message ->
-            smsManager.sendTextMessage(sender, null, message, null, null)
-            id?.let { syncPreferences?.addToResponse(it, message) }
+        _reply = { message ->
+            reply(applicationContext, message, sender.toString(), id)
         }
 
     }
@@ -132,11 +130,12 @@ class CaptureActivity : ComponentActivity() {
                 cameraExecutor,
                 object : ImageCapture.OnImageSavedCallback {
                     override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                        onReply("Captured photo on the $cameraLabel")
+                        _reply(getString(R.string.command_capture_reply_success, cameraLabel))
+
                         continuation.resume(Unit)
                     }
                     override fun onError(exception: ImageCaptureException) {
-                        onReply("An error occurred while taking a photo on the $cameraLabel")
+                        _reply(getString(R.string.command_capture_reply_error, cameraLabel))
                         continuation.resume(Unit)
                     }
                 }

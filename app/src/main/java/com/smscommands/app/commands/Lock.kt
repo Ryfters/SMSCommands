@@ -4,6 +4,7 @@ import android.app.admin.DevicePolicyManager
 import android.content.Context
 import com.smscommands.app.R
 import com.smscommands.app.permissions.Permission
+import com.smscommands.app.utils.reply
 
 class Lock : Command {
     override val id = "command_lock"
@@ -18,12 +19,11 @@ class Lock : Command {
         context: Context,
         parameters: Map<String, Any?>,
         sender: String,
-        onReply: (String) -> Unit,
-        historyId: Long?
+        id: Long?
     ) {
 
         val devicePolicyManager = context.getSystemService(DevicePolicyManager::class.java)
         devicePolicyManager.lockNow()
-        onReply(context.getString(R.string.command_lock_reply_success))
+        reply(context, context.getString(R.string.command_lock_reply_success), sender, id)
     }
 }

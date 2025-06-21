@@ -23,8 +23,7 @@ interface Command {
         context: Context,
         parameters: Map<String, Any?>,
         sender: String,
-        onReply: (String) -> Unit,
-        historyId: Long?
+        id: Long?
     )
 
     companion object {

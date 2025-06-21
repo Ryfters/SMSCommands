@@ -9,6 +9,7 @@ import com.smscommands.app.commands.params.ChoiceParamDefinition
 import com.smscommands.app.data.SyncPreferences
 import com.smscommands.app.permissions.Permission
 import com.smscommands.app.utils.formatRelativeTime
+import com.smscommands.app.utils.reply
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -47,8 +48,7 @@ class Gps : Command {
         context: Context,
         parameters: Map<String, Any?>,
         sender: String,
-        onReply: (String) -> Unit,
-        historyId: Long?
+        id: Long?
     ) {
         CoroutineScope(Dispatchers.IO + SupervisorJob()).launch {
 
@@ -60,8 +60,13 @@ class Gps : Command {
 
             val locationManager = context.getSystemService(LocationManager::class.java)
             if (!locationManager.isLocationEnabled) {
-                onReply(context.getString(R.string.command_gps_reply_location_disabled))
-                historyId?.let {
+                reply(
+                    context,
+                    context.getString(R.string.command_gps_reply_location_disabled),
+                    sender,
+                    id
+                )
+                id?.let {
                     syncPreferences.updateItemStatus(
                         it,
                         R.string.command_gps_error_location_disabled
@@ -72,8 +77,13 @@ class Gps : Command {
 
             val providers = locationManager.getProviders(true)
             providers.ifEmpty {
-                onReply(context.getString(R.string.command_gps_reply_no_providers))
-                historyId?.let {
+                reply(
+                    context,
+                    context.getString(R.string.command_gps_reply_no_providers),
+                    sender,
+                    id
+                )
+                id?.let {
                     syncPreferences.updateItemStatus(
                         it,
                         R.string.command_gps_error_location_unavailabe
@@ -137,8 +147,8 @@ class Gps : Command {
 
 
             if (bestLocation == null) {
-                onReply(context.getString(R.string.command_gps_reply_error))
-                historyId?.let {
+                reply(context, context.getString(R.string.command_gps_reply_error), sender, id)
+                id?.let {
                     syncPreferences.updateItemStatus(
                         it,
                         R.string.command_gps_error_location_unavailabe
@@ -154,13 +164,16 @@ class Gps : Command {
                 val formattedTime =
                     formatRelativeTime(context, Instant.ofEpochMilli(bestLocation.time))
 
-                onReply(
+                reply(
+                    context,
                     context.getString(
                         R.string.command_gps_reply,
                         mapsUrl,
                         bestLocation.accuracy.toInt(),
                         formattedTime
-                    )
+                    ),
+                    sender,
+                    id
                 )
             }
         }
