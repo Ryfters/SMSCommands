@@ -38,18 +38,14 @@ class Help : Command {
         if (command != null) {
             return reply(context, getCommandHelpMessage(context, command), sender, id)
         }
+
+        val commandList = Command.LIST.joinToString(context.getString(R.string.common_separator)) {
+            context.getString(it.label)
+        }
         reply(
             context,
-            """Usage: !!{PIN}/{command}/{parameters}
-Commands: ${
-                Command.LIST.joinToString(context.getString(R.string.common_separator)) {
-                    context.getString(
-                        it.label
-                    )
-                }
-            }
- Use help/command:name for more info on each command""", sender, id
-        )// TODO: Help message
+            context.getString(R.string.command_help_reply, commandList), sender, id
+        )
     }
 
     companion object {

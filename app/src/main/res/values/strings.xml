@@ -188,4 +188,5 @@
     <string name="command_capture_reply_success">Captured photo on the %1$s</string>
     <string name="command_capture_reply_error">An error occurred while taking a photo on the %1$s</string>
     <string name="common_new_line">\n</string>
+    <string name="command_help_reply">Usage: !!{PIN}/{command}/{parameters}\nCommands: %1$s\n  Use help/command:name for more info on each command</string>
 </resources>
