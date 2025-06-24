@@ -19,13 +19,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -43,9 +45,9 @@ fun TestSmsDialog(
     val context = LocalContext.current
     val activity = LocalActivity.current
 
-    var senderInput by remember { mutableStateOf("+1 (650) 555-1212") }
-    var msgInput by remember { mutableStateOf("") }
-    var closeTaskOnSend by remember { mutableStateOf(false) }
+    var senderInput by rememberSaveable { mutableStateOf("+1 (650) 555-1212") }
+    var msgInput by rememberSaveable { mutableStateOf("") }
+    var closeTaskOnSend by rememberSaveable { mutableStateOf(false) }
 
     AlertDialog(
         title = { Text(stringResource(R.string.screen_settings_tester_dialog_title)) },
@@ -63,7 +65,11 @@ fun TestSmsDialog(
                     onValueChange = { msgInput = it },
                     label = { Text(stringResource(R.string.screen_settings_tester_dialog_message)) },
                     singleLine = true,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password), // So it doesn't auto correct
+                    keyboardOptions = KeyboardOptions(
+                        capitalization = KeyboardCapitalization.None,
+                        autoCorrectEnabled = false,
+                        imeAction = ImeAction.Send
+                    ),
                     trailingIcon = {
                         IconButton(
                             onClick = {
