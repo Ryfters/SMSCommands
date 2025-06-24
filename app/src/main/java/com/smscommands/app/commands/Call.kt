@@ -21,16 +21,16 @@ class Call : Command {
     )
 
 
-    private val audioParamChoices = mapOf<Any, Int>(
+    private val audioModeParamChoices = mapOf<Any, Int>(
         SPEAKER to R.string.command_call_param_audio_speaker,
         DEAFEN to R.string.command_call_param_audio_deafen,
     )
 
     override val params = mapOf(
-        AUDIO_PARAM to ChoiceParamDefinition(
-            name = R.string.command_call_param_audio,
+        MODE_PARAM to ChoiceParamDefinition(
+            name = R.string.command_call_param_mode,
             desc = R.string.command_call_param_audio_desc,
-            choices = audioParamChoices
+            choices = audioModeParamChoices
         )
     )
 
@@ -41,7 +41,7 @@ class Call : Command {
         id: Long?
     ) {
 
-        val audioMode = parameters[AUDIO_PARAM] as String?
+        val audioMode = parameters[MODE_PARAM] as String?
 
         val intent = Intent(Intent.ACTION_CALL).apply {
             data = "tel:$sender".toUri()
@@ -55,14 +55,14 @@ class Call : Command {
         if (audioMode != null) {
             var audioManager = context.getSystemService(AudioManager::class.java)
 
-            if (audioMode == SPEAKER) { // TODO: Test this on real device with earpiece
-                val audioDevices = audioManager.availableCommunicationDevices.filter { it.isSink }
+            if (audioMode == SPEAKER) {
+                val audioDevices =
+                    audioManager.availableCommunicationDevices.filter { it.isSink } // sink is output
                 val speaker = audioDevices.find { it.type == AudioDeviceInfo.TYPE_BUILTIN_SPEAKER }
-                speaker?.let {
-                    audioManager.setCommunicationDevice(speaker)
-                }
+                speaker?.let { audioManager.setCommunicationDevice(speaker) }
 
                 val voiceCallMaxVol = audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL)
+
                 audioManager.setStreamVolume(
                     AudioManager.STREAM_VOICE_CALL,
                     voiceCallMaxVol,
@@ -70,10 +70,12 @@ class Call : Command {
                 )
             }
 
-            if (audioMode == DEAFEN) { // TODO: Test this too
+            if (audioMode == DEAFEN) {
+                val voiceCallMinVol =
+                    audioManager.getStreamMinVolume(AudioManager.STREAM_VOICE_CALL)
                 audioManager.setStreamVolume(
                     AudioManager.STREAM_VOICE_CALL,
-                    0,
+                    voiceCallMinVol,
                     0
                 )
             }
@@ -81,9 +83,9 @@ class Call : Command {
     }
 
     companion object {
-        private const val SPEAKER = "audiomode_speaker"
-        private const val DEAFEN = "audiomode_mute"
+        private const val SPEAKER = "mode_speaker"
+        private const val DEAFEN = "mode_deafen"
 
-        const val AUDIO_PARAM = "audio"
+        const val MODE_PARAM = "audio"
     }
 }

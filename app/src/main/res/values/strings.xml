@@ -2,7 +2,7 @@
     <string name="app_name">SMS Commands</string>
     <string name="command_call_desc">Makes your device call you</string>
     <string name="command_call_label">Call</string>
-    <string name="command_call_param_audio">audio</string>
+    <string name="command_call_param_mode">mode</string>
     <string name="command_call_param_audio_deafen">deafen</string>
     <string name="command_call_param_audio_desc">Set the audio mode</string>
     <string name="command_call_param_audio_speaker">speaker</string>
