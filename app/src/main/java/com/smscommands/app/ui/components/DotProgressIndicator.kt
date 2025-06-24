@@ -32,7 +32,6 @@ fun DotProgressIndicator(
 
 
     // Doing this ensures the animation has fully extended before retracting the other side
-    // FIXME: getOffsetDistanceInPages is wrong?
     val animationTarget = -pagerState.getOffsetDistanceInPages(0)
 
     val animatedPosition = remember { Animatable(animationTarget) }
