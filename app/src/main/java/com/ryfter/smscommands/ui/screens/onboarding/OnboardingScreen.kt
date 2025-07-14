@@ -1,0 +1,100 @@
+package com.ryfter.smscommands.ui.screens.onboarding
+
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.foundation.gestures.animateScrollBy
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LargeTopAppBar
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.ryfter.smscommands.R
+import com.ryfter.smscommands.data.UiStateViewModel
+import com.ryfter.smscommands.ui.components.PagerProgressBar
+import com.ryfter.smscommands.ui.navigation.Routes
+import kotlinx.coroutines.delay
+import kotlin.math.absoluteValue
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun OnboardingScreen(
+    navController: NavController,
+    viewModel: UiStateViewModel,
+) {
+    val pageCount = OnboardingPage.LIST.size
+    val pagerState = rememberPagerState { pageCount }
+
+    val currentPage = pagerState.currentPage
+    val pageOffset = pagerState.currentPageOffsetFraction
+
+    val pageTitle = stringResource(OnboardingPage.LIST[currentPage].title)
+
+    LaunchedEffect(Unit) {
+        delay(1000L)
+        (0..1).forEach {
+            pagerState.animateScrollBy(-pagerState.animateScrollBy(86f))
+        }
+    }
+
+    val onNextClicked: () -> Unit = {
+        viewModel.updateIsFirstLaunch(false)
+        navController.navigate(Routes.Home.MAIN) {
+            popUpTo(Routes.Home.MAIN)
+        }
+    }
+
+    val nextButton = @Composable { modifier: Modifier ->
+        AnimatedContent(
+            targetState = pagerState.canScrollForward,
+            modifier = modifier
+        ) {
+            if (it) OutlinedButton(onNextClicked) { Text(stringResource(R.string.common_skip)) }
+            else Button(onNextClicked) { Text(stringResource(R.string.common_ok)) }
+        }
+    }
+
+    Scaffold(
+        topBar = {
+            LargeTopAppBar(
+                title = {
+                    Text(
+                        text = pageTitle,
+                        modifier = Modifier.alpha(1 - pageOffset.absoluteValue * 1.6f)
+                    )
+                },
+                expandedHeight = 224.dp
+            )
+        },
+        bottomBar = {
+            PagerProgressBar(
+                pagerState = pagerState,
+                nextButton = nextButton
+            )
+        }
+    ) { padding ->
+        HorizontalPager(
+            state = pagerState,
+            verticalAlignment = Alignment.Top,
+            modifier = Modifier
+                .padding(padding)
+                .fillMaxSize()
+        ) { page ->
+            Column(Modifier.padding(16.dp)) {
+                OnboardingPage.LIST[page].Content()
+            }
+        }
+    }
+}

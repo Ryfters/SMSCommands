@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.smscommands.app"
+    namespace = "com.ryfter.smscommands"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.smscommands.app"
+        applicationId = "com.ryfter.smscommands"
         minSdk = 33
         targetSdk = 35
         versionCode = 1
