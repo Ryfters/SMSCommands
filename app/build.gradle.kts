@@ -7,14 +7,14 @@ plugins {
 
 android {
     namespace = "com.ryfter.smscommands"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.ryfter.smscommands"
         minSdk = 33
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
-        versionName = "0.0.1"
+        versionName = "0.1.0-alpha"
 
         buildConfigField("Long", "BUILD_DATE", "${System.currentTimeMillis()}L")
 
