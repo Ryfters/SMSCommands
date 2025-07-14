@@ -57,30 +57,25 @@ fun HistoryItemScreen(
 
         Subtitle(stringResource(R.string.common_details))
         MyListItem(
-            title = stringResource(R.string.screen_history_item_dialog_command),
+            title = stringResource(R.string.screen_history_item_command),
             content = stringResource(commandName)
         )
         MyListItem(
-            title = stringResource(R.string.screen_history_item_dialog_status),
+            title = stringResource(R.string.screen_history_item_status),
             content = stringResource(item.status)
         )
         MyListItem(
-            title = stringResource(R.string.screen_history_item_dialog_sender),
+            title = stringResource(R.string.screen_history_item_sender),
             content = item.sender
         )
         MyListItem(
-            title = stringResource(R.string.screen_history_item_dialog_time),
+            title = stringResource(R.string.screen_history_item_time),
             content = formattedTime
         )
 
-        // TODO: Better
-        Subtitle("Conversation")
-//            MyListItem(
-//                title = stringResource(R.string.screen_history_item_dialog_jump_to_conv),
-//
-//            )
+        HorizontalDivider()
         MyListItem(
-            title = "Conversation",
+            title = stringResource(R.string.screen_history_item_preview),
             action = {
                 IconButton(
                     onClick = {
@@ -98,7 +93,6 @@ fun HistoryItemScreen(
             }
         )
 
-        HorizontalDivider()
         ChatPreview(
             triggerMessage = item.trigger,
             responses = item.messages

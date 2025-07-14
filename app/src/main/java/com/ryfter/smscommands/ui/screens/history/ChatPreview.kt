@@ -21,7 +21,7 @@ fun ChatPreview(
 ) {
     Column(
         modifier = Modifier
-            .padding(8.dp)
+            .padding(start = 8.dp, end = 8.dp, bottom = 8.dp)
             .fillMaxWidth()
     ) {
         Surface(
@@ -43,11 +43,9 @@ fun ChatPreview(
             var roundedCornerTop = 2.dp
             var roundedCornerBottom = 2.dp
 
-            if (responses.lastIndex == index)
-                roundedCornerBottom = 20.dp
+            if (responses.lastIndex == index) roundedCornerBottom = 20.dp
 
-            if (index == 0)
-                roundedCornerTop = 20.dp
+            if (index == 0) roundedCornerTop = 20.dp
 
             val chatBubbleShape = RoundedCornerShape(
                 topStart = 20.dp,

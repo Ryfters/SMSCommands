@@ -112,12 +112,12 @@
     <string name="screen_history_clear_title">Clear history?</string>
     <string name="screen_history_error_empty">Nothing here yet</string>
     <string name="screen_history_error_not_enabled">You will need to enable history in the settings to use this feature</string>
-    <string name="screen_history_item_dialog_command">Command</string>
-    <string name="screen_history_item_dialog_jump_to_conv">Jump to conversation</string>
-    <string name="screen_history_item_dialog_message">Message</string>
-    <string name="screen_history_item_dialog_sender">Sender</string>
-    <string name="screen_history_item_dialog_status">Status</string>
-    <string name="screen_history_item_dialog_time">Time</string>
+    <string name="screen_history_item_command">Command</string>
+    <string name="screen_history_item_message">Message</string>
+    <string name="screen_history_item_preview">Preview</string>
+    <string name="screen_history_item_sender">Sender</string>
+    <string name="screen_history_item_status">Status</string>
+    <string name="screen_history_item_time">Time</string>
     <string name="screen_history_title">History</string>
 
     <!-- Home -->
@@ -229,4 +229,6 @@
     <string name="url_github" translatable="false">https://github.com/Ryfters/SMSCommands</string>
     <string name="url_github_releases" translatable="false">https://github.com/Ryfters/SMSCommands/releases</string>
     <string name="url_maps" translatable="false"><![CDATA[https://www.google.com/maps/search/?api=1&query=%1$f,%2$f]]></string>
+
+    <!-- Unsorted -->
 </resources>
