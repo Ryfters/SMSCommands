@@ -1,19 +1,11 @@
 package com.ryfter.smscommands.ui.screens.commands
 
 import android.util.Log
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.ryfter.smscommands.R
@@ -23,7 +15,6 @@ import com.ryfter.smscommands.commands.params.OptionParamDefinition
 import com.ryfter.smscommands.data.UiStateViewModel
 import com.ryfter.smscommands.permissions.Permission
 import com.ryfter.smscommands.ui.components.MainScaffold
-import com.ryfter.smscommands.ui.components.MyIconButton
 import com.ryfter.smscommands.ui.components.MyListItem
 import com.ryfter.smscommands.ui.components.Subtitle
 
@@ -98,31 +89,10 @@ fun CommandItemScreen(
             MyListItem(stringResource(R.string.common_none))
         } else {
             params.values.forEach { param ->
-                var expandable by remember { mutableStateOf(false) }
-                var expanded by remember { mutableStateOf(false) }
-
-                val maxContentLines by animateIntAsState(if (expanded) Int.MAX_VALUE else 2)
-
-
-                val targetRotation = if (expanded) -90f else 0f
-                val animatedRotation by animateFloatAsState(targetRotation)
-
                 MyListItem(
                     title = stringResource(param.name),
                     content = stringResource(param.desc),
-                    action = {
-                        if (expandable || expanded) {
-                            MyIconButton(
-                                icon = painterResource(R.drawable.ic_expand),
-                                onClick = { expanded = !expanded },
-                                modifier = Modifier.rotate(animatedRotation)
-                            )
-                        }
-                    },
-                    maxContentLines = if (maxContentLines > 1) maxContentLines else 1,
-                    onContentLayout = { result ->
-                        expandable = result.hasVisualOverflow
-                    }
+                    maxContentLines = Int.MAX_VALUE,
                 )
             }
         }
