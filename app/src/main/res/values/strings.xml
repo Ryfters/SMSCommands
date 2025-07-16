@@ -70,9 +70,11 @@
     <string name="common_close">Close</string>
     <string name="common_colon">": "</string>
     <string name="common_confirm">Confirm</string>
+    <string name="common_continue">Continue</string>
     <string name="common_details">Details</string>
     <string name="common_disabled">Disabled</string>
     <string name="common_enabled">Enabled</string>
+    <string name="common_finish">Finish</string>
     <string name="common_new_line">\n</string>
     <string name="common_none">None</string>
     <string name="common_off">Off</string>
@@ -80,6 +82,7 @@
     <string name="common_on">On</string>
     <string name="common_separator">", "</string>
     <string name="common_skip">Skip</string>
+    <string name="common_start">Start</string>
     <string name="common_stop">Stop</string>
     <string name="common_warning">Warning</string>
 
@@ -150,10 +153,33 @@
 
     <!-- Onboarding -->
     <string name="screen_onboarding_command_title">Sending commands</string>
-    <string name="screen_onboarding_intro_content">Welcome to SMS Commands! This app lets you easily perform basic tasks, such as locking your device or getting its location simply by sending yourself an SMS.</string>
+    <string name="screen_onboarding_commands_info">Select commands to enable. You can get more details on each command by clicking on it</string>
+    <string name="screen_onboarding_commands_title">Commands</string>
+    <string name="screen_onboarding_finish_other_settings">Check out the settings page for other options</string>
+    <string name="screen_onboarding_finish_suggest">If you want more features/commands, feel free to make a suggestion in the issues section of the GitHub repo</string>
+    <string name="screen_onboarding_finish_title">All done</string>
+    <string name="screen_onboarding_intro_content">Welcome to SMS Commands! This app lets you easily perform basic tasks, such as locking your device or getting its location simply by sending yourself an SMS</string>
     <string name="screen_onboarding_intro_title">Welcome</string>
+    <string name="screen_onboarding_parameters_flags_key">Flags</string>
+    <string name="screen_onboarding_parameters_flags_value">You just need include them in the parameters</string>
+    <string name="screen_onboarding_parameters_info">There are 2 types of parameters, flags and options</string>
+    <string name="screen_onboarding_parameters_options_key">Options</string>
+    <string name="screen_onboarding_parameters_options_value">They require an argument, and are formatted like this: \'parameter:argument\'</string>
     <string name="screen_onboarding_parameters_title">Parameters</string>
     <string name="screen_onboarding_permissions_title">Permissions</string>
+    <string name="screen_onboarding_perms_info">You need to grant the following permissions depending on your needs</string>
+    <string name="screen_onboarding_perms_title">Grant permissions</string>
+    <string name="screen_onboarding_pin_info">You will need this PIN to use a command. If you forget it, you can always see or change it later</string>
+    <string name="screen_onboarding_pin_title">Set a PIN</string>
+    <string name="screen_onboarding_sending_command">{command}</string>
+    <string name="screen_onboarding_sending_command_value">The command you want to execute, it must be enabled in the Commands screen</string>
+    <string name="screen_onboarding_sending_info">To use a command, text yourself a message with the following structure:</string>
+    <string name="screen_onboarding_sending_params">{parameters}</string>
+    <string name="screen_onboarding_sending_params_value">The parameters for the command, if any, separated by spaces. More about them on the next page</string>
+    <string name="screen_onboarding_sending_pin">{PIN}</string>
+    <string name="screen_onboarding_sending_pin_value">Your access pin, if any, you can change it at any time on the home screen</string>
+    <string name="screen_onboarding_sending_prefix">!!</string>
+    <string name="screen_onboarding_sending_prefix_value">This prefix is required for the app to process the command</string>
 
     <!-- Permissions -->
     <string name="screen_perms_decline_warning">On Android 11+, if you deny a permission more than once, the app won\'t be able to request it again, so you\'ll have to enable it yourself in the settings</string>
@@ -231,4 +257,6 @@
     <string name="url_maps" translatable="false"><![CDATA[https://www.google.com/maps/search/?api=1&query=%1$f,%2$f]]></string>
 
     <!-- Unsorted -->
+    <string name="Unsorted" />
+
 </resources>

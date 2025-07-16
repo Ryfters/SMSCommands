@@ -1,99 +1,169 @@
 package com.ryfter.smscommands.ui.screens.onboarding
 
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.foundation.gestures.animateScrollBy
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.Button
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.FloatingToolbarDefaults.ScreenOffset
+import androidx.compose.material3.HorizontalFloatingToolbar
+import androidx.compose.material3.Icon
 import androidx.compose.material3.LargeTopAppBar
-import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SplitButtonDefaults
+import androidx.compose.material3.SplitButtonLayout
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.ryfter.smscommands.R
 import com.ryfter.smscommands.data.UiStateViewModel
-import com.ryfter.smscommands.ui.components.PagerProgressBar
-import com.ryfter.smscommands.ui.navigation.Routes
-import kotlinx.coroutines.delay
-import kotlin.math.absoluteValue
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun OnboardingScreen(
     navController: NavController,
     viewModel: UiStateViewModel,
 ) {
-    val pageCount = OnboardingPage.LIST.size
-    val pagerState = rememberPagerState { pageCount }
+    var pageIndex by rememberSaveable { mutableIntStateOf(0) }
+    val currentPage = OnboardingPage.LIST[pageIndex]
 
-    val currentPage = pagerState.currentPage
-    val pageOffset = pagerState.currentPageOffsetFraction
+    val pageTitle = stringResource(currentPage.title)
 
-    val pageTitle = stringResource(OnboardingPage.LIST[currentPage].title)
-
-    LaunchedEffect(Unit) {
-        delay(1000L)
-        (0..1).forEach {
-            pagerState.animateScrollBy(-pagerState.animateScrollBy(86f))
-        }
-    }
-
-    val onNextClicked: () -> Unit = {
-        viewModel.updateIsFirstLaunch(false)
-        navController.navigate(Routes.Home.MAIN) {
-            popUpTo(Routes.Home.MAIN)
-        }
-    }
-
-    val nextButton = @Composable { modifier: Modifier ->
-        AnimatedContent(
-            targetState = pagerState.canScrollForward,
-            modifier = modifier
-        ) {
-            if (it) OutlinedButton(onNextClicked) { Text(stringResource(R.string.common_skip)) }
-            else Button(onNextClicked) { Text(stringResource(R.string.common_ok)) }
-        }
-    }
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
     Scaffold(
         topBar = {
-            LargeTopAppBar(
-                title = {
-                    Text(
-                        text = pageTitle,
-                        modifier = Modifier.alpha(1 - pageOffset.absoluteValue * 1.6f)
-                    )
-                },
-                expandedHeight = 224.dp
-            )
+            Column {
+                LargeTopAppBar(
+                    title = {
+                        Text(
+                            text = pageTitle,
+                        )
+                    },
+                    expandedHeight = 224.dp,
+                    scrollBehavior = scrollBehavior
+                )
+
+                val progress by animateFloatAsState(targetValue = (pageIndex + 1f) / OnboardingPage.LIST.size)
+                LinearProgressIndicator(
+                    progress = { progress },
+                    drawStopIndicator = {},
+                    modifier = Modifier
+                        .scale(scaleX = 1.01f, scaleY = 1f)
+                        .fillMaxWidth()
+                        .padding(bottom = 8.dp)
+                )
+            }
         },
-        bottomBar = {
-            PagerProgressBar(
-                pagerState = pagerState,
-                nextButton = nextButton
-            )
-        }
+
     ) { padding ->
-        HorizontalPager(
-            state = pagerState,
-            verticalAlignment = Alignment.Top,
+        var expanded by remember { mutableStateOf(true) }
+        val scrollState = rememberScrollState()
+
+        var prevScrollState by remember { mutableIntStateOf(scrollState.value) }
+        var prevTopAppBarHeight by remember { mutableFloatStateOf(scrollBehavior.state.heightOffset) }
+
+        LaunchedEffect(scrollBehavior.state.heightOffset) {
+            if (scrollBehavior.state.heightOffset > prevTopAppBarHeight) expanded = true
+            else if (scrollBehavior.state.heightOffset < prevTopAppBarHeight) expanded = false
+
+            prevTopAppBarHeight = scrollBehavior.state.heightOffset
+        }
+
+        LaunchedEffect(scrollState.value) {
+            if (scrollState.value > prevScrollState) expanded = false
+            else if (scrollState.value < prevScrollState) expanded = true
+
+            prevScrollState = scrollState.value
+        }
+
+        currentPage.Content(
+            viewModel = viewModel,
+            navController = navController,
             modifier = Modifier
-                .padding(padding)
+                .padding(top = padding.calculateTopPadding())
+                .nestedScroll(scrollBehavior.nestedScrollConnection)
+                .verticalScroll(scrollState)
                 .fillMaxSize()
-        ) { page ->
-            Column(Modifier.padding(16.dp)) {
-                OnboardingPage.LIST[page].Content()
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = padding.calculateTopPadding())
+
+        ) {
+
+            val targetOffset =
+                (-ScreenOffset - padding.calculateBottomPadding()) * if (expanded) 1 else -2
+            val offset by animateDpAsState(targetOffset)
+            HorizontalFloatingToolbar(
+                expanded = false,
+                contentPadding = PaddingValues(10.dp),
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .offset(y = offset),
+            ) {
+                SplitButtonLayout(
+                    leadingButton = {
+                        SplitButtonDefaults.LeadingButton(
+                            onClick = { pageIndex -= 1 },
+                            shapes = SplitButtonDefaults.leadingButtonShapesFor(SplitButtonDefaults.MediumContainerHeight),
+                            colors = ButtonDefaults.filledTonalButtonColors(),
+                            enabled = pageIndex != 0
+                        ) {
+                            Icon(painterResource(R.drawable.ic_back), null)
+                        }
+                    },
+                    trailingButton = {
+                        SplitButtonDefaults.TrailingButton(
+                            onClick = {
+                                if (currentPage.onContinue(viewModel, navController)) pageIndex += 1
+                            },
+                            shapes = SplitButtonDefaults.trailingButtonShapesFor(SplitButtonDefaults.MediumContainerHeight),
+                            colors = ButtonDefaults.filledTonalButtonColors(),
+                        ) {
+                            Text(
+                                text = stringResource(currentPage.nextButtonText),
+                                style = MaterialTheme.typography.labelLarge.copy(fontSize = 16.sp),
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.weight(1f)
+                            )
+                        }
+                    },
+                    // it fills max width, then it scales, so this is the equivalent of .fillMaxWidth(.7f)
+                    modifier = Modifier
+                        .scale(1.4f)
+                        .fillMaxWidth(.5f),
+                )
             }
         }
     }
