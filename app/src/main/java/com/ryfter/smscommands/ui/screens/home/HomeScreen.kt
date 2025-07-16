@@ -1,16 +1,14 @@
 package com.ryfter.smscommands.ui.screens.home
 
 import android.content.Context
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.ryfter.smscommands.R
@@ -84,17 +82,20 @@ fun HomeScreen(
         val missingPerms = permissions.count { !it.value }
         val totalPerms = Permission.ALL.count()
         val permissionContent =
-                 if (missingPerms == 0) stringResource(R.string.screen_home_perms_all)
-            else if (missingPerms == totalPerms) stringResource(R.string.screen_home_perms_none)
-            else if (missingPerms == 1) stringResource(R.string.screen_home_perms_one)
-            else stringResource(R.string.screen_home_perms_many, missingPerms)
+            when (missingPerms) {
+                0 -> stringResource(R.string.screen_home_perms_all)
+                1 -> stringResource(R.string.screen_home_perms_one)
+                totalPerms -> stringResource(R.string.screen_home_perms_none)
+                else -> stringResource(R.string.screen_home_perms_many, missingPerms)
+            }
 
         HomeListItem(
             headline = stringResource(R.string.screen_commands_title),
             content = commandContent,
             onClick = {
                 navController.navigate(Routes.Commands.MAIN)
-            }
+            },
+            topDivider = false
         )
         HomeListItem(
             headline = stringResource(R.string.screen_history_title),

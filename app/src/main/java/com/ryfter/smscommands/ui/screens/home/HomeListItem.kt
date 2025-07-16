@@ -22,7 +22,7 @@ fun HomeListItem(
     onClick: () -> Unit,
     topDivider: Boolean = true,
 ) {
-    if (topDivider) HorizontalDivider()
+    if (topDivider) HorizontalDivider(Modifier.padding(horizontal = 24.dp))
     ListItem(
         headlineContent = { Text(headline, style = MaterialTheme.typography.titleLarge.copy(fontSize = 20.sp)) },
         supportingContent = { content?.let { Text(it) } },
