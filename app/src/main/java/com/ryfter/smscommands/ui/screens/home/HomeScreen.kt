@@ -118,7 +118,6 @@ fun HomeScreen(
                 navController.navigate(Routes.Perms.MAIN)
             }
         )
-        HorizontalDivider()
     }
 }
 
