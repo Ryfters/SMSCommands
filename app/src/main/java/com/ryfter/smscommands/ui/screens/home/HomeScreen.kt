@@ -130,7 +130,7 @@ fun SettingsIcon(
         onClick = onClick
     ) {
         Icon(
-            imageVector = Icons.Outlined.Settings,
+            painter = painterResource(R.drawable.ic_settings),
             contentDescription = null
         )
     }

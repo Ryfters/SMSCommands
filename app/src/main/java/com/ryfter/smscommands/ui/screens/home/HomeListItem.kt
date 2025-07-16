@@ -26,16 +26,6 @@ fun HomeListItem(
     ListItem(
         headlineContent = { Text(headline, style = MaterialTheme.typography.titleLarge.copy(fontSize = 20.sp)) },
         supportingContent = { content?.let { Text(it) } },
-        trailingContent = {
-            IconButton(
-                onClick = onClick,
-            ) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                    contentDescription = headline,
-                )
-            }
-        },
         modifier = Modifier
             .padding(vertical = 4.dp)
             .clickable(onClick = onClick),
