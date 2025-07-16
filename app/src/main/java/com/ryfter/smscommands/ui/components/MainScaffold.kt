@@ -2,7 +2,6 @@ package com.ryfter.smscommands.ui.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -34,7 +33,6 @@ fun MainScaffold(
     content: @Composable ColumnScope.() -> Unit,
 ) {
     Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopAppBar(
                 title = title,
@@ -46,9 +44,10 @@ fun MainScaffold(
             )
         },
     ) { padding ->
-        val newPadding = PaddingValues(top = padding.calculateTopPadding())
         Column(
-            modifier = modifier.padding(newPadding),
+            modifier = modifier
+                .padding(top = padding.calculateTopPadding())
+                .nestedScroll(scrollBehavior.nestedScrollConnection),
         ) {
             content()
             if (consumeNavPadding)
