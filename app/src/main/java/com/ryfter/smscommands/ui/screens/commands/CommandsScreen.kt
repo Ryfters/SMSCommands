@@ -39,12 +39,10 @@ fun CommandsScreen(
 
             val disabled = missingPermissions.isNotEmpty()
 
-            val content =
-                if (disabled)
-                    stringResource(
-                        R.string.screen_commands_missing_permissions,
-                        missingPermissions.joinToString { context.getString(it.label) })
-                else stringResource(command.description)
+            val content = if (disabled) stringResource(
+                R.string.screen_commands_missing_permissions,
+                missingPermissions.joinToString { context.getString(it.label) }
+            ) else stringResource(command.description)
 
 
             MyListItem(
