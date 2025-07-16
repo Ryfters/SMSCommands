@@ -29,7 +29,7 @@
     <!-- GPS -->
     <string name="command_gps_desc">Returns your device\'s current location</string>
     <string name="command_gps_error_location_disabled">Location disabled</string>
-    <string name="command_gps_error_location_unavailabe">Location unavailable</string>
+    <string name="command_gps_error_location_unavailable">Location unavailable</string>
     <string name="command_gps_label">GPS</string>
     <string name="command_gps_param_mode">mode</string>
     <string name="command_gps_param_mode_current">current</string>

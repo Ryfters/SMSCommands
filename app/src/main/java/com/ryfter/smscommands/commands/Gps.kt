@@ -54,7 +54,7 @@ class Gps : Command {
 
             val mode = parameters[MODE_PARAM] as String
 
-            var syncPreferences = SyncPreferences.getPreferences(context)
+            val syncPreferences = SyncPreferences.getPreferences(context)
 
             var bestLocation: Location? = null
 
@@ -86,7 +86,7 @@ class Gps : Command {
                 id?.let {
                     syncPreferences.updateItemStatus(
                         it,
-                        R.string.command_gps_error_location_unavailabe
+                        R.string.command_gps_error_location_unavailable
                     )
                 }
                 return@launch
@@ -98,7 +98,7 @@ class Gps : Command {
                 val locations = mutableListOf<Location?>()
 
                 withTimeout(5000L) {
-                    suspendCancellableCoroutine<Unit> { continuation ->
+                    suspendCancellableCoroutine { continuation ->
                         providers.forEach { provider ->
                             locationManager.getCurrentLocation(
                                 provider,
@@ -151,7 +151,7 @@ class Gps : Command {
                 id?.let {
                     syncPreferences.updateItemStatus(
                         it,
-                        R.string.command_gps_error_location_unavailabe
+                        R.string.command_gps_error_location_unavailable
                     )
                 }
             } else {

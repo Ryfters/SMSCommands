@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 
 
+@Suppress("SameReturnValue")
 interface Permission {
     val id: String
 

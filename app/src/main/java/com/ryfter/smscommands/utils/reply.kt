@@ -7,7 +7,7 @@ import com.ryfter.smscommands.data.SyncPreferences
 fun reply(context: Context, message: String, sender: String, id: Long?) {
     val smsManager: SmsManager = context.getSystemService(SmsManager::class.java)
 
-    var dividedMessage = smsManager.divideMessage(message)
+    val dividedMessage = smsManager.divideMessage(message)
     smsManager.sendMultipartTextMessage(sender, null, dividedMessage, null, null)
 
     id?.let {

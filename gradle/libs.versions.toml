@@ -1,22 +1,22 @@
 [versions]
 agp = "8.11.1"
-concurrentFuturesKtx = "1.2.0"
+concurrentFuturesKtx = "1.3.0"
 kotlin = "2.2.0"
 ksp = "2.2.0-2.0.2" # android studio doesn't auto update this
 
 activityCompose = "1.10.1"
 biometric = "1.4.0-alpha04"
 cameraX = "1.4.2"
-composeBom = "2025.06.01"
-m3alpha = "1.4.0-alpha17"
+composeBom = "2025.07.00"
+m3alpha = "1.4.0-alpha18"
 coreKtx = "1.16.0"
 datastorePreferences = "1.1.7"
 espressoCore = "3.6.1"
 fragmentCompose = "1.8.8"
 junit = "4.13.2"
 junitVersion = "1.2.1"
-lifecycle = "2.9.1"
-navigationCompose = "2.9.1"
+lifecycle = "2.9.2"
+navigationCompose = "2.9.2"
 room = "2.7.2"
 
 [libraries]

@@ -11,7 +11,7 @@ import com.ryfter.smscommands.receiver.CommandStatus.INVALID_COMMAND
 import java.time.Instant
 
 fun processMessage(context: Context, sender: String, trigger: String) {
-    if (trigger.startsWith("!!") == false) return
+    if (!trigger.startsWith("!!")) return
 
     val syncPreferences = SyncPreferences.getPreferences(context)
 
@@ -33,16 +33,16 @@ fun processMessage(context: Context, sender: String, trigger: String) {
 
     val messagesToSend = mutableListOf<String>()
     var status: Int = R.string.status_success
-    var commandId: String = selectedCommand?.id ?: INVALID_COMMAND
+    val commandId: String = selectedCommand?.id ?: INVALID_COMMAND
     val commandParams = mutableMapOf<String, Any?>()
 
-    if (pinCorrect == false) {
+    if (!pinCorrect) {
         messagesToSend.add(context.getString(R.string.sms_reply_pin_invalid))
         status = R.string.status_invalid_pin
     } else if (selectedCommand == null) {
         messagesToSend.add(context.getString(R.string.sms_reply_command_invalid))
         status = R.string.status_invalid_command
-    } else if (syncPreferences.readCommandEnabled(selectedCommand.id) == false) {
+    } else if (!syncPreferences.readCommandEnabled(selectedCommand.id)) {
         messagesToSend.add(context.getString(R.string.sms_reply_command_disabled))
         status = R.string.status_disabled_command
     } else if (

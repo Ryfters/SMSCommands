@@ -25,6 +25,7 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import kotlin.coroutines.resume
 
+@Suppress("SameParameterValue")
 class CaptureActivity : ComponentActivity() {
 
     private lateinit var cameraExecutor: ExecutorService
@@ -124,7 +125,7 @@ class CaptureActivity : ComponentActivity() {
             contentValues
         ).build()
 
-        return suspendCancellableCoroutine<Unit> { continuation ->
+        return suspendCancellableCoroutine { continuation ->
             imageCapture.takePicture(
                 outputOptions,
                 cameraExecutor,

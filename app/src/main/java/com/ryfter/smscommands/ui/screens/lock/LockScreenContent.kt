@@ -71,7 +71,7 @@ fun LockScreenContent(
             )
 
             Button(
-                onClick = { onPinUnlock(pinInput, { pinInput = "" }) },
+                onClick = { onPinUnlock(pinInput) { pinInput = "" } },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 8.dp)
