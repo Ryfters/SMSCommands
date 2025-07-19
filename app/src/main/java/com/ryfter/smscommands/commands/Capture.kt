@@ -4,10 +4,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.camera.core.ImageCapture
 import com.ryfter.smscommands.R
-import com.ryfter.smscommands.commands.CaptureActivity.Companion.CAMERA_BACK
-import com.ryfter.smscommands.commands.CaptureActivity.Companion.CAMERA_BOTH
-import com.ryfter.smscommands.commands.CaptureActivity.Companion.CAMERA_EXTRA
-import com.ryfter.smscommands.commands.CaptureActivity.Companion.CAMERA_FRONT
 import com.ryfter.smscommands.commands.CaptureActivity.Companion.FLASH_MODE_EXTRA
 import com.ryfter.smscommands.commands.Command.Companion.ID_EXTRA
 import com.ryfter.smscommands.commands.Command.Companion.SENDER_EXTRA
@@ -21,7 +17,8 @@ class Capture : Command {
 
     override val requiredPermissions = listOf(
         Permission.OVERLAY,
-        Permission.CAMERA
+        Permission.CAMERA,
+        Permission.PHONE // Required for sending MMS
     )
 
 
@@ -29,11 +26,6 @@ class Capture : Command {
         ImageCapture.FLASH_MODE_ON to R.string.common_on,
         ImageCapture.FLASH_MODE_OFF to R.string.common_off,
         ImageCapture.FLASH_MODE_AUTO to R.string.common_auto,
-    )
-    private val cameraParamChoices = mapOf<Any, Int>(
-        CAMERA_FRONT to R.string.command_capture_param_camera_front,
-        CAMERA_BACK to R.string.command_capture_param_camera_back,
-        CAMERA_BOTH to R.string.command_capture_param_camera_both,
     )
 
     override val params = mapOf(
@@ -43,12 +35,6 @@ class Capture : Command {
             defaultValue = ImageCapture.FLASH_MODE_OFF,
             choices = flashParamChoices
         ),
-        CAMERA_PARAM to ChoiceParamDefinition(
-            name = R.string.command_capture_param_camera,
-            desc = R.string.command_capture_param_camera_desc,
-            defaultValue = CAMERA_BOTH,
-            choices = cameraParamChoices
-        )
     )
 
     override fun onReceive(
@@ -59,7 +45,6 @@ class Capture : Command {
     ) {
 
         val flashMode = parameters[FLASH_PARAM] as Int
-        val camera = parameters[CAMERA_PARAM] as Int
 
         val intent = Intent(context, CaptureActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or
@@ -69,14 +54,12 @@ class Capture : Command {
             putExtra(ID_EXTRA, id)
             putExtra(SENDER_EXTRA, sender)
             putExtra(FLASH_MODE_EXTRA, flashMode)
-            putExtra(CAMERA_EXTRA, camera)
         }
 
         context.startActivity(intent)
     }
 
     companion object {
-        private const val CAMERA_PARAM = "camera"
         private const val FLASH_PARAM = "flash"
     }
 }

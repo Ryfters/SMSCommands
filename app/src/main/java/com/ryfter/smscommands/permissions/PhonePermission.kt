@@ -8,7 +8,9 @@ class PhonePermission : Permission {
 
     override val label = R.string.permission_phone
 
-    private val permissions = arrayOf(
-        Manifest.permission.CALL_PHONE
+    override val permissions = arrayOf(
+        Manifest.permission.CALL_PHONE,
+        Manifest.permission.READ_PHONE_NUMBERS,
+        Manifest.permission.READ_PHONE_STATE,
     )
 }

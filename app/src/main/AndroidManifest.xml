@@ -12,6 +12,11 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
     <uses-permission android:name="android.permission.SEND_SMS"/>
 
+    <!-- Required for MMS -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
+
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
@@ -19,6 +24,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
+
 
     <application
         android:allowBackup="true"
@@ -80,6 +86,9 @@
                 android:value="com.google.android.apps.messaging">
             </meta-data>
         </service>
+
+        <!-- Required for sending MMS through android-smsmms -->
+        <service android:name="com.android.mms.transaction.TransactionService" />
 
         <activity android:name=".commands.RingActivity"
             android:theme="@style/TransparentActivityTheme.Dialog"/>

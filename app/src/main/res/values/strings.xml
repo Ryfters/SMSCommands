@@ -12,19 +12,12 @@
     <string name="command_call_reply_success">Calling %1$s</string>
 
     <!-- Capture -->
-    <string name="command_capture_camera_back">front camera</string>
-    <string name="command_capture_camera_front">back camera</string>
     <string name="command_capture_desc">Takes a photo from your phone\'s cameras</string>
     <string name="command_capture_label">Capture</string>
-    <string name="command_capture_param_camera">camera</string>
-    <string name="command_capture_param_camera_back">back</string>
-    <string name="command_capture_param_camera_both">both</string>
-    <string name="command_capture_param_camera_desc">Selects the camera to take the picture</string>
-    <string name="command_capture_param_camera_front">front</string>
     <string name="command_capture_param_flash">flash</string>
     <string name="command_capture_param_flash_desc">Sets the flash mode</string>
-    <string name="command_capture_reply_error">An error occurred while taking a photo on the %1$s</string>
-    <string name="command_capture_reply_success">Captured photo on the %1$s</string>
+    <string name="command_capture_reply_error">An error occurred while capturing photo %1$d of %2$d</string>
+    <string name="command_capture_reply_success">Captured photo %d of %2$d</string>
 
     <!-- GPS -->
     <string name="command_gps_desc">Returns your device\'s current location</string>

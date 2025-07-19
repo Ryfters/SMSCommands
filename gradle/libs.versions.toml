@@ -5,9 +5,11 @@ kotlin = "2.2.0"
 ksp = "2.2.0-2.0.2" # android studio doesn't auto update this
 
 activityCompose = "1.10.1"
+android-smsmms = "c3e678befd"
 biometric = "1.4.0-alpha04"
 cameraX = "1.4.2"
 composeBom = "2025.07.00"
+compressor = "3.0.1"
 m3alpha = "1.4.0-alpha18"
 coreKtx = "1.16.0"
 datastorePreferences = "1.1.7"
@@ -40,6 +42,9 @@ androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle",      name = "
 androidx-navigation-compose     = { group = "androidx.navigation",      name = "navigation-compose", version.ref = "navigationCompose" }
 androidx-room-ktx               = { group = "androidx.room",            name = "room-ktx",          version.ref = "room" }
 androidx-room-runtime           = { group = "androidx.room",            name = "room-runtime",      version.ref = "room" }
+android-smsmms = { group = "org.fossify", name = "android-smsmms", version.ref = "android-smsmms" }
+zelory-compressor = { group = "id.zelory", name = "compressor", version.ref = "compressor" }
+
 
 # Testing dependencies
 androidx-espresso-core          = { group = "androidx.test.espresso",   name = "espresso-core",     version.ref = "espressoCore" }

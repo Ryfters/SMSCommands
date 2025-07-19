@@ -1,29 +1,47 @@
 package com.ryfter.smscommands.commands
 
-import android.content.ContentValues
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.provider.MediaStore
+import android.util.Log
+import android.util.Size
 import androidx.activity.ComponentActivity
+import androidx.camera.core.AspectRatio.RATIO_4_3
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCapture.FLASH_MODE_OFF
 import androidx.camera.core.ImageCaptureException
+import androidx.camera.core.resolutionselector.AspectRatioStrategy
+import androidx.camera.core.resolutionselector.ResolutionSelector
+import androidx.camera.core.resolutionselector.ResolutionStrategy
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.concurrent.futures.await
+import androidx.core.net.toFile
+import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
+import com.klinker.android.send_message.Message
+import com.klinker.android.send_message.Settings
+import com.klinker.android.send_message.Transaction
 import com.ryfter.smscommands.R
 import com.ryfter.smscommands.commands.Command.Companion.ID_EXTRA
 import com.ryfter.smscommands.commands.Command.Companion.SENDER_EXTRA
 import com.ryfter.smscommands.data.SyncPreferences
 import com.ryfter.smscommands.utils.reply
+import id.zelory.compressor.Compressor
+import id.zelory.compressor.constraint.quality
+import id.zelory.compressor.constraint.size
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import kotlin.coroutines.resume
+
 
 @Suppress("SameParameterValue")
 class CaptureActivity : ComponentActivity() {
@@ -31,26 +49,27 @@ class CaptureActivity : ComponentActivity() {
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var cameraProvider: ProcessCameraProvider
 
+    private lateinit var settings: Settings
+    private lateinit var transaction: Transaction
+
     private var syncPreferences: SyncPreferences? = null
 
     private var id: Long? = null
     private var sender: String? = null
     private var flashMode: Int? = null
-    private var camera: Int? = null
 
     private lateinit var _reply: (String) -> Unit
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         cameraExecutor = Executors.newSingleThreadExecutor()
 
         id = intent.getLongExtra(ID_EXTRA, -1L).takeIf { it != -1L }
 
         sender = intent.getStringExtra(SENDER_EXTRA) as String
 
-        camera = intent.getIntExtra(CAMERA_EXTRA, CAMERA_BOTH)
-        flashMode = intent.getIntExtra(FLASH_MODE_EXTRA, ImageCapture.FLASH_MODE_OFF)
-
+        flashMode = intent.getIntExtra(FLASH_MODE_EXTRA, FLASH_MODE_OFF)
 
         id?.let { syncPreferences = SyncPreferences.getPreferences(applicationContext) }
 
@@ -62,68 +81,73 @@ class CaptureActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
-        val captureMode = ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY
-        val flashMode = ImageCapture.FLASH_MODE_OFF
+
+        settings = Settings()
+        settings.useSystemSending = true
+
+        transaction = Transaction(applicationContext, settings)
 
         lifecycleScope.launch {
             cameraProvider = ProcessCameraProvider.getInstance(applicationContext).await()
 
-            if (camera == CAMERA_BACK || camera == CAMERA_BOTH) {
-                takePhoto(CAMERA_BACK, captureMode, flashMode)
+            val cameras = cameraProvider.availableCameraInfos
+            val cameraCount = cameras.size
+
+            val jobs: MutableList<Job> = mutableListOf()
+
+            cameras.mapIndexed { index, camInfo ->
+                try {
+                    val uri = takePhoto(camInfo.cameraSelector)
+                    jobs.add(launch { sendPhoto(uri, index, cameraCount) })
+                } catch (e: Exception) {
+                    Log.w(TAG, "Photo capture failed: ${e.message}", e)
+                    _reply(getString(R.string.command_capture_reply_error, index + 1, cameraCount))
+                }
             }
 
-            if (camera == CAMERA_FRONT || camera == CAMERA_BOTH) {
-                takePhoto(CAMERA_FRONT, captureMode, flashMode)
-            }
+            jobs.joinAll()
 
             finishAndRemoveTask()
         }
     }
 
     private suspend fun takePhoto(
-        camera: Int,
-        captureMode: Int,
-        flashMode: Int
-    ) {
-        val cameraSelector: CameraSelector
-        val cameraLabel: String
+        cameraSelector: CameraSelector,
+    ): Uri {
 
-        when (camera) {
-            CAMERA_FRONT -> {
-                cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
-                cameraLabel = getString(R.string.command_capture_camera_front)
-
-            }
-            CAMERA_BACK -> {
-                cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-                cameraLabel = getString(R.string.command_capture_camera_back)
-            }
-            else -> throw Exception("Invalid camera in takePhoto()")
-        }
+        val resolutionSelector = ResolutionSelector.Builder()
+            .setResolutionStrategy(
+                ResolutionStrategy(
+                    Size(1920, 1440),
+                    ResolutionStrategy.FALLBACK_RULE_CLOSEST_HIGHER_THEN_LOWER
+                )
+            ).setAspectRatioStrategy(
+                AspectRatioStrategy(RATIO_4_3, AspectRatioStrategy.FALLBACK_RULE_AUTO)
+            ).build()
 
         val imageCapture = ImageCapture.Builder()
-            .setCaptureMode(captureMode)
-            .setFlashMode(flashMode)
+            .setFlashMode(flashMode ?: FLASH_MODE_OFF)
+            .setResolutionSelector(resolutionSelector)
             .build()
 
         cameraProvider.unbindAll()
-        cameraProvider.bindToLifecycle(this, cameraSelector, imageCapture)
-
-        val name = SimpleDateFormat(FILENAME_FORMAT, Locale.getDefault()).format(System.currentTimeMillis())
-
-        val fileDir = "${Environment.DIRECTORY_PICTURES}/${this.getString(R.string.app_name)}"
-
-        val contentValues = ContentValues().apply {
-            put(MediaStore.MediaColumns.DISPLAY_NAME, name)
-            put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
-            put(MediaStore.Images.Media.RELATIVE_PATH, fileDir)
+        cameraProvider.bindToLifecycle(this, cameraSelector, imageCapture).apply {
+            cameraControl.setZoomRatio(cameraInfo.zoomState.value?.minZoomRatio ?: 1f)
+            // cameraInfo.intrinsicZoomRatio to get zoom level
         }
 
-        val outputOptions = ImageCapture.OutputFileOptions.Builder(
-            contentResolver,
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-            contentValues
-        ).build()
+        val fileDir = File(
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+            getString(R.string.app_name)
+        ).apply { mkdirs() }
+
+        val fileName = SimpleDateFormat(
+            FILENAME_FORMAT,
+            Locale.getDefault()
+        ).format(System.currentTimeMillis())
+
+        val outputOptions =
+            ImageCapture.OutputFileOptions.Builder(File(fileDir, "$fileName.jpg")).build()
 
         return suspendCancellableCoroutine { continuation ->
             imageCapture.takePicture(
@@ -131,34 +155,64 @@ class CaptureActivity : ComponentActivity() {
                 cameraExecutor,
                 object : ImageCapture.OnImageSavedCallback {
                     override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                        _reply(getString(R.string.command_capture_reply_success, cameraLabel))
-
-                        continuation.resume(Unit)
+                        if (outputFileResults.savedUri == null) throw IllegalStateException("Couldn't save image")
+                        return continuation.resume(outputFileResults.savedUri!!)
                     }
                     override fun onError(exception: ImageCaptureException) {
-                        _reply(getString(R.string.command_capture_reply_error, cameraLabel))
-                        continuation.resume(Unit)
+                        throw exception
                     }
                 }
             )
         }
     }
 
+    private suspend fun sendPhoto(uri: Uri, index: Int, camCount: Int) {
+
+        var image = uri.toFile()
+
+
+        while (image.length() > 300_000) {
+
+            image = Compressor.compress(applicationContext, image) {
+                quality(80)
+                size(300_000)
+            }
+        }
+
+        val message = Message(
+            getString(R.string.command_capture_reply_success, index + 1, camCount),
+            sender.toString()
+        )
+
+        applicationContext.contentResolver.openInputStream(image.toUri())?.use {
+            val bytes = it.readBytes()
+            val mimeType = "image/jpeg"
+            val name = image.name
+            message.addMedia(bytes, mimeType, name, name)
+        }
+
+        message.save = false
+        message.messageUri =
+            "content://mms/outbox/".toUri() // not sure what i should put here but nothing makes it crash
+
+        transaction.sendNewMessage(message)
+
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         cameraProvider.unbindAll()
         cameraExecutor.shutdown()
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
             overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE, 0, 0)
     }
 
     companion object {
-        private const val FILENAME_FORMAT = "yyyyMMdd_HHmmssSSS"
-        const val CAMERA_FRONT = 1
-        const val CAMERA_BACK = 2
-        const val CAMERA_BOTH = 0
+        const val TAG = "CaptureActivity"
 
-        const val CAMERA_EXTRA = "camera"
+        private const val FILENAME_FORMAT = "yyyyMMdd_HHmmssSSS"
+
         const val FLASH_MODE_EXTRA = "flash_mode"
     }
 }
