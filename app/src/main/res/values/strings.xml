@@ -220,7 +220,7 @@
     <!-- Base replies -->
     <string name="sms_reply_command_disabled">Command disabled</string>
     <string name="sms_reply_command_invalid">Invalid command</string>
-    <string name="sms_reply_invalid_args">Invalid argument for parameter \'%1$s\'\nPossible values: %2$s</string>
+    <string name="sms_reply_invalid_args">Invalid argument for parameter \'%1$s\'\nThis parameter accepts the following values: %2$s</string>
     <string name="sms_reply_invalid_params">The following parameters are invalid: %1$s</string>
     <string name="sms_reply_missing_param">Missing required parameter \'%1$s\'</string>
     <string name="sms_reply_missing_permissions">Missing the following permission(s): %1$s</string>

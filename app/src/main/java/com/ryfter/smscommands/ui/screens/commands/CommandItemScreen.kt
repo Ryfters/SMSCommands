@@ -89,9 +89,14 @@ fun CommandItemScreen(
             MyListItem(stringResource(R.string.common_none))
         } else {
             params.values.forEach { param ->
+                val paramContent =
+                    """${stringResource(param.desc)}
+                      |Accepts: ${param.possibleValues(LocalContext.current)}
+                    """.trimMargin()
+
                 MyListItem(
                     title = stringResource(param.name),
-                    content = stringResource(param.desc),
+                    content = paramContent,
                     maxContentLines = Int.MAX_VALUE,
                 )
             }

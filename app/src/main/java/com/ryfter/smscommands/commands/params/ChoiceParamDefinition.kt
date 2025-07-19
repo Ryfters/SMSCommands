@@ -2,7 +2,6 @@ package com.ryfter.smscommands.commands.params
 
 import android.content.Context
 import androidx.annotation.StringRes
-import com.ryfter.smscommands.R
 
 class ChoiceParamDefinition(
     @get:StringRes override val name: Int,
@@ -23,7 +22,6 @@ class ChoiceParamDefinition(
     }
 
     override fun possibleValues(context: Context): String {
-        val possibleValues = choices.values.joinToString { context.getString(it) }
-        return context.getString(R.string.param_choices_possible_values, possibleValues)
+        return choices.values.joinToString { context.getString(it) }
     }
 }
