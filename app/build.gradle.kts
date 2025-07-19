@@ -15,8 +15,8 @@ android {
         applicationId = "com.ryfter.smscommands"
         minSdk = 33
         targetSdk = 36
-        versionCode = 1
-        versionName = "0.1.0-alpha"
+        versionCode = 3
+        versionName = "0.1.2"
 
         buildConfigField("Long", "BUILD_DATE", "${System.currentTimeMillis()}L")
 
