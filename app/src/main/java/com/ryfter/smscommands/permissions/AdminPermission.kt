@@ -1,8 +1,3 @@
-@file:Suppress(
-    "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused",
-    "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused"
-)
-
 package com.ryfter.smscommands.permissions
 
 import android.app.admin.DevicePolicyManager
@@ -21,10 +16,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-@Suppress(
-    "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused",
-    "unused", "unused", "unused", "unused", "unused"
-)
 class AdminPermission : Permission {
     override val id = "android.permission.DEVICE_ADMIN"
 

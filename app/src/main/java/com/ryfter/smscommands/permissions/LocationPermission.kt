@@ -1,8 +1,6 @@
 package com.ryfter.smscommands.permissions
 
 import android.Manifest
-import android.content.Context
-import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -15,18 +13,11 @@ class LocationPermission : Permission {
 
     override val label = R.string.permission_location
 
-    private val permissions = arrayOf(
+    override val permissions = arrayOf(
         Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.ACCESS_COARSE_LOCATION,
         Manifest.permission.ACCESS_BACKGROUND_LOCATION
     )
-
-    override fun isGranted(context: Context): Boolean {
-        return permissions.all { permission ->
-            context.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED
-        }
-    }
-
 
     @Composable
     override fun request(onResult: (Boolean) -> Unit): () -> Unit {

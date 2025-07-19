@@ -1,6 +1,9 @@
 package com.ryfter.smscommands.permissions
 
 import android.content.Context
+import android.content.pm.PackageManager
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 
@@ -16,10 +19,27 @@ interface Permission {
     val description: Int?
         get() = null
 
-    fun isGranted(context: Context): Boolean
+    val permissions: Array<String>
+        get() = arrayOf()
+
+    fun isGranted(context: Context): Boolean {
+        return permissions.all { permission ->
+            context.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED
+        }
+    }
 
     @Composable
-    fun request(onResult: (Boolean) -> Unit): () -> Unit
+    fun request(onResult: (Boolean) -> Unit): () -> Unit {
+        val launcher = rememberLauncherForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions(),
+            onResult = { result ->
+                onResult(result.all { entry -> entry.value })
+            }
+        )
+        return {
+            launcher.launch(permissions)
+        }
+    }
 
     companion object {
         val ADMIN = AdminPermission()
