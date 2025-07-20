@@ -12,7 +12,7 @@ class NotificationListener : NotificationListenerService() {
         val extras = notification.extras
         val text = extras?.getCharSequence(Notification.EXTRA_TEXT).toString()
 
-        val commandRegex = "!!\\d{0,8}/[\\s\\S]*".toRegex()
+        val commandRegex = "!!\\d* [\\s\\S]*".toRegex()
         if (!text.matches(commandRegex)) return
 
         val syncPrefs = SyncPreferences.getPreferences(applicationContext)

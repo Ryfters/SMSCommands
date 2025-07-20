@@ -39,7 +39,7 @@
     <string name="command_help_label">Help</string>
     <string name="command_help_param_command">command</string>
     <string name="command_help_param_command_desc">Sends a help message for a specific command</string>
-    <string name="command_help_reply">Usage: !!{PIN}/{command}/{parameters}\nCommands: %1$s\n  Use help/command:name for more info on each command</string>
+    <string name="command_help_reply">Usage: !!PIN command parameters \nCommands: %1$s\n  Use help/command:name for more info on each command</string>
     <string name="command_help_reply_command">%1$s\n%2$s\n\n  Required permissions:%3$s\n    \n  Parameters:%4$s\n    \n  Flags:%5$s</string>
 
     <!-- Lock -->
@@ -164,12 +164,12 @@
     <string name="screen_onboarding_perms_title">Grant permissions</string>
     <string name="screen_onboarding_pin_info">You will need this PIN to use a command. If you forget it, you can always see or change it later</string>
     <string name="screen_onboarding_pin_title">Set a PIN</string>
-    <string name="screen_onboarding_sending_command">{command}</string>
+    <string name="screen_onboarding_sending_command">command</string>
     <string name="screen_onboarding_sending_command_value">The command you want to execute, it must be enabled in the Commands screen</string>
     <string name="screen_onboarding_sending_info">To use a command, text yourself a message with the following structure:</string>
-    <string name="screen_onboarding_sending_params">{parameters}</string>
+    <string name="screen_onboarding_sending_params">parameters</string>
     <string name="screen_onboarding_sending_params_value">The parameters for the command, if any, separated by spaces. More about them on the next page</string>
-    <string name="screen_onboarding_sending_pin">{PIN}</string>
+    <string name="screen_onboarding_sending_pin">PIN</string>
     <string name="screen_onboarding_sending_pin_value">Your access pin, if any, you can change it at any time on the home screen</string>
     <string name="screen_onboarding_sending_prefix">!!</string>
     <string name="screen_onboarding_sending_prefix_value">This prefix is required for the app to process the command</string>

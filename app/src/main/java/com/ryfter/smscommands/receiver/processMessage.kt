@@ -15,12 +15,10 @@ fun processMessage(context: Context, sender: String, trigger: String) {
 
     val syncPreferences = SyncPreferences.getPreferences(context)
 
-    val splitTrigger = trigger.split("/")
+    val splitTrigger = trigger.split(" ")
     val inputtedPin = splitTrigger[0].removePrefix("!!")
     val inputtedCommand = splitTrigger.getOrElse(1) { "" }
-        .replace(" ", "") // Auto-complete adds a space at the end of the command
-    val inputtedParams = splitTrigger.getOrElse(2) { "" }
-            .split(" ")
+    val inputtedParams = splitTrigger.drop(2)
             .filterNot { it == "" }
             .map { it.lowercase() }
             .toMutableList()

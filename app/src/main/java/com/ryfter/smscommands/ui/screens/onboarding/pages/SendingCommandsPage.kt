@@ -33,8 +33,8 @@ class SendingCommandsPage : OnboardingPage {
 
             Text(
                 text = stringResource(R.string.screen_onboarding_sending_prefix)
-                        + stringResource(R.string.screen_onboarding_sending_pin) + "/"
-                        + stringResource(R.string.screen_onboarding_sending_command) + "/"
+                        + stringResource(R.string.screen_onboarding_sending_pin) + " "
+                        + stringResource(R.string.screen_onboarding_sending_command) + " "
                         + stringResource(R.string.screen_onboarding_sending_params),
                 style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
                 modifier = Modifier.padding(bottom = 8.dp)
