@@ -12,6 +12,7 @@ import com.ryfter.smscommands.ui.components.MyListItem
 fun PermissionItem(
     permission: Permission,
     isGranted: Boolean,
+    highlight: Boolean = false,
     onGrant: (Boolean) -> Unit,
 ) {
     val context = LocalContext.current
@@ -36,6 +37,7 @@ fun PermissionItem(
     MyListItem(
         title = stringResource(permission.label),
         content = isGrantedString + stringResource(R.string.common_separator) + content,
+        highlight = highlight,
         onClick = request
     )
 }

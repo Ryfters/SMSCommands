@@ -96,10 +96,13 @@
     <string name="permission_sms_desc">Required for the app to function correctly</string>
 
     <!-- Commands -->
+    <string name="screen_commands_flags">Flags</string>
     <string name="screen_commands_missing_permissions">Missing permissions: %1$s</string>
+    <string name="screen_commands_options">Options</string>
+    <string name="screen_commands_options_content">%1$s\nAccepts: %2$s</string>
     <string name="screen_commands_permissions_required">Required permissions</string>
     <string name="screen_commands_status">Status</string>
-    <string name="screen_commands_status_missing_perms">Missing permissions</string>
+    <string name="screen_commands_status_missing_perms">Missing permissions, tap to grant</string>
     <string name="screen_commands_title">Commands</string>
 
     <!-- Command History -->
@@ -250,6 +253,6 @@
     <string name="url_maps" translatable="false"><![CDATA[https://www.google.com/maps/search/?api=1&query=%1$f,%2$f]]></string>
 
     <!-- Unsorted -->
-    <string name="Unsorted" />
+    <string name="Unsorted_DO_NOT_DELETE" />
 
 </resources>

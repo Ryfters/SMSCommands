@@ -5,6 +5,8 @@ import androidx.compose.material3.Switch
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
@@ -14,6 +16,7 @@ import com.ryfter.smscommands.data.UiStateViewModel
 import com.ryfter.smscommands.permissions.Permission
 import com.ryfter.smscommands.ui.components.MainScaffold
 import com.ryfter.smscommands.ui.components.MyListItem
+import com.ryfter.smscommands.ui.components.greyscale
 import com.ryfter.smscommands.ui.navigation.Routes
 
 
@@ -54,9 +57,14 @@ fun CommandsScreen(
                     Switch(
                         checked = commandPreferences[command.id] == true,
                         onCheckedChange = { value ->
-                            viewModel.updateCommandPreference(command.id, value)
+                            if (disabled) navController.navigate(
+                                Routes.Perms.MAIN + missingPermissions.joinToString { it.id }
+                            )
+                            else viewModel.updateCommandPreference(command.id, value)
                         },
-                        enabled = !disabled
+                        modifier = Modifier
+                            .alpha(if (disabled) .4f else 1f)
+                            .greyscale(disabled)
                     )
                 }
             )

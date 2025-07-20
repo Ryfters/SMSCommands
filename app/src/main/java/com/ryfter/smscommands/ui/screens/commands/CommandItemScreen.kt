@@ -17,6 +17,7 @@ import com.ryfter.smscommands.permissions.Permission
 import com.ryfter.smscommands.ui.components.MainScaffold
 import com.ryfter.smscommands.ui.components.MyListItem
 import com.ryfter.smscommands.ui.components.Subtitle
+import com.ryfter.smscommands.ui.navigation.Routes
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,14 +42,15 @@ fun CommandItemScreen(
 
         val permissionsState by viewModel.permissionsState.collectAsState()
 
-        val isMissingPerms = (command.requiredPermissions + Permission.BASE).any { permission ->
-            permissionsState[permission.id] == true
-        }
+        val missingPermissions = (command.requiredPermissions + Permission.BASE)
+            .filter { permission -> permissionsState[permission.id] == false }
+
+        val isMissingPerms = missingPermissions.isNotEmpty()
 
         val isEnabled = viewModel.commandPreferences.collectAsState().value[commandId] == true
 
         val status =
-                 if (isMissingPerms) stringResource(R.string.screen_commands_status_missing_perms)
+            if (isMissingPerms) stringResource(R.string.screen_commands_status_missing_perms)
             else if (isEnabled) stringResource(R.string.common_enabled)
             else stringResource(R.string.common_disabled)
 
@@ -59,20 +61,27 @@ fun CommandItemScreen(
         val flags = command.params.filter { it.value is FlagParamDefinition }
 
         @Suppress("UNCHECKED_CAST")
-        val params = command.params.filter { it.value is OptionParamDefinition }
+        val options = command.params.filter { it.value is OptionParamDefinition }
             as Map<String, OptionParamDefinition>
 
         Subtitle(stringResource(R.string.common_details))
         MyListItem(
             title = stringResource(R.string.screen_commands_status),
             content = status,
+            onClick = if (isMissingPerms) {
+                {
+                    navController.navigate(
+                        Routes.Perms.MAIN + missingPermissions.joinToString { it.id }
+                    )
+                }
+            } else null
         )
         MyListItem(
             title = stringResource(R.string.screen_commands_permissions_required),
             content = requiredPermissions,
         )
 
-        Subtitle("Flags")
+        Subtitle(stringResource(R.string.screen_commands_flags))
         if (flags.isEmpty()) {
             MyListItem(stringResource(R.string.common_none))
         } else {
@@ -84,19 +93,21 @@ fun CommandItemScreen(
             }
         }
 
-        Subtitle("Parameters")
-        if (params.isEmpty()) {
+        Subtitle(stringResource(R.string.screen_commands_options))
+        if (options.isEmpty()) {
             MyListItem(stringResource(R.string.common_none))
         } else {
-            params.values.forEach { param ->
-                val paramContent =
-                    """${stringResource(param.desc)}
-                      |Accepts: ${param.possibleValues(LocalContext.current)}
-                    """.trimMargin()
+            options.values.forEach { option ->
+                val content =
+                    stringResource(
+                        R.string.screen_commands_options_content,
+                        stringResource(option.desc),
+                        option.possibleValues(LocalContext.current)
+                    )
 
                 MyListItem(
-                    title = stringResource(param.name),
-                    content = paramContent,
+                    title = stringResource(option.name),
+                    content = content,
                     maxContentLines = Int.MAX_VALUE,
                 )
             }

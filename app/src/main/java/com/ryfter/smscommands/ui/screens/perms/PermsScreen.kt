@@ -20,6 +20,7 @@ import com.ryfter.smscommands.ui.navigation.Routes
 fun PermsScreen(
     navController: NavController,
     viewModel: UiStateViewModel,
+    permissionIds: List<String>
 ) {
     MainScaffold(
         navController = navController,
@@ -39,6 +40,7 @@ fun PermsScreen(
             PermissionItem(
                 permission = permission,
                 isGranted = permissionsState[permission.id] == true,
+                highlight = permissionIds.contains(permission.id) && permissionsState[permission.id] != true,
                 onGrant = { isEnabled ->
                     viewModel.updateSinglePermissionState(permission.id, isEnabled)
                     if (!isEnabled) navController.navigate(Routes.Perms.DECLINE_WARNING_DIALOG)
