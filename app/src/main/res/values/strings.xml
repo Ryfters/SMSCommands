@@ -151,6 +151,13 @@
     <string name="screen_onboarding_command_title">Sending commands</string>
     <string name="screen_onboarding_commands_info">Select commands to enable. You can get more details on each command by clicking on it</string>
     <string name="screen_onboarding_commands_title">Commands</string>
+    <string name="screen_onboarding_examples_title">Examples</string>
+    <string name="screen_onboarding_examples_1_cmd">!!1234 capture flash:on</string>
+    <string name="screen_onboarding_examples_1_desc">Takes a photo from both cameras with the flash on</string>
+    <string name="screen_onboarding_examples_2_cmd">!!1234 GPS MODE:CURRENT</string>
+    <string name="screen_onboarding_examples_2_desc">Gets the current GPS location. Note that commands are case insensitive</string>
+    <string name="screen_onboarding_examples_3_cmd">!! ring stop</string>
+    <string name="screen_onboarding_examples_3_desc">Stops the ringing. This example considers that you have no PIN set (dangerous)</string>
     <string name="screen_onboarding_finish_other_settings">Check out the settings page for other options</string>
     <string name="screen_onboarding_finish_suggest">If you want more features/commands, feel free to make a suggestion in the issues section of the GitHub repo</string>
     <string name="screen_onboarding_finish_title">All done</string>
@@ -169,7 +176,7 @@
     <string name="screen_onboarding_pin_title">Set a PIN</string>
     <string name="screen_onboarding_sending_command">command</string>
     <string name="screen_onboarding_sending_command_value">The command you want to execute, it must be enabled in the Commands screen</string>
-    <string name="screen_onboarding_sending_info">To use a command, text yourself a message with the following structure:</string>
+    <string name="screen_onboarding_sending_info">To use a command, text yourself a message with the following structure (case insensitive):</string>
     <string name="screen_onboarding_sending_params">parameters</string>
     <string name="screen_onboarding_sending_params_value">The parameters for the command, if any, separated by spaces. More about them on the next page</string>
     <string name="screen_onboarding_sending_pin">PIN</string>

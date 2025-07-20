@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import com.ryfter.smscommands.R
 import com.ryfter.smscommands.data.UiStateViewModel
 import com.ryfter.smscommands.ui.screens.onboarding.pages.CommandsPage
+import com.ryfter.smscommands.ui.screens.onboarding.pages.ExamplesPage
 import com.ryfter.smscommands.ui.screens.onboarding.pages.FinishPage
 import com.ryfter.smscommands.ui.screens.onboarding.pages.ParametersPage
 import com.ryfter.smscommands.ui.screens.onboarding.pages.PermsPage
@@ -35,6 +36,7 @@ interface OnboardingPage {
             WelcomePage(),
             SendingCommandsPage(),
             ParametersPage(),
+            ExamplesPage(),
             PermsPage(),
             CommandsPage(),
             PinPage(),
