@@ -7,6 +7,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.ryfter.smscommands.BuildConfig
 import com.ryfter.smscommands.data.UiStateViewModel
 import com.ryfter.smscommands.ui.navigation.subgraphs.commands
 import com.ryfter.smscommands.ui.navigation.subgraphs.history
@@ -20,10 +21,12 @@ fun NavGraph(
     navController: NavHostController,
     viewModel: UiStateViewModel
 ) {
-    val isFirstLaunch by viewModel.isFirstLaunch.collectAsState()
+    val lastBuildNum by viewModel.lastBuildNumber.collectAsState()
+
+    val currentBuildNum = BuildConfig.VERSION_CODE
 
     val startDestination =
-        if (isFirstLaunch) Routes.Onboarding.MAIN
+        if (lastBuildNum == -1) Routes.Onboarding.MAIN // -1 means first launch
         else Routes.Home.MAIN
 
     NavHost(

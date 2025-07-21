@@ -30,12 +30,37 @@ class UiStateViewModel(
     val database: HistoryRepository,
 ): ViewModel() {
 
+    // Pin
+    val pin: StateFlow<String> = getStateFlow(Pref.ACCESS_PIN)
+    fun updatePin(value: String) = updatePreference(Pref.ACCESS_PIN, value)
+
+    // Settings
+    val dynamicColorsEnabled: StateFlow<Boolean> = getStateFlow(Pref.DYNAMIC_COLOR)
+    fun updateDynamicColorsEnabled(value: Boolean) = updatePreference(Pref.DYNAMIC_COLOR, value)
+
+    val darkThemeType: StateFlow<Int> = getStateFlow(Pref.DARK_THEME)
+    fun updateDarkThemeType(value: Int) = updatePreference(Pref.DARK_THEME, value)
+
+    val historyEnabled: StateFlow<Boolean> = getStateFlow(Pref.COLLECT_HISTORY)
+    fun updateHistoryEnabled(value: Boolean) = updatePreference(Pref.COLLECT_HISTORY, value)
+
+    val dismissNotificationType: StateFlow<Int> = getStateFlow(Pref.DISMISS_NOTIFICATION_TYPE)
+    fun updateDismissNotificationType(value: Int) =
+        updatePreference(Pref.DISMISS_NOTIFICATION_TYPE, value)
+
+    val requirePin: StateFlow<Boolean> = getStateFlow(Pref.REQUIRE_PIN)
+    fun updateRequirePin(value: Boolean) = updatePreference(Pref.REQUIRE_PIN, value)
+
+    val lastBuildNumber: StateFlow<Int> = getStateFlow(Pref.LAST_BUILD_CODE)
+    fun updateLastBuildCode(value: Int) = updatePreference(Pref.LAST_BUILD_CODE, value)
+
+
     // CommandPreferences
     val commandPreferences: StateFlow<Map<String, Boolean>> =
         dataStore.data.map { preferences ->
             Command.LIST.associate { command ->
                 val key = booleanPreferencesKey(command.id)
-                command.id to (preferences[key] ?: Defaults.COMMANDS)
+                command.id to (preferences[key] ?: Pref.COMMANDS.defaultValue!!)
             }
         }.stateIn(
             scope = viewModelScope,
@@ -43,13 +68,8 @@ class UiStateViewModel(
             initialValue = emptyMap()
         )
 
-    fun updateCommandPreference(id: String, isEnabled: Boolean) {
-        viewModelScope.launch {
-            dataStore.edit { preferences ->
-                preferences[booleanPreferencesKey(id)] = isEnabled
-            }
-        }
-    }
+    fun updateCommandPreference(id: String, value: Boolean) =
+        updatePreference(Pref(booleanPreferencesKey(id), null), value)
 
     // Permissions
     private val _permissionsState = MutableStateFlow(Permission.ALL.associate { it.id to false} )
@@ -69,140 +89,11 @@ class UiStateViewModel(
         }
     }
 
-    // Pin
-    val pin: StateFlow<String> =
-        dataStore.data.map { preferences ->
-            preferences[PreferenceKeys.ACCESS_PIN] ?: Defaults.ACCESS_PIN
-        }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = Defaults.ACCESS_PIN
-        )
-
-    fun updatePin(newPin: String) {
-        viewModelScope.launch {
-            dataStore.edit { preferences ->
-                preferences[PreferenceKeys.ACCESS_PIN] = newPin
-            }
-        }
-    }
-
-    // Settings
-    // Dynamic color
-    val dynamicColorsEnabled: StateFlow<Boolean> =
-        dataStore.data.map { preferences ->
-            preferences[PreferenceKeys.DYNAMIC_COLOR] ?: Defaults.DYNAMIC_COLOR
-        }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = Defaults.DYNAMIC_COLOR
-        )
-
-    fun updateDynamicColorsEnabled(isEnabled: Boolean) {
-        viewModelScope.launch {
-            dataStore.edit { preferences ->
-                preferences[PreferenceKeys.DYNAMIC_COLOR] = isEnabled
-            }
-        }
-    }
-
-    // Dark theme
-    val darkThemeType: StateFlow<Int> =
-        dataStore.data.map { preferences ->
-            preferences[PreferenceKeys.DARK_THEME] ?: Defaults.DARK_THEME
-        }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = Defaults.DARK_THEME
-        )
-
-    fun updateDarkThemeType(value: Int) {
-        viewModelScope.launch {
-            dataStore.edit { preferences ->
-                preferences[PreferenceKeys.DARK_THEME] = value
-            }
-        }
-    }
-
-    // History
-    val historyEnabled: StateFlow<Boolean> =
-        dataStore.data.map { preferences ->
-            preferences[PreferenceKeys.COLLECT_HISTORY] ?: Defaults.COLLECT_HISTORY
-        }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = Defaults.COLLECT_HISTORY
-        )
-
-    fun updateHistoryEnabled(isEnabled: Boolean) {
-        viewModelScope.launch {
-            dataStore.edit { preferences ->
-                preferences[PreferenceKeys.COLLECT_HISTORY] = isEnabled
-            }
-        }
-    }
-
-    // Dismiss Message's notifications
-    val dismissNotificationType: StateFlow<Int> =
-        dataStore.data.map { preferences ->
-            preferences[PreferenceKeys.DISMISS_NOTIFICATION_TYPE] ?: Defaults.DISMISS_NOTIFICATION_TYPE
-        }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = Defaults.DISMISS_NOTIFICATION_TYPE
-        )
-
-    fun updateDismissNotificationType(value: Int) {
-        viewModelScope.launch {
-            dataStore.edit { preferences ->
-                preferences[PreferenceKeys.DISMISS_NOTIFICATION_TYPE] = value
-            }
-        }
-    }
-
-    // requirePin
-    val requirePin: StateFlow<Boolean> =
-        dataStore.data.map { preferences ->
-            preferences[PreferenceKeys.REQUIRE_PIN] ?: Defaults.REQUIRE_PIN
-        }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = Defaults.REQUIRE_PIN
-        )
-
-    fun updateRequirePin(value: Boolean) {
-        viewModelScope.launch {
-            dataStore.edit { preferences ->
-                preferences[PreferenceKeys.REQUIRE_PIN] = value
-            }
-        }
-        }
-
     // signedIn
     private val _signedIn = MutableStateFlow(false)
     val signedIn: StateFlow<Boolean> = _signedIn
+    fun updateSignedIn(value: Boolean) = _signedIn.update { value }
 
-    fun updateSignedIn(value: Boolean) {
-        _signedIn.update { value }
-    }
-
-    // isFirstLaunch
-    val isFirstLaunch: StateFlow<Boolean> =
-        dataStore.data.map { preferences ->
-            preferences[PreferenceKeys.IS_FIRST_LAUNCH] ?: Defaults.IS_FIRST_LAUNCH
-        }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = false
-        )
-
-    fun updateIsFirstLaunch(value: Boolean) {
-        viewModelScope.launch {
-            dataStore.edit { preferences ->
-                preferences[PreferenceKeys.IS_FIRST_LAUNCH] = value
-            }
-        }
-    }
 
     // History
     val history: StateFlow<List<HistoryItem>> =
@@ -220,6 +111,24 @@ class UiStateViewModel(
         }
     }
 
+    private fun <T> UiStateViewModel.getStateFlow(pref: Pref<T>): StateFlow<T> {
+        return dataStore.data
+            .map { preferences -> preferences[pref.preferenceKey!!] ?: pref.defaultValue!! }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = pref.defaultValue!!
+            )
+    }
+
+    private fun <T> UiStateViewModel.updatePreference(pref: Pref<T>, value: T) {
+        viewModelScope.launch {
+            dataStore.edit { preferences ->
+                preferences[pref.preferenceKey!!] = value
+            }
+        }
+    }
+
 
     companion object {
 
@@ -229,14 +138,10 @@ class UiStateViewModel(
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val dataStore = this[DATASTORE_KEY]
-                if (dataStore == null) {
-                    throw IllegalStateException("Missing dataStore parameter in data.UiStateViewModel.Factory")
-                }
+                if (dataStore == null) throw IllegalStateException("Missing dataStore parameter in data.UiStateViewModel.Factory")
 
                 val database = this[DATABASE_KEY]
-                if (database == null) {
-                    throw IllegalStateException("Missing database parameter in data.UiStateViewModel.Factory")
-                }
+                if (database == null) throw IllegalStateException("Missing database parameter in data.UiStateViewModel.Factory")
 
                 UiStateViewModel(dataStore, database)
             }
