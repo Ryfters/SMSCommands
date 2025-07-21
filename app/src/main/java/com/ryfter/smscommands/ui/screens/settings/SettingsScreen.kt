@@ -1,15 +1,12 @@
 package com.ryfter.smscommands.ui.screens.settings
 
 import android.content.Intent
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Switch
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -36,7 +33,6 @@ fun SettingsScreen(
         navController = navController,
         title = stringResource(R.string.screen_settings_title),
         showUpButton = true,
-        modifier = Modifier.verticalScroll(rememberScrollState())
     ) {
         val context = LocalContext.current
 
