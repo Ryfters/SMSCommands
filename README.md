@@ -40,11 +40,11 @@ Locks your device
 
 Rings your device
 
-## Planned features
+## Planned
 
 - Fixing bugs
-- Uploading photos to a 3rd party provider and send a link to the user
 - Command to check status of device (battery, wifi, bluetooth, etc)
 - Command to toggle wifi/location/bluetooth etc
+- Command to access adb shell
 
 
