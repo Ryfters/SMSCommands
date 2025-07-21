@@ -1,5 +1,10 @@
 package com.ryfter.smscommands.ui.screens.commands
 
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Switch
 import androidx.compose.runtime.Composable
@@ -69,5 +74,12 @@ fun CommandsScreen(
                 }
             )
         }
+
+        Spacer(
+            Modifier.padding(
+                WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
+            )
+        )
+
     }
 }

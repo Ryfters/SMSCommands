@@ -96,6 +96,10 @@
     <string name="permission_sms_desc">Required for the app to function correctly</string>
 
     <!-- Commands -->
+    <string name="command_capture_extra_enable_mms_desc">Allows the app to send pictures back to you without data. Tap to jump to settings page (It\'s only available if mobile data is off) (It might take a few seconds to load the page).</string>
+    <string name="command_capture_extra_enable_mms_title">Enable MMS without mobile data</string>
+    <string name="command_capture_extra_savedir_desc">All pictures are saved here: %1$s</string>
+    <string name="command_capture_extra_savedir_title">Save directory</string>
     <string name="screen_commands_flags">Flags</string>
     <string name="screen_commands_missing_permissions">Missing permissions: %1$s</string>
     <string name="screen_commands_options">Options</string>
