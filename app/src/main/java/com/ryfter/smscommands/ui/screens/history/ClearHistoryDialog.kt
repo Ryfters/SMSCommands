@@ -4,15 +4,16 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavHostController
 import com.ryfter.smscommands.R
 import com.ryfter.smscommands.data.UiStateViewModel
 import com.ryfter.smscommands.ui.components.MyTextButton
+import com.ryfter.smscommands.ui.navigation.MyNavBackStack
+import com.ryfter.smscommands.ui.navigation.pop
 
 
 @Composable
 fun ClearHistoryDialog(
-    navController: NavHostController,
+    backStack: MyNavBackStack,
     viewModel: UiStateViewModel,
 ) {
     AlertDialog(
@@ -21,12 +22,12 @@ fun ClearHistoryDialog(
         confirmButton = {
             MyTextButton(stringResource(R.string.screen_history_clear_confirm)) {
                 viewModel.clearHistory()
-                navController.popBackStack()
+                backStack.pop()
             }
         },
         dismissButton = {
-            MyTextButton(stringResource(R.string.common_cancel)) { navController.popBackStack() }
+            MyTextButton(stringResource(R.string.common_cancel)) { backStack.pop() }
         },
-        onDismissRequest = { navController.popBackStack() },
+        onDismissRequest = { backStack.pop() },
     )
 }

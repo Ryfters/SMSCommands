@@ -9,10 +9,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import com.ryfter.smscommands.BuildConfig
 import com.ryfter.smscommands.R
 import com.ryfter.smscommands.data.UiStateViewModel
-import com.ryfter.smscommands.ui.navigation.Routes
+import com.ryfter.smscommands.ui.navigation.MyNavBackStack
+import com.ryfter.smscommands.ui.navigation.Route
+import com.ryfter.smscommands.ui.navigation.set
 import com.ryfter.smscommands.ui.screens.onboarding.OnboardingPage
 
 class FinishPage : OnboardingPage {
@@ -21,7 +23,7 @@ class FinishPage : OnboardingPage {
     @Composable
     override fun Content(
         viewModel: UiStateViewModel,
-        navController: NavController,
+        backStack: MyNavBackStack,
         modifier: Modifier
     ) {
         Column(modifier.padding(horizontal = 16.dp)) {
@@ -31,9 +33,9 @@ class FinishPage : OnboardingPage {
         }
     }
 
-    override fun onContinue(viewModel: UiStateViewModel, navController: NavController): Boolean {
-        navController.navigate(Routes.Home.MAIN)
-        viewModel.updateIsFirstLaunch(false)
+    override fun onContinue(viewModel: UiStateViewModel, backStack: MyNavBackStack): Boolean {
+        viewModel.updateLastBuildCode(BuildConfig.VERSION_CODE)
+        backStack.set(Route.Home.HoMain)
         return false
     }
 

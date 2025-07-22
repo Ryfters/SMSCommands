@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
 import com.ryfter.smscommands.commands.params.ParamsDefinition
 import com.ryfter.smscommands.data.UiStateViewModel
 import com.ryfter.smscommands.permissions.Permission
+import com.ryfter.smscommands.ui.navigation.MyNavBackStack
 
 interface Command {
     val id: String
@@ -31,7 +31,7 @@ interface Command {
     )
 
     // Using a lambda so i can check if it's not null without invoking it
-    val extraContent: (@Composable ColumnScope.(NavController, UiStateViewModel) -> Unit)?
+    val extraContent: (@Composable ColumnScope.(MyNavBackStack, UiStateViewModel) -> Unit)?
         get() = null
 
     companion object {

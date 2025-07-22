@@ -5,10 +5,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.navigation.compose.rememberNavController
 import com.ryfter.smscommands.data.UiStateViewModel
-import com.ryfter.smscommands.ui.navigation.NavGraph
-import com.ryfter.smscommands.ui.screens.lock.LockScreen
+import com.ryfter.smscommands.ui.navigation.NavigationRoot
 import com.ryfter.smscommands.ui.theme.SMSCommandsTheme
 
 @Composable
@@ -29,12 +27,9 @@ fun Root(
         darkTheme = darkTheme
     ) {
         Box {
-            NavGraph(
-                navController = rememberNavController(),
+            NavigationRoot(
                 viewModel = viewModel
             )
-
-            LockScreen(viewModel)
         }
     }
 }

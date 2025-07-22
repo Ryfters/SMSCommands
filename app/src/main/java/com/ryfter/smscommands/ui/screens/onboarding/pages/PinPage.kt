@@ -18,9 +18,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.ryfter.smscommands.R
 import com.ryfter.smscommands.data.UiStateViewModel
+import com.ryfter.smscommands.ui.navigation.MyNavBackStack
 import com.ryfter.smscommands.ui.screens.onboarding.OnboardingPage
 
 class PinPage : OnboardingPage {
@@ -31,7 +31,7 @@ class PinPage : OnboardingPage {
     @Composable
     override fun Content(
         viewModel: UiStateViewModel,
-        navController: NavController,
+        backStack: MyNavBackStack,
         modifier: Modifier
     ) {
         Column(modifier.padding(horizontal = 16.dp)) {
@@ -53,7 +53,7 @@ class PinPage : OnboardingPage {
         }
     }
 
-    override fun onContinue(viewModel: UiStateViewModel, navController: NavController): Boolean {
+    override fun onContinue(viewModel: UiStateViewModel, backStack: MyNavBackStack): Boolean {
         viewModel.updatePin(pinValue)
         return true
     }

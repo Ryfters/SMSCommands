@@ -7,7 +7,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 
 data class Pref<T>(
     val preferenceKey: Preferences.Key<T>?,
-    val defaultValue: T?
+    val defaultValue: T?,
 ) {
     companion object {
         val ACCESS_PIN = Pref(
@@ -34,7 +34,7 @@ data class Pref<T>(
             preferenceKey = booleanPreferencesKey("dynamic_color"),
             defaultValue = true
         )
-        val LAST_BUILD_CODE = Pref(
+        val LAST_BUILD_NUMBER = Pref(
             preferenceKey = intPreferencesKey("last_build_number"),
             defaultValue = -1
         )

@@ -43,14 +43,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import com.ryfter.smscommands.R
 import com.ryfter.smscommands.data.UiStateViewModel
+import com.ryfter.smscommands.ui.navigation.MyNavBackStack
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun OnboardingScreen(
-    navController: NavController,
+    backStack: MyNavBackStack,
     viewModel: UiStateViewModel,
 ) {
     var pageIndex by rememberSaveable { mutableIntStateOf(0) }
@@ -108,7 +108,7 @@ fun OnboardingScreen(
 
         currentPage.Content(
             viewModel = viewModel,
-            navController = navController,
+            backStack = backStack,
             modifier = Modifier
                 .padding(top = padding.calculateTopPadding())
                 .nestedScroll(scrollBehavior.nestedScrollConnection)
@@ -146,7 +146,7 @@ fun OnboardingScreen(
                     trailingButton = {
                         SplitButtonDefaults.TrailingButton(
                             onClick = {
-                                if (currentPage.onContinue(viewModel, navController)) pageIndex += 1
+                                if (currentPage.onContinue(viewModel, backStack)) pageIndex += 1
                             },
                             shapes = SplitButtonDefaults.trailingButtonShapesFor(SplitButtonDefaults.MediumContainerHeight),
                             colors = ButtonDefaults.filledTonalButtonColors(),

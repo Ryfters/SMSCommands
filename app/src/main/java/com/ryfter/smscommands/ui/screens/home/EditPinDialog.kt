@@ -15,27 +15,28 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.navigation.NavController
 import com.ryfter.smscommands.R
 import com.ryfter.smscommands.data.UiStateViewModel
 import com.ryfter.smscommands.ui.components.MyTextButton
+import com.ryfter.smscommands.ui.navigation.MyNavBackStack
+import com.ryfter.smscommands.ui.navigation.pop
 
 @Composable
 fun EditPinDialog(
-    navController: NavController,
+    backStack: MyNavBackStack,
     viewModel: UiStateViewModel,
 ) {
     var showNoPinDialog by remember { mutableStateOf(false) }
 
     if (!showNoPinDialog) {
         EditPinDialog(
-            navController = navController,
+            backStack = backStack,
             viewModel = viewModel,
             onRemovePin = { showNoPinDialog = true },
         )
     } else {
         NoPinWarningDialog(
-            navController = navController,
+            backStack = backStack,
             viewModel = viewModel,
             onCancel = { showNoPinDialog = false },
         )
@@ -44,7 +45,7 @@ fun EditPinDialog(
 
 @Composable
 private fun EditPinDialog(
-    navController: NavController,
+    backStack: MyNavBackStack,
     viewModel: UiStateViewModel,
     onRemovePin: () -> Unit,
 ) {
@@ -77,24 +78,24 @@ private fun EditPinDialog(
                     onRemovePin()
                 } else {
                     viewModel.updatePin(editedPinValue)
-                    navController.popBackStack()
+                    backStack.pop()
                 }
             }
         },
         dismissButton = {
             MyTextButton(stringResource(R.string.common_cancel)) {
-                navController.popBackStack()
+                backStack.pop()
             }
         },
         onDismissRequest = {
-            navController.popBackStack()
+            backStack.pop()
         }
     )
 }
 
 @Composable
 private fun NoPinWarningDialog(
-    navController: NavController,
+    backStack: MyNavBackStack,
     viewModel: UiStateViewModel,
     onCancel: () -> Unit,
 ) {
@@ -108,14 +109,14 @@ private fun NoPinWarningDialog(
         confirmButton = {
             MyTextButton(stringResource(R.string.screen_home_pin_remove)) {
                 viewModel.updatePin("")
-                navController.popBackStack()
+                backStack.pop()
             }
         },
         dismissButton = {
             MyTextButton(stringResource(R.string.common_cancel)) { onCancel }
         },
         onDismissRequest = {
-            navController.popBackStack()
+            backStack.pop()
         }
     )
 }

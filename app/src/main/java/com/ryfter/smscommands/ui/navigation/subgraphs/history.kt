@@ -1,42 +1,30 @@
 package com.ryfter.smscommands.ui.navigation.subgraphs
 
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
-import androidx.navigation.NavType
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.dialog
-import androidx.navigation.navArgument
+import androidx.navigation3.runtime.NavEntry
 import com.ryfter.smscommands.data.UiStateViewModel
-import com.ryfter.smscommands.ui.navigation.Routes
+import com.ryfter.smscommands.ui.navigation.MyNavBackStack
+import com.ryfter.smscommands.ui.navigation.Route
+import com.ryfter.smscommands.ui.navigation.dialogNavEntry
 import com.ryfter.smscommands.ui.screens.history.ClearHistoryDialog
 import com.ryfter.smscommands.ui.screens.history.HistoryItemScreen
 import com.ryfter.smscommands.ui.screens.history.HistoryScreen
 
-fun NavGraphBuilder.history(navController: NavHostController, viewModel: UiStateViewModel) {
-    
-    composable(Routes.History.MAIN) {
-        HistoryScreen(
-            navController = navController,
-            viewModel = viewModel
-        )
-    }
+fun history(
+    key: Route.History,
+    backStack: MyNavBackStack,
+    viewModel: UiStateViewModel
+): NavEntry<Route> {
+    return when (key) {
+        is Route.History.HiMain -> NavEntry(key) {
+            HistoryScreen(backStack, viewModel)
+        }
 
-    composable(
-        Routes.History.ITEM_DIALOG + "{itemId}",
-        listOf(navArgument("itemId") { type = NavType.IntType })
-    ) {
-        val itemId = it.arguments?.getInt("itemId")?.toLong() ?: 0L
-        HistoryItemScreen(
-            navController = navController,
-            viewModel = viewModel,
-            itemId = itemId
-        )
-    }
+        is Route.History.Item -> NavEntry(key) {
+            HistoryItemScreen(backStack, viewModel, key.id)
+        }
 
-    dialog(Routes.History.CLEAR_DIALOG) {
-        ClearHistoryDialog(
-            navController = navController,
-            viewModel = viewModel,
-        )
+        is Route.History.ClearDialog -> dialogNavEntry(key) {
+            ClearHistoryDialog(backStack, viewModel)
+        }
     }
 }

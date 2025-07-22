@@ -10,13 +10,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.core.net.toUri
-import androidx.navigation.NavController
 import com.ryfter.smscommands.R
+import com.ryfter.smscommands.data.UiStateViewModel
 import com.ryfter.smscommands.ui.components.MyTextButton
+import com.ryfter.smscommands.ui.navigation.MyNavBackStack
+import com.ryfter.smscommands.ui.navigation.pop
 
 @Composable
 fun DeclineWarningDialog(
-    navController: NavController
+    backStack: MyNavBackStack,
+    viewModel: UiStateViewModel
 ) {
     val context = LocalContext.current
 
@@ -26,7 +29,7 @@ fun DeclineWarningDialog(
 
         text = { Text(stringResource(R.string.screen_perms_decline_warning)) },
         confirmButton = {
-            MyTextButton(stringResource(R.string.common_ok)) { navController.popBackStack() }
+            MyTextButton(stringResource(R.string.common_ok)) { backStack.pop() }
         },
         dismissButton = {
             MyTextButton(stringResource(R.string.screen_perms_decline_warning_settings)) {
@@ -34,10 +37,10 @@ fun DeclineWarningDialog(
                     data = "package:${context.packageName}".toUri()
                 }
                 context.startActivity(intent)
-                navController.popBackStack()
+                backStack.pop()
             }
         },
-        onDismissRequest = { navController.popBackStack() },
+        onDismissRequest = { backStack.pop() },
         icon = {
             Icon(painterResource(R.drawable.ic_warning), contentDescription = null)
         }

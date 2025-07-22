@@ -23,24 +23,26 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import com.ryfter.smscommands.R
 import com.ryfter.smscommands.data.UiStateViewModel
 import com.ryfter.smscommands.ui.components.MainScaffold
-import com.ryfter.smscommands.ui.navigation.Routes
+import com.ryfter.smscommands.ui.navigation.MyNavBackStack
+import com.ryfter.smscommands.ui.navigation.Route
+import com.ryfter.smscommands.ui.navigation.navigate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HistoryScreen(
-    navController: NavController,
+    backStack: MyNavBackStack,
     viewModel: UiStateViewModel
 ) {
     MainScaffold(
-        navController = navController,
+        backStack = backStack,
         title = "History",
+        modifier = Modifier,
         actions = {
             IconButton(
-                onClick = { navController.navigate(Routes.History.CLEAR_DIALOG) }
+                onClick = { backStack.navigate(Route.History.ClearDialog) }
             ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_history_delete),
@@ -91,7 +93,7 @@ fun HistoryScreen(
             items(history) { historyItem ->
                 HistoryItem(historyItem,
                     onInfoPressed = {
-                        navController.navigate(Routes.History.ITEM_DIALOG + historyItem.id)
+                        backStack.navigate(Route.History.Item(historyItem.id))
                     }
                 )
             }

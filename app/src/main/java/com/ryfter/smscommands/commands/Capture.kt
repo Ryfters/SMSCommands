@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavController
 import com.ryfter.smscommands.R
 import com.ryfter.smscommands.commands.CaptureActivity.Companion.FLASH_MODE_EXTRA
 import com.ryfter.smscommands.commands.Command.Companion.ID_EXTRA
@@ -17,6 +16,7 @@ import com.ryfter.smscommands.commands.params.ChoiceParamDefinition
 import com.ryfter.smscommands.data.UiStateViewModel
 import com.ryfter.smscommands.permissions.Permission
 import com.ryfter.smscommands.ui.components.MyListItem
+import com.ryfter.smscommands.ui.navigation.MyNavBackStack
 import java.io.File
 
 class Capture : Command {
@@ -68,8 +68,8 @@ class Capture : Command {
         context.startActivity(intent)
     }
 
-    override val extraContent: (@Composable ColumnScope.(NavController, UiStateViewModel) -> Unit)? =
-        @Composable { navController, viewModel ->
+    override val extraContent: (@Composable ColumnScope.(MyNavBackStack, UiStateViewModel) -> Unit)? =
+        @Composable { backStack, viewModel ->
             val context = LocalContext.current
 
             // android.provider.Settings.ACTION_MMS_MESSAGE_SETTING

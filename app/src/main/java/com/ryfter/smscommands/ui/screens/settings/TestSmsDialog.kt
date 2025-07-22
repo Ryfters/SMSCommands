@@ -30,17 +30,20 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.ryfter.smscommands.R
+import com.ryfter.smscommands.data.UiStateViewModel
 import com.ryfter.smscommands.receiver.SMSReceiver
 import com.ryfter.smscommands.receiver.SMSReceiver.Companion.ACTION_PROCESS_MESSAGE
 import com.ryfter.smscommands.receiver.SMSReceiver.Companion.MESSAGE_EXTRA
 import com.ryfter.smscommands.receiver.SMSReceiver.Companion.SENDER_EXTRA
 import com.ryfter.smscommands.ui.components.MyTextButton
+import com.ryfter.smscommands.ui.navigation.MyNavBackStack
+import com.ryfter.smscommands.ui.navigation.pop
 
 @Composable
 fun TestSmsDialog(
-    navController: NavController
+    backStack: MyNavBackStack,
+    viewModel: UiStateViewModel
 ) {
     val context = LocalContext.current
     val activity = LocalActivity.current
@@ -105,10 +108,10 @@ fun TestSmsDialog(
             }
         },
         confirmButton = {
-            MyTextButton(stringResource(R.string.common_close)) { navController.popBackStack() }
+            MyTextButton(stringResource(R.string.common_close)) { backStack.pop() }
         },
         onDismissRequest = {
-            navController.popBackStack()
+            backStack.pop()
         }
     )
 }

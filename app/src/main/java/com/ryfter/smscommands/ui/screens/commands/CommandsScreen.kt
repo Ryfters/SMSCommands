@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavController
 import com.ryfter.smscommands.R
 import com.ryfter.smscommands.commands.Command
 import com.ryfter.smscommands.data.UiStateViewModel
@@ -22,19 +21,21 @@ import com.ryfter.smscommands.permissions.Permission
 import com.ryfter.smscommands.ui.components.MainScaffold
 import com.ryfter.smscommands.ui.components.MyListItem
 import com.ryfter.smscommands.ui.components.greyscale
-import com.ryfter.smscommands.ui.navigation.Routes
+import com.ryfter.smscommands.ui.navigation.MyNavBackStack
+import com.ryfter.smscommands.ui.navigation.Route
+import com.ryfter.smscommands.ui.navigation.navigate
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CommandsScreen(
-    navController: NavController,
+    backStack: MyNavBackStack,
     viewModel: UiStateViewModel
 ) {
     val context = LocalContext.current
 
     MainScaffold(
-        navController = navController,
+        backStack = backStack,
         title = stringResource(R.string.screen_commands_title),
         showUpButton = true,
     ) {
@@ -56,14 +57,14 @@ fun CommandsScreen(
             MyListItem(
                 title = stringResource(command.label),
                 content = content,
-                onClick = { navController.navigate(Routes.Commands.ITEM + command.id) },
+                onClick = { backStack.navigate(Route.Commands.Item(command.id)) },
                 separator = true,
                 action = {
                     Switch(
                         checked = commandPreferences[command.id] == true,
                         onCheckedChange = { value ->
-                            if (disabled) navController.navigate(
-                                Routes.Perms.MAIN + missingPermissions.joinToString { it.id }
+                            if (disabled) backStack.navigate(
+                                Route.Perms.Highlight(missingPermissions.map { it.id })
                             )
                             else viewModel.updateCommandPreference(command.id, value)
                         },

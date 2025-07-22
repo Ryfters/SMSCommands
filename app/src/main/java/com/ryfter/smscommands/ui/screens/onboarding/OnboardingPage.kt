@@ -3,9 +3,9 @@ package com.ryfter.smscommands.ui.screens.onboarding
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 import com.ryfter.smscommands.R
 import com.ryfter.smscommands.data.UiStateViewModel
+import com.ryfter.smscommands.ui.navigation.MyNavBackStack
 import com.ryfter.smscommands.ui.screens.onboarding.pages.CommandsPage
 import com.ryfter.smscommands.ui.screens.onboarding.pages.ExamplesPage
 import com.ryfter.smscommands.ui.screens.onboarding.pages.FinishPage
@@ -20,12 +20,12 @@ interface OnboardingPage {
     val title: Int
 
     @Composable
-    fun Content(viewModel: UiStateViewModel, navController: NavController, modifier: Modifier)
+    fun Content(viewModel: UiStateViewModel, backStack: MyNavBackStack, modifier: Modifier)
 
     /**
      * Return `true` if the user should be navigated to the next page, `false` otherwise.
      */
-    fun onContinue(viewModel: UiStateViewModel, navController: NavController): Boolean = true
+    fun onContinue(viewModel: UiStateViewModel, backStack: MyNavBackStack): Boolean = true
 
     @get:StringRes
     val nextButtonText: Int

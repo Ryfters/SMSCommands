@@ -13,7 +13,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavController
 import com.ryfter.smscommands.R
 import com.ryfter.smscommands.commands.Command
 import com.ryfter.smscommands.commands.params.FlagParamDefinition
@@ -23,23 +22,26 @@ import com.ryfter.smscommands.permissions.Permission
 import com.ryfter.smscommands.ui.components.MainScaffold
 import com.ryfter.smscommands.ui.components.MyListItem
 import com.ryfter.smscommands.ui.components.Subtitle
-import com.ryfter.smscommands.ui.navigation.Routes
+import com.ryfter.smscommands.ui.navigation.MyNavBackStack
+import com.ryfter.smscommands.ui.navigation.Route
+import com.ryfter.smscommands.ui.navigation.navigate
+import com.ryfter.smscommands.ui.navigation.pop
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CommandItemScreen(
-    navController: NavController,
+    backStack: MyNavBackStack,
     viewModel: UiStateViewModel,
     commandId: String
 ) {
     val command = Command.LIST.find { it.id == commandId } ?: run {
         Log.e("CommandItemDialog", "Command not found: $commandId")
-        navController.popBackStack()
+        backStack.pop()
         return
     }
 
     MainScaffold(
-        navController = navController,
+        backStack = backStack,
         title = stringResource(command.label),
         subtitle = stringResource(command.description),
         showUpButton = true,
@@ -75,11 +77,7 @@ fun CommandItemScreen(
             title = stringResource(R.string.screen_commands_status),
             content = status,
             onClick = if (isMissingPerms) {
-                {
-                    navController.navigate(
-                        Routes.Perms.MAIN + missingPermissions.joinToString { it.id }
-                    )
-                }
+                { backStack.navigate(Route.Perms.PMain) }
             } else null
         )
         MyListItem(
@@ -121,7 +119,7 @@ fun CommandItemScreen(
 
         command.extraContent?.let {
             Subtitle("Other")
-            it(navController, viewModel)
+            it(backStack, viewModel)
         }
 
         Spacer(

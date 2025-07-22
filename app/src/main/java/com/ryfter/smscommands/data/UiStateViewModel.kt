@@ -19,10 +19,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 
 class UiStateViewModel(
@@ -51,8 +53,8 @@ class UiStateViewModel(
     val requirePin: StateFlow<Boolean> = getStateFlow(Pref.REQUIRE_PIN)
     fun updateRequirePin(value: Boolean) = updatePreference(Pref.REQUIRE_PIN, value)
 
-    val lastBuildNumber: StateFlow<Int> = getStateFlow(Pref.LAST_BUILD_CODE)
-    fun updateLastBuildCode(value: Int) = updatePreference(Pref.LAST_BUILD_CODE, value)
+    val lastBuildNumber: StateFlow<Int> = getStateFlow(Pref.LAST_BUILD_NUMBER)
+    fun updateLastBuildCode(value: Int) = updatePreference(Pref.LAST_BUILD_NUMBER, value)
 
 
     // CommandPreferences
@@ -112,12 +114,18 @@ class UiStateViewModel(
     }
 
     private fun <T> UiStateViewModel.getStateFlow(pref: Pref<T>): StateFlow<T> {
+        val initialValue = runBlocking {
+            dataStore.data.map { preferences ->
+                preferences[pref.preferenceKey!!] ?: pref.defaultValue!!
+            }.first()
+        }
+
         return dataStore.data
             .map { preferences -> preferences[pref.preferenceKey!!] ?: pref.defaultValue!! }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000),
-                initialValue = pref.defaultValue!!
+                initialValue = initialValue
             )
     }
 
