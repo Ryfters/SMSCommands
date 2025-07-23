@@ -144,6 +144,12 @@ fun SettingsScreen(
                 backStack.set(Route.Onboarding.OMain)
             }
         )
+        MyListItem(
+            title = stringResource(R.string.screen_onboarding_changelog_title),
+            onClick = {
+                backStack.navigate(Route.Onboarding.ChangelogScreen)
+            }
+        )
 
         if (BuildConfig.DEBUG) {
             MyListItem(

@@ -59,6 +59,7 @@
 
     <!-- Common -->
     <string name="common_auto">Auto</string>
+    <string name="common_bulletpoint">" - %1$s"</string>
     <string name="common_cancel">Cancel</string>
     <string name="common_close">Close</string>
     <string name="common_colon">": "</string>
@@ -187,6 +188,13 @@
     <string name="screen_onboarding_sending_pin_value">Your access pin, if any, you can change it at any time on the home screen</string>
     <string name="screen_onboarding_sending_prefix">!!</string>
     <string name="screen_onboarding_sending_prefix_value">This prefix is required for the app to process the command</string>
+
+    <!-- Onboarding - Changelog -->
+    <string name="screen_onboarding_changelog_dialog_app_updated">App updated to %1$s</string>
+    <string name="screen_onboarding_changelog_dialog_goto_changelog">Go to changelog</string>
+    <string name="screen_onboarding_changelog_dialog_highlights">Highlights</string>
+    <string name="screen_onboarding_changelog_dialog_nochanges">No changes found for the current version</string>
+    <string name="screen_onboarding_changelog_title">Changelog</string>
 
     <!-- Permissions -->
     <string name="screen_perms_decline_warning">On Android 11+, if you deny a permission more than once, the app won\'t be able to request it again, so you\'ll have to enable it yourself in the settings</string>

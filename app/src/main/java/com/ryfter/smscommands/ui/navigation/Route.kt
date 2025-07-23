@@ -25,6 +25,8 @@ sealed class Route {
 
     sealed class Onboarding : Route() {
         data object OMain : Onboarding()
+        data object UpdateDialog : Onboarding()
+        data object ChangelogScreen : Onboarding()
     }
 
     sealed class Lock : Route() {
