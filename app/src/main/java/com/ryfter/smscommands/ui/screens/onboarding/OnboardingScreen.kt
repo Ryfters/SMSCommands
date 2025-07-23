@@ -111,9 +111,9 @@ fun OnboardingScreen(
             backStack = backStack,
             modifier = Modifier
                 .padding(top = padding.calculateTopPadding())
+                .fillMaxSize()
                 .nestedScroll(scrollBehavior.nestedScrollConnection)
                 .verticalScroll(scrollState)
-                .fillMaxSize()
         )
         Box(
             modifier = Modifier

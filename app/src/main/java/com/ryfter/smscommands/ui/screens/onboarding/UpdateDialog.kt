@@ -24,14 +24,14 @@ fun UpdateDialog(
 
     AlertDialog(
         onDismissRequest = {
-            backStack.pop()
             viewModel.updateLastBuildCode(versionCode)
+            backStack.pop()
         },
         confirmButton = {
             TextButton(
                 onClick = {
-                    backStack.pop()
                     viewModel.updateLastBuildCode(versionCode)
+                    backStack.pop()
                 }
             ) {
                 Text(stringResource(R.string.common_confirm))
@@ -40,8 +40,8 @@ fun UpdateDialog(
         dismissButton = {
             TextButton(
                 onClick = {
-                    backStack.replace(Route.Onboarding.ChangelogScreen)
                     viewModel.updateLastBuildCode(versionCode)
+                    backStack.replace(Route.Onboarding.ChangelogScreen)
                 }
             ) {
                 Text(stringResource(R.string.screen_onboarding_changelog_dialog_goto_changelog))

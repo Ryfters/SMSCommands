@@ -1,11 +1,9 @@
 package com.ryfter.smscommands.ui.screens.settings
 
 import android.content.Intent
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Switch
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -195,17 +193,6 @@ fun SettingsScreen(
             title = stringResource(R.string.screen_settings_version_title),
             content = versionContent,
         )
-
-        Button(
-            onClick = {
-                viewModel.updateLastBuildCode(1)
-            }
-        ) { Text("1") }
-        Button(
-            onClick = {
-                viewModel.updateLastBuildCode(-1)
-            }
-        ) { Text("-1") }
     }
 }
 

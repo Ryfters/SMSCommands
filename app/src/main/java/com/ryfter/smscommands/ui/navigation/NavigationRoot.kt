@@ -1,7 +1,6 @@
 package com.ryfter.smscommands.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
@@ -31,11 +30,10 @@ fun NavigationRoot(
     val requireUnlock by viewModel.requirePin.collectAsState()
     val lastBuildNumber by viewModel.lastBuildNumber.collectAsState()
 
-    LaunchedEffect(signedIn, requireUnlock, lastBuildNumber) {
-        if (!signedIn && requireUnlock) backStack.set(Route.Lock.LMain)
-        else if (lastBuildNumber == -1) backStack.set(Route.Onboarding.OMain)
-        else if (lastBuildNumber < BuildConfig.VERSION_CODE) backStack.navigate(Route.Onboarding.UpdateDialog)
-    }
+    if (!signedIn && requireUnlock) backStack.set(Route.Lock.LMain)
+    else if (lastBuildNumber == -1) backStack.set(Route.Onboarding.OMain)
+    else if (lastBuildNumber < BuildConfig.VERSION_CODE)
+        backStack.set(Route.Home.HoMain, Route.Onboarding.UpdateDialog)
 
     val entryProvider: (Route) -> NavEntry<Route> = {
         when (it) {

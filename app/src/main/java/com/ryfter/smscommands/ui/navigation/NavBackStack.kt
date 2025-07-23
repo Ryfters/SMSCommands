@@ -12,12 +12,7 @@ fun MyNavBackStack.replace(route: Route) {
     this[this.lastIndex] = route
 }
 
-fun MyNavBackStack.set(route: Route) {
+fun MyNavBackStack.set(vararg routes: Route) {
     clear()
-    add(0, route)
-}
-
-fun MyNavBackStack.set(routes: List<Route>) {
-    clear()
-    addAll(0, routes)
+    addAll(0, routes.toList())
 }
