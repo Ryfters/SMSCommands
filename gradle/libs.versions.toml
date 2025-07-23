@@ -18,7 +18,7 @@ fragmentCompose = "1.8.8"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 lifecycle = "2.9.2"
-navigationCompose = "2.9.2"
+navigation3 = "1.0.0-alpha05"
 room = "2.7.2"
 
 [libraries]
@@ -39,7 +39,8 @@ androidx-datastore-preferences  = { group = "androidx.datastore",       name = "
 androidx-fragment-compose       = { group = "androidx.fragment",        name = "fragment-compose",  version.ref = "fragmentCompose" }
 androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle",  name = "lifecycle-viewmodel-compose", version.ref = "lifecycle" }
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle",      name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
-androidx-navigation-compose     = { group = "androidx.navigation",      name = "navigation-compose", version.ref = "navigationCompose" }
+androidx-navigation3-ui = { group = "androidx.navigation3", name = "navigation3-ui", version.ref = "navigation3" }
+androidx-navigation3-runtime = { group = "androidx.navigation3", name = "navigation3-runtime", version.ref = "navigation3" }
 androidx-room-ktx               = { group = "androidx.room",            name = "room-ktx",          version.ref = "room" }
 androidx-room-runtime           = { group = "androidx.room",            name = "room-runtime",      version.ref = "room" }
 android-smsmms = { group = "org.fossify", name = "android-smsmms", version.ref = "android-smsmms" }

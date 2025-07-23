@@ -7,44 +7,51 @@ import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavController
 import com.ryfter.smscommands.R
 import com.ryfter.smscommands.commands.Command
 import com.ryfter.smscommands.data.UiStateViewModel
 import com.ryfter.smscommands.data.db.HistoryItem
 import com.ryfter.smscommands.permissions.Permission
 import com.ryfter.smscommands.ui.components.MainScaffold
-import com.ryfter.smscommands.ui.navigation.Routes
+import com.ryfter.smscommands.ui.navigation.MyNavBackStack
+import com.ryfter.smscommands.ui.navigation.Route
+import com.ryfter.smscommands.ui.navigation.navigate
 import com.ryfter.smscommands.utils.formatRelativeTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    navController: NavController,
+    backStack: MyNavBackStack,
     viewModel: UiStateViewModel
 ) {
     val context: Context = LocalContext.current
 
     MainScaffold(
-        navController = navController,
+        backStack = backStack,
         title = stringResource(R.string.screen_home_title),
-        actions = { SettingsIcon(onClick = { navController.navigate(Routes.Settings.MAIN) }) },
+        actions = { SettingsIcon(onClick = { backStack.navigate(Route.Settings.SMain) }) },
     ) {
-        val totalCommandsCount = Command.LIST.count()
+        val totalCommandsCount = remember { Command.LIST.count() }
+
         val commandPreferences by viewModel.commandPreferences.collectAsState()
-        val enabledCommandsCount = Command.LIST.count { command ->
-            commandPreferences[command.id] == true
+        val enabledCommandsCount = remember(commandPreferences) {
+            Command.LIST.count { command ->
+                commandPreferences[command.id] == true
+            }
         }
 
         val permissionsState by viewModel.permissionsState.collectAsState()
-        val errorCount = Command.LIST.count { command ->
-            commandPreferences[command.id] == true &&
+        val errorCount = remember(commandPreferences, permissionsState) {
+            Command.LIST.count { command ->
+                commandPreferences[command.id] == true &&
                 (command.requiredPermissions + Permission.BASE).any { permission ->
                     permissionsState[permission.id] == false
                 }
+            }
         }
 
         val errorContent =
@@ -93,7 +100,7 @@ fun HomeScreen(
             headline = stringResource(R.string.screen_commands_title),
             content = commandContent,
             onClick = {
-                navController.navigate(Routes.Commands.MAIN)
+                backStack.navigate(Route.Commands.CMain)
             },
             topDivider = false
         )
@@ -101,21 +108,21 @@ fun HomeScreen(
             headline = stringResource(R.string.screen_history_title),
             content = historyContent,
             onClick = {
-                navController.navigate(Routes.History.MAIN)
+                backStack.navigate(Route.History.HiMain)
             }
         )
         HomeListItem(
             headline = stringResource(R.string.screen_home_pin),
             content = pinContent,
             onClick = {
-                navController.navigate(Routes.Home.EDIT_PIN_DIALOG)
+                backStack.navigate(Route.Home.EditPinDialog)
             }
         )
         HomeListItem(
             headline = stringResource(R.string.screen_perms_title),
             content = permissionContent,
             onClick = {
-                navController.navigate(Routes.Perms.MAIN)
+                backStack.navigate(Route.Perms.PMain)
             }
         )
     }

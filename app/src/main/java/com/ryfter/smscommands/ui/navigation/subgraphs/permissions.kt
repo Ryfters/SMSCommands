@@ -1,34 +1,29 @@
 package com.ryfter.smscommands.ui.navigation.subgraphs
 
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
-import androidx.navigation.NavType
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.dialog
-import androidx.navigation.navArgument
+import androidx.navigation3.runtime.NavEntry
 import com.ryfter.smscommands.data.UiStateViewModel
-import com.ryfter.smscommands.ui.navigation.Routes
+import com.ryfter.smscommands.ui.navigation.MyNavBackStack
+import com.ryfter.smscommands.ui.navigation.Route
+import com.ryfter.smscommands.ui.navigation.dialogNavEntry
 import com.ryfter.smscommands.ui.screens.perms.DeclineWarningDialog
 import com.ryfter.smscommands.ui.screens.perms.PermsScreen
 
-fun NavGraphBuilder.permissions(navController: NavHostController, viewModel: UiStateViewModel) {
+fun perms(
+    key: Route.Perms,
+    backStack: MyNavBackStack,
+    viewModel: UiStateViewModel
+): NavEntry<Route> {
+    return when (key) {
+        is Route.Perms.PMain -> NavEntry(key) {
+            PermsScreen(backStack, viewModel)
+        }
 
-    composable(
-        Routes.Perms.MAIN + "{permissionIds}",
-        listOf(navArgument("permissionIds") { type = NavType.StringType })
-    ) {
-        val permissionIds = (it.arguments?.getString("permissionIds") ?: "").split(", ")
+        is Route.Perms.DeclineWarningDialog -> dialogNavEntry(key) {
+            DeclineWarningDialog(backStack, viewModel)
+        }
 
-        PermsScreen(
-            navController = navController,
-            viewModel = viewModel,
-            permissionIds = permissionIds
-        )
-    }
-    
-    dialog(Routes.Perms.DECLINE_WARNING_DIALOG) {
-        DeclineWarningDialog(
-            navController = navController
-        )
+        is Route.Perms.Highlight -> NavEntry(key) {
+            PermsScreen(backStack, viewModel, key.highlight)
+        }
     }
 }

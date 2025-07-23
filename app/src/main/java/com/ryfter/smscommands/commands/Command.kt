@@ -2,8 +2,12 @@ package com.ryfter.smscommands.commands
 
 import android.content.Context
 import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.runtime.Composable
 import com.ryfter.smscommands.commands.params.ParamsDefinition
+import com.ryfter.smscommands.data.UiStateViewModel
 import com.ryfter.smscommands.permissions.Permission
+import com.ryfter.smscommands.ui.navigation.MyNavBackStack
 
 interface Command {
     val id: String
@@ -25,6 +29,10 @@ interface Command {
         sender: String,
         id: Long?
     )
+
+    // Using a lambda so i can check if it's not null without invoking it
+    val extraContent: (@Composable ColumnScope.(MyNavBackStack, UiStateViewModel) -> Unit)?
+        get() = null
 
     companion object {
         const val SENDER_EXTRA = "sender"

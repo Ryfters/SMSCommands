@@ -9,14 +9,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavController
 import com.ryfter.smscommands.R
 import com.ryfter.smscommands.data.UiStateViewModel
 import com.ryfter.smscommands.ui.components.RadioItem
+import com.ryfter.smscommands.ui.navigation.MyNavBackStack
+import com.ryfter.smscommands.ui.navigation.pop
 
 @Composable
 fun DarkThemeDialog(
-    navController: NavController,
+    backStack: MyNavBackStack,
     viewModel: UiStateViewModel,
 ) {
     val darkThemeType by viewModel.darkThemeType.collectAsState()
@@ -34,7 +35,7 @@ fun DarkThemeDialog(
                     selected = darkThemeType == 0,
                     onSelected = {
                         viewModel.updateDarkThemeType(0)
-                        navController.popBackStack()
+                        backStack.pop()
                     }
                 )
                 RadioItem(
@@ -42,7 +43,7 @@ fun DarkThemeDialog(
                     selected = darkThemeType == 1,
                     onSelected = {
                         viewModel.updateDarkThemeType(1)
-                        navController.popBackStack()
+                        backStack.pop()
                     }
                 )
                 RadioItem(
@@ -50,13 +51,13 @@ fun DarkThemeDialog(
                     selected = darkThemeType == 2,
                     onSelected = {
                         viewModel.updateDarkThemeType(2)
-                        navController.popBackStack()
+                        backStack.pop()
                     }
                 )
             }
         },
         onDismissRequest = {
-            navController.popBackStack()
+            backStack.pop()
         },
         confirmButton = {}
     )

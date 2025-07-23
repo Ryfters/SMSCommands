@@ -9,9 +9,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.ryfter.smscommands.R
 import com.ryfter.smscommands.data.UiStateViewModel
+import com.ryfter.smscommands.ui.navigation.MyNavBackStack
 import com.ryfter.smscommands.ui.screens.onboarding.OnboardingPage
 
 class ExamplesPage : OnboardingPage {
@@ -20,7 +20,7 @@ class ExamplesPage : OnboardingPage {
     @Composable
     override fun Content(
         viewModel: UiStateViewModel,
-        navController: NavController,
+        backStack: MyNavBackStack,
         modifier: Modifier
     ) {
         val boldStyle = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)

@@ -14,13 +14,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.ryfter.smscommands.R
 import com.ryfter.smscommands.commands.Command
 import com.ryfter.smscommands.data.UiStateViewModel
 import com.ryfter.smscommands.permissions.Permission
 import com.ryfter.smscommands.ui.components.MyListItem
-import com.ryfter.smscommands.ui.navigation.Routes
+import com.ryfter.smscommands.ui.navigation.MyNavBackStack
+import com.ryfter.smscommands.ui.navigation.Route
+import com.ryfter.smscommands.ui.navigation.navigate
 import com.ryfter.smscommands.ui.screens.onboarding.OnboardingPage
 
 class CommandsPage : OnboardingPage {
@@ -31,7 +32,7 @@ class CommandsPage : OnboardingPage {
     @Composable
     override fun Content(
         viewModel: UiStateViewModel,
-        navController: NavController,
+        backStack: MyNavBackStack,
         modifier: Modifier
     ) {
         val context = LocalContext.current
@@ -64,7 +65,7 @@ class CommandsPage : OnboardingPage {
                 MyListItem(
                     title = stringResource(command.label),
                     content = content,
-                    onClick = { navController.navigate(Routes.Commands.ITEM + command.id) },
+                    onClick = { backStack.navigate(Route.Commands.Item(command.id)) },
                     separator = true,
                     action = {
                         Switch(

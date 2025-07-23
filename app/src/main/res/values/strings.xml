@@ -39,7 +39,7 @@
     <string name="command_help_label">Help</string>
     <string name="command_help_param_command">command</string>
     <string name="command_help_param_command_desc">Sends a help message for a specific command</string>
-    <string name="command_help_reply">Usage: !!PIN command parameters \nCommands: %1$s\n  Use help/command:name for more info on each command</string>
+    <string name="command_help_reply">Usage: !!PIN command parameters \nCommands: %1$s\n  Use "help command:name" for more info on each command</string>
     <string name="command_help_reply_command">%1$s\n%2$s\n\n  Required permissions:%3$s\n    \n  Parameters:%4$s\n    \n  Flags:%5$s</string>
 
     <!-- Lock -->
@@ -59,6 +59,7 @@
 
     <!-- Common -->
     <string name="common_auto">Auto</string>
+    <string name="common_bulletpoint">" - %1$s"</string>
     <string name="common_cancel">Cancel</string>
     <string name="common_close">Close</string>
     <string name="common_colon">": "</string>
@@ -96,6 +97,10 @@
     <string name="permission_sms_desc">Required for the app to function correctly</string>
 
     <!-- Commands -->
+    <string name="command_capture_extra_enable_mms_desc">Allows the app to send pictures back to you without data. Tap to jump to settings page (It\'s only available if mobile data is off) (It might take a few seconds to load the page).</string>
+    <string name="command_capture_extra_enable_mms_title">Enable MMS without mobile data</string>
+    <string name="command_capture_extra_savedir_desc">All pictures are saved here: %1$s</string>
+    <string name="command_capture_extra_savedir_title">Save directory</string>
     <string name="screen_commands_flags">Flags</string>
     <string name="screen_commands_missing_permissions">Missing permissions: %1$s</string>
     <string name="screen_commands_options">Options</string>
@@ -183,6 +188,13 @@
     <string name="screen_onboarding_sending_pin_value">Your access pin, if any, you can change it at any time on the home screen</string>
     <string name="screen_onboarding_sending_prefix">!!</string>
     <string name="screen_onboarding_sending_prefix_value">This prefix is required for the app to process the command</string>
+
+    <!-- Onboarding - Changelog -->
+    <string name="screen_onboarding_changelog_dialog_app_updated">App updated to %1$s</string>
+    <string name="screen_onboarding_changelog_dialog_goto_changelog">Go to changelog</string>
+    <string name="screen_onboarding_changelog_dialog_highlights">Highlights</string>
+    <string name="screen_onboarding_changelog_dialog_nochanges">No changes found for the current version</string>
+    <string name="screen_onboarding_changelog_title">Changelog</string>
 
     <!-- Permissions -->
     <string name="screen_perms_decline_warning">On Android 11+, if you deny a permission more than once, the app won\'t be able to request it again, so you\'ll have to enable it yourself in the settings</string>

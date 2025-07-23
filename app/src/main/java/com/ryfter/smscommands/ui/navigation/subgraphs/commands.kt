@@ -1,30 +1,24 @@
 package com.ryfter.smscommands.ui.navigation.subgraphs
 
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
-import androidx.navigation.NavType
-import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
+import androidx.navigation3.runtime.NavEntry
 import com.ryfter.smscommands.data.UiStateViewModel
-import com.ryfter.smscommands.ui.navigation.Routes
+import com.ryfter.smscommands.ui.navigation.MyNavBackStack
+import com.ryfter.smscommands.ui.navigation.Route
 import com.ryfter.smscommands.ui.screens.commands.CommandItemScreen
 import com.ryfter.smscommands.ui.screens.commands.CommandsScreen
 
-fun NavGraphBuilder.commands(navController: NavHostController, viewModel: UiStateViewModel) {
-    
-    composable(Routes.Commands.MAIN) {
-        CommandsScreen(
-            navController = navController,
-            viewModel = viewModel
-        )
-    }
-    
-    composable(Routes.Commands.ITEM + "{commandId}", listOf(navArgument("commandId") { type = NavType.StringType })) {
-        val commandId = it.arguments?.getString("commandId") ?: ""
-        CommandItemScreen(
-            navController = navController,
-            viewModel = viewModel,
-            commandId = commandId
-        )
+fun commands(
+    key: Route.Commands,
+    backStack: MyNavBackStack,
+    viewModel: UiStateViewModel
+): NavEntry<Route> {
+    return when (key) {
+        is Route.Commands.CMain -> NavEntry(key) {
+            CommandsScreen(backStack, viewModel)
+        }
+
+        is Route.Commands.Item -> NavEntry(key) {
+            CommandItemScreen(backStack, viewModel, key.id)
+        }
     }
 }

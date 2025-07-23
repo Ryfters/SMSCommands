@@ -10,14 +10,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavController
 import com.ryfter.smscommands.R
 import com.ryfter.smscommands.data.UiStateViewModel
 import com.ryfter.smscommands.ui.components.RadioItem
+import com.ryfter.smscommands.ui.navigation.MyNavBackStack
+import com.ryfter.smscommands.ui.navigation.pop
 
 @Composable
 fun DismissNotificationsDialog(
-    navController: NavController,
+    backStack: MyNavBackStack,
     viewModel: UiStateViewModel,
 ) {
     val dismissNotificationType by viewModel.dismissNotificationType.collectAsState()
@@ -41,7 +42,7 @@ fun DismissNotificationsDialog(
                     selected = dismissNotificationType == 2,
                     onSelected = {
                         viewModel.updateDismissNotificationType(2)
-                        navController.popBackStack()
+                        backStack.pop()
                     }
                 )
                 RadioItem(
@@ -49,7 +50,7 @@ fun DismissNotificationsDialog(
                     selected = dismissNotificationType == 1,
                     onSelected = {
                         viewModel.updateDismissNotificationType(1)
-                        navController.popBackStack()
+                        backStack.pop()
                     }
                 )
                 RadioItem(
@@ -57,12 +58,12 @@ fun DismissNotificationsDialog(
                     selected = dismissNotificationType == 0,
                     onSelected = {
                         viewModel.updateDismissNotificationType(0)
-                        navController.popBackStack()
+                        backStack.pop()
                     }
                 )
             }
         },
-        onDismissRequest = { navController.popBackStack() },
+        onDismissRequest = { backStack.pop() },
         confirmButton = {}
     )
 }

@@ -15,8 +15,8 @@ android {
         applicationId = "com.ryfter.smscommands"
         minSdk = 33
         targetSdk = 36
-        versionCode = 4
-        versionName = "0.2.1"
+        versionCode = 5
+        versionName = "0.4.0"
 
         buildConfigField("Long", "BUILD_DATE", "${System.currentTimeMillis()}L")
 
@@ -70,7 +70,8 @@ dependencies {
     implementation(libs.androidx.fragment.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.navigation3.ui)
+    implementation(libs.androidx.navigation3.runtime)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.runtime)
     implementation(libs.android.smsmms)

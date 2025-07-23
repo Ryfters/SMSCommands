@@ -9,7 +9,6 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.MutableCreationExtras
 import com.ryfter.smscommands.data.UiStateViewModel
 import com.ryfter.smscommands.data.db.HistoryDatabase
@@ -39,13 +38,12 @@ class MainActivity : FragmentActivity() {
             set(UiStateViewModel.DATABASE_KEY, database)
         }
 
-        val viewModelStoreOwner: ViewModelStoreOwner = this
-
         viewModel = ViewModelProvider.create(
-            viewModelStoreOwner,
+            owner = this,
             factory = UiStateViewModel.Factory,
             extras = extras
         )[UiStateViewModel::class]
+
 
         enableEdgeToEdge()
         setContent {

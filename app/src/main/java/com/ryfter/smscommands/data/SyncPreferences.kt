@@ -18,29 +18,12 @@ class SyncPreferences private constructor(
     private val database: HistoryRepository,
 ) {
 
-    fun readPin(): String = runBlocking {
-        dataStore.data.map { preferences ->
-            preferences[PreferenceKeys.ACCESS_PIN] ?: Defaults.ACCESS_PIN
-        }.first()
-    }
+    fun readCommandEnabled(id: String): Boolean =
+        readPref(Pref(booleanPreferencesKey(id), Pref.COMMANDS.defaultValue))
 
-    fun readCommandEnabled(id: String): Boolean = runBlocking {
-        dataStore.data.map { preferences ->
-            preferences[booleanPreferencesKey(id)] ?: Defaults.COMMANDS
-        }.first()
-    }
-
-    fun readDismissNotificationType(): Int = runBlocking {
-        dataStore.data.map { preferences ->
-            preferences[PreferenceKeys.DISMISS_NOTIFICATION_TYPE] ?: Defaults.DISMISS_NOTIFICATION_TYPE
-        }.first()
-    }
-
-    fun readHistoryEnabled(): Boolean = runBlocking {
-        dataStore.data.map { preferences ->
-            preferences[PreferenceKeys.COLLECT_HISTORY] ?: Defaults.COLLECT_HISTORY
-        }.first()
-    }
+    fun readPin(): String = readPref(Pref.ACCESS_PIN)
+    fun readDismissNotificationType(): Int = readPref(Pref.DISMISS_NOTIFICATION_TYPE)
+    fun readHistoryEnabled(): Boolean = readPref(Pref.COLLECT_HISTORY)
 
     fun saveHistoryItem(
         sender: String,
@@ -69,6 +52,12 @@ class SyncPreferences private constructor(
     fun addToResponse(id: Long, newMessage: String) = runBlocking {
         val messages = database.getHistoryItem(id).messages
         database.updateItemMessages(id, messages + newMessage)
+    }
+
+    private fun <T> readPref(pref: Pref<T>): T = runBlocking {
+        dataStore.data.map { preferences ->
+            preferences[pref.preferenceKey!!] ?: pref.defaultValue!!
+        }.first()
     }
 
     companion object {

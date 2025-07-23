@@ -3,8 +3,6 @@ package com.ryfter.smscommands.ui.screens.history
 import android.content.Intent
 import android.util.Log
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -18,34 +16,34 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
-import androidx.navigation.NavController
 import com.ryfter.smscommands.R
 import com.ryfter.smscommands.commands.Command
 import com.ryfter.smscommands.data.UiStateViewModel
 import com.ryfter.smscommands.ui.components.MainScaffold
 import com.ryfter.smscommands.ui.components.MyListItem
 import com.ryfter.smscommands.ui.components.Subtitle
+import com.ryfter.smscommands.ui.navigation.MyNavBackStack
+import com.ryfter.smscommands.ui.navigation.pop
 import com.ryfter.smscommands.utils.formatRelativeTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HistoryItemScreen(
-    navController: NavController,
+    backStack: MyNavBackStack,
     viewModel: UiStateViewModel,
     itemId: Long
 ) {
     MainScaffold(
-        navController = navController,
+        backStack = backStack,
         title = "History",
         showUpButton = true,
-        modifier = Modifier.verticalScroll(rememberScrollState())
     ) {
         val context = LocalContext.current
 
         val history by viewModel.history.collectAsState()
 
         val item = history.find { it.id == itemId } ?: run {
-            navController.popBackStack()
+            backStack.pop()
             Log.e("HistoryItemDialog", "Item not found")
             return@MainScaffold
         }

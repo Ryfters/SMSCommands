@@ -12,11 +12,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.ryfter.smscommands.R
 import com.ryfter.smscommands.data.UiStateViewModel
 import com.ryfter.smscommands.permissions.Permission
-import com.ryfter.smscommands.ui.navigation.Routes
+import com.ryfter.smscommands.ui.navigation.MyNavBackStack
+import com.ryfter.smscommands.ui.navigation.Route
+import com.ryfter.smscommands.ui.navigation.navigate
 import com.ryfter.smscommands.ui.screens.onboarding.OnboardingPage
 import com.ryfter.smscommands.ui.screens.perms.PermissionItem
 
@@ -28,7 +29,7 @@ class PermsPage : OnboardingPage {
     @Composable
     override fun Content(
         viewModel: UiStateViewModel,
-        navController: NavController,
+        backStack: MyNavBackStack,
         modifier: Modifier
     ) {
         val permissionsState by viewModel.permissionsState.collectAsState()
@@ -48,7 +49,7 @@ class PermsPage : OnboardingPage {
                     isGranted = permissionsState[permission.id] == true,
                     onGrant = { isGranted ->
                         viewModel.updateSinglePermissionState(permission.id, isGranted)
-                        if (!isGranted) navController.navigate(Routes.Perms.DECLINE_WARNING_DIALOG)
+                        if (!isGranted) backStack.navigate(Route.Perms.DeclineWarningDialog)
                     }
                 )
             }

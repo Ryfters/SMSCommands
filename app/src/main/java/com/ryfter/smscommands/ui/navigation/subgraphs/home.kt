@@ -1,27 +1,21 @@
 package com.ryfter.smscommands.ui.navigation.subgraphs
 
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.dialog
+import androidx.navigation3.runtime.NavEntry
 import com.ryfter.smscommands.data.UiStateViewModel
-import com.ryfter.smscommands.ui.navigation.Routes
+import com.ryfter.smscommands.ui.navigation.MyNavBackStack
+import com.ryfter.smscommands.ui.navigation.Route
+import com.ryfter.smscommands.ui.navigation.dialogNavEntry
 import com.ryfter.smscommands.ui.screens.home.EditPinDialog
 import com.ryfter.smscommands.ui.screens.home.HomeScreen
 
-fun NavGraphBuilder.home(navController: NavHostController, viewModel: UiStateViewModel) {
+fun home(key: Route.Home, backStack: MyNavBackStack, viewModel: UiStateViewModel): NavEntry<Route> {
+    return when (key) {
+        is Route.Home.HoMain -> NavEntry(key) {
+            HomeScreen(backStack, viewModel)
+        }
 
-    composable(Routes.Home.MAIN) {
-        HomeScreen(
-            navController = navController,
-            viewModel = viewModel
-        )
-    }
-
-    dialog(Routes.Home.EDIT_PIN_DIALOG) {
-        EditPinDialog(
-            navController = navController,
-            viewModel = viewModel
-        )
+        is Route.Home.EditPinDialog -> dialogNavEntry(key) {
+            EditPinDialog(backStack, viewModel)
+        }
     }
 }

@@ -2,13 +2,22 @@ package com.ryfter.smscommands.commands
 
 import android.content.Context
 import android.content.Intent
+import android.os.Environment
 import androidx.camera.core.ImageCapture
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import com.ryfter.smscommands.R
 import com.ryfter.smscommands.commands.CaptureActivity.Companion.FLASH_MODE_EXTRA
 import com.ryfter.smscommands.commands.Command.Companion.ID_EXTRA
 import com.ryfter.smscommands.commands.Command.Companion.SENDER_EXTRA
 import com.ryfter.smscommands.commands.params.ChoiceParamDefinition
+import com.ryfter.smscommands.data.UiStateViewModel
 import com.ryfter.smscommands.permissions.Permission
+import com.ryfter.smscommands.ui.components.MyListItem
+import com.ryfter.smscommands.ui.navigation.MyNavBackStack
+import java.io.File
 
 class Capture : Command {
     override val id = "command_capture"
@@ -58,6 +67,36 @@ class Capture : Command {
 
         context.startActivity(intent)
     }
+
+    override val extraContent: (@Composable ColumnScope.(MyNavBackStack, UiStateViewModel) -> Unit)? =
+        @Composable { backStack, viewModel ->
+            val context = LocalContext.current
+
+            // android.provider.Settings.ACTION_MMS_MESSAGE_SETTING
+            val intent = Intent("android.settings.MMS_MESSAGE_SETTING").apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            }
+
+            MyListItem(
+                title = stringResource(R.string.command_capture_extra_enable_mms_title),
+                content = stringResource(R.string.command_capture_extra_enable_mms_desc),
+                onClick = { context.startActivity(intent) },
+                maxContentLines = 4
+            )
+
+            val fileDir = File(
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                context.getString(R.string.app_name)
+            ).apply { mkdirs() }
+
+            MyListItem(
+                title = stringResource(R.string.command_capture_extra_savedir_title),
+                content = stringResource(
+                    R.string.command_capture_extra_savedir_desc,
+                    fileDir.absolutePath
+                ),
+            )
+        }
 
     companion object {
         private const val FLASH_PARAM = "flash"
