@@ -1,20 +1,17 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.ksp)
 }
 
 android {
     namespace = "com.ryfter.smscommands"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.ryfter.smscommands"
         minSdk = 33
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 5
         versionName = "0.4.0"
 
@@ -36,11 +33,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlin {
-        compilerOptions {
-            jvmTarget = JvmTarget.fromTarget("17")
-        }
     }
 
     buildFeatures {
@@ -77,7 +69,6 @@ dependencies {
     implementation(libs.android.smsmms)
     implementation(libs.zelory.compressor)
     implementation(platform(libs.androidx.compose.bom))
-    ksp(libs.androidx.room.compiler)
     testImplementation(libs.junit)
 
 }

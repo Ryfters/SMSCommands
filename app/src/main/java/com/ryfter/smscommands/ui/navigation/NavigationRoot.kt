@@ -6,8 +6,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.navigation3.runtime.NavEntry
-import androidx.navigation3.ui.DialogSceneStrategy
-import androidx.navigation3.ui.DialogSceneStrategy.Companion.dialog
+import androidx.navigation3.scene.DialogSceneStrategy
+import androidx.navigation3.scene.DialogSceneStrategy.Companion.dialog
 import androidx.navigation3.ui.NavDisplay
 import com.ryfter.smscommands.BuildConfig
 import com.ryfter.smscommands.data.UiStateViewModel
@@ -51,7 +51,7 @@ fun NavigationRoot(
 
     NavDisplay(
         backStack = backStack,
-        sceneStrategy = DialogSceneStrategy(),
+        sceneStrategies = listOf(DialogSceneStrategy()),
         onBack = { backStack.pop() },
         entryProvider = entryProvider
     )
