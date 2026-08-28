@@ -1,10 +1,22 @@
 package com.ryfter.smscommands.ui.navigation
 
+import androidx.compose.animation.AnimatedContentTransitionScope.SlideDirection.Companion.End
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.TransformOrigin
+import androidx.compose.ui.unit.IntOffset
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.scene.DialogSceneStrategy
 import androidx.navigation3.scene.DialogSceneStrategy.Companion.dialog
@@ -49,11 +61,45 @@ fun NavigationRoot(
 
     if (backStack.isEmpty()) backStack.navigate(Route.Home.HoMain)
 
+    val animationSpec = tween<IntOffset>(600)
+    val animationSpecF = tween<Float>(600)
+
     NavDisplay(
         backStack = backStack,
         sceneStrategies = listOf(DialogSceneStrategy()),
+        entryProvider = entryProvider,
         onBack = { backStack.pop() },
-        entryProvider = entryProvider
+        popTransitionSpec = {
+            scaleIn(
+                animationSpec = animationSpecF,
+                initialScale = 0.8f,
+                transformOrigin = TransformOrigin(0.02f, 0.5f),
+            ) + fadeIn(animationSpecF) togetherWith scaleOut(
+                animationSpec = animationSpecF,
+                targetScale = 0.98f,
+                transformOrigin = TransformOrigin(1f, 0.5f)
+            ) + slideOutOfContainer(
+                towards = End,
+                animationSpec = animationSpec,
+                targetOffset = { it / 2 }
+            ) + fadeOut(animationSpecF, targetAlpha = 0.01f)
+        },
+        predictivePopTransitionSpec = {
+            scaleIn(
+                animationSpec = animationSpecF,
+                initialScale = 0.8f,
+                transformOrigin = TransformOrigin(0.02f, 0.5f),
+            ) + fadeIn(animationSpecF) togetherWith scaleOut(
+                animationSpec = animationSpecF,
+                targetScale = 0.98f,
+                transformOrigin = TransformOrigin(1f, 0.5f)
+            ) + slideOutOfContainer(
+                towards = End,
+                animationSpec = animationSpec,
+                targetOffset = { it / 2 }
+            ) + fadeOut(animationSpecF, targetAlpha = 0.01f)
+        },
+        modifier = Modifier.background(Color.Black)
     )
 }
 
