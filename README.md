@@ -43,8 +43,8 @@ Rings your device
 ## Planned
 
 - Fixing bugs
-- Command to check status of device (battery, wifi, bluetooth, etc)
-- Command to toggle wifi/location/bluetooth etc
+- Command to check status of device (battery, Wi-Fi, bluetooth, etc.)
+- Command to toggle Wi-Fi/location/bluetooth etc.
 - Command to access adb shell
 
 
