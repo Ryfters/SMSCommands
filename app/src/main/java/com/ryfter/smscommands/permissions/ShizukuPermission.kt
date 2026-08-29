@@ -8,6 +8,8 @@ import com.ryfter.smscommands.R
 import com.ryfter.smscommands.ui.navigation.LocalNavBackStack
 import com.ryfter.smscommands.ui.navigation.Route
 import com.ryfter.smscommands.ui.navigation.navigate
+import com.ryfter.smscommands.utils.ShizukuStatus
+import com.ryfter.smscommands.utils.getShizukuStatus
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -20,7 +22,7 @@ class ShizukuPermission : Permission {
     override val label = R.string.permission_shizuku
 
     override fun isGranted(context: Context): Boolean =
-        Shizuku.pingBinder() && Shizuku.checkSelfPermission() == PERMISSION_GRANTED
+        getShizukuStatus() == ShizukuStatus.OK
 
 
     @Composable
