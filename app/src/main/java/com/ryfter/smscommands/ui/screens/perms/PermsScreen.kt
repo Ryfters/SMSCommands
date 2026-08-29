@@ -44,7 +44,8 @@ fun PermsScreen(
                 highlight = permissionIds.contains(permission.id) && permissionsState[permission.id] != true,
                 onGrant = { isEnabled ->
                     viewModel.updateSinglePermissionState(permission.id, isEnabled)
-                    if (!isEnabled) backStack.navigate(Route.Perms.DeclineWarningDialog)
+                    if (!isEnabled && permission != Permission.SHIZUKU)
+                        backStack.navigate(Route.Perms.DeclineWarningDialog)
                 }
             )
         }

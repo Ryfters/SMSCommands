@@ -16,13 +16,13 @@ import com.ryfter.smscommands.ui.components.MyTextButton
 import com.ryfter.smscommands.ui.navigation.MyNavBackStack
 import com.ryfter.smscommands.ui.navigation.pop
 
+@Suppress("unused")
 @Composable
 fun DeclineWarningDialog(
     backStack: MyNavBackStack,
     viewModel: UiStateViewModel
 ) {
     val context = LocalContext.current
-
 
     AlertDialog(
         title = { Text(stringResource(R.string.common_warning)) },

@@ -67,6 +67,8 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.runtime)
     implementation(libs.android.smsmms)
+    implementation(libs.shizuku.api)
+    implementation(libs.shizuku.provider)
     implementation(libs.zelory.compressor)
     implementation(platform(libs.androidx.compose.bom))
     ksp(libs.androidx.room.compiler)

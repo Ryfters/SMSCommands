@@ -7,6 +7,7 @@ import com.ryfter.smscommands.ui.navigation.Route
 import com.ryfter.smscommands.ui.navigation.dialogNavEntry
 import com.ryfter.smscommands.ui.screens.perms.DeclineWarningDialog
 import com.ryfter.smscommands.ui.screens.perms.PermsScreen
+import com.ryfter.smscommands.ui.screens.perms.ShizukuNotFoundDialog
 
 fun perms(
     key: Route.Perms,
@@ -20,6 +21,10 @@ fun perms(
 
         is Route.Perms.DeclineWarningDialog -> dialogNavEntry(key) {
             DeclineWarningDialog(backStack, viewModel)
+        }
+
+        is Route.Perms.ShizukuNotFoundDialog -> dialogNavEntry(key) {
+            ShizukuNotFoundDialog(backStack, viewModel)
         }
 
         is Route.Perms.Highlight -> NavEntry(key) {

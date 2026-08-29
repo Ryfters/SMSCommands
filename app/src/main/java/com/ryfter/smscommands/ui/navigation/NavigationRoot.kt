@@ -9,10 +9,13 @@ import androidx.compose.animation.scaleOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TransformOrigin
@@ -64,43 +67,45 @@ fun NavigationRoot(
     val animationSpec = tween<IntOffset>(600)
     val animationSpecF = tween<Float>(600)
 
-    NavDisplay(
-        backStack = backStack,
-        sceneStrategies = listOf(DialogSceneStrategy()),
-        entryProvider = entryProvider,
-        onBack = { backStack.pop() },
-        popTransitionSpec = {
-            scaleIn(
-                animationSpec = animationSpecF,
-                initialScale = 0.8f,
-                transformOrigin = TransformOrigin(0.02f, 0.5f),
-            ) + fadeIn(animationSpecF) togetherWith scaleOut(
-                animationSpec = animationSpecF,
-                targetScale = 0.98f,
-                transformOrigin = TransformOrigin(1f, 0.5f)
-            ) + slideOutOfContainer(
-                towards = End,
-                animationSpec = animationSpec,
-                targetOffset = { it / 2 }
-            ) + fadeOut(animationSpecF, targetAlpha = 0.01f)
-        },
-        predictivePopTransitionSpec = {
-            scaleIn(
-                animationSpec = animationSpecF,
-                initialScale = 0.8f,
-                transformOrigin = TransformOrigin(0.02f, 0.5f),
-            ) + fadeIn(animationSpecF) togetherWith scaleOut(
-                animationSpec = animationSpecF,
-                targetScale = 0.98f,
-                transformOrigin = TransformOrigin(1f, 0.5f)
-            ) + slideOutOfContainer(
-                towards = End,
-                animationSpec = animationSpec,
-                targetOffset = { it / 2 }
-            ) + fadeOut(animationSpecF, targetAlpha = 0.01f)
-        },
-        modifier = Modifier.background(Color.Black)
-    )
+    CompositionLocalProvider(LocalNavBackStack provides backStack) {
+        NavDisplay(
+            backStack = backStack,
+            sceneStrategies = listOf(DialogSceneStrategy()),
+            entryProvider = entryProvider,
+            onBack = { backStack.pop() },
+            popTransitionSpec = {
+                scaleIn(
+                    animationSpec = animationSpecF,
+                    initialScale = 0.8f,
+                    transformOrigin = TransformOrigin(0.02f, 0.5f),
+                ) + fadeIn(animationSpecF) togetherWith scaleOut(
+                    animationSpec = animationSpecF,
+                    targetScale = 0.98f,
+                    transformOrigin = TransformOrigin(1f, 0.5f)
+                ) + slideOutOfContainer(
+                    towards = End,
+                    animationSpec = animationSpec,
+                    targetOffset = { it / 2 }
+                ) + fadeOut(animationSpecF, targetAlpha = 0.01f)
+            },
+            predictivePopTransitionSpec = {
+                scaleIn(
+                    animationSpec = animationSpecF,
+                    initialScale = 0.8f,
+                    transformOrigin = TransformOrigin(0.02f, 0.5f),
+                ) + fadeIn(animationSpecF) togetherWith scaleOut(
+                    animationSpec = animationSpecF,
+                    targetScale = 0.98f,
+                    transformOrigin = TransformOrigin(1f, 0.5f)
+                ) + slideOutOfContainer(
+                    towards = End,
+                    animationSpec = animationSpec,
+                    targetOffset = { it / 2 }
+                ) + fadeOut(animationSpecF, targetAlpha = 0.01f)
+            },
+            modifier = Modifier.background(Color.Black)
+        )
+    }
 }
 
 fun dialogNavEntry(
@@ -112,5 +117,9 @@ fun dialogNavEntry(
     metadata = dialog() + metadata,
     content = content
 )
+
+val LocalNavBackStack = compositionLocalOf<SnapshotStateList<Route>> {
+    error("BackStack not provided")
+}
 
 

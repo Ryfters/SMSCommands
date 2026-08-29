@@ -9,6 +9,7 @@ sealed class Route {
     sealed class Perms : Route() {
         data object PMain : Perms()
         data object DeclineWarningDialog : Perms()
+        data object ShizukuNotFoundDialog : Perms()
         data class Highlight(val highlight: List<String> = emptyList()) : Perms()
     }
 
