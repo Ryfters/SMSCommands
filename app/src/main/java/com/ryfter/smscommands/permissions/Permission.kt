@@ -48,7 +48,6 @@ interface Permission {
         val MANAGE_NOTIFICATIONS = ManageNotificationsPermission()
         val OVERLAY = OverlayPermission()
         val PHONE = PhonePermission()
-        val SHIZUKU = ShizukuPermission()
         val SMS = SmsPermission()
 
         val BASE = listOf(
@@ -65,7 +64,6 @@ interface Permission {
             CAMERA,
             LOCATION,
             PHONE,
-            SHIZUKU,
         )
 
         val ALL = BASE + OPTIONAL + COMMANDS

@@ -1,4 +1,4 @@
-package com.ryfter.smscommands.service;
+package com.ryfter.smscommands.shizuku;
 
 // Declare any non-default types here with import statements
 

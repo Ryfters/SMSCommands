@@ -1,9 +1,10 @@
-package com.ryfter.smscommands.service
+package com.ryfter.smscommands.shizuku
 
 import android.content.Context
 import android.system.Os
 import android.util.Log
 import androidx.annotation.Keep
+import com.ryfter.smscommands.service.IShizukuService
 import kotlin.system.exitProcess
 
 class ShizukuService() : IShizukuService.Stub() {

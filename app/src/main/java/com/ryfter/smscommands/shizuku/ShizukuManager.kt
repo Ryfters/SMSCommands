@@ -1,35 +1,41 @@
-    package com.ryfter.smscommands.utils
+package com.ryfter.smscommands.shizuku
 
-    import android.content.ComponentName
-    import android.content.ServiceConnection
-    import android.content.pm.PackageManager.PERMISSION_GRANTED
-    import android.os.IBinder
-    import android.util.Log
-    import com.ryfter.smscommands.BuildConfig
-    import com.ryfter.smscommands.service.ShizukuService
-    import kotlinx.coroutines.suspendCancellableCoroutine
-    import com.ryfter.smscommands.service.IShizukuService
-    import rikka.shizuku.Shizuku
-    import kotlin.coroutines.resume
-    import kotlin.coroutines.resumeWithException
+import android.content.ComponentName
+import android.content.ServiceConnection
+import android.content.pm.PackageManager.PERMISSION_GRANTED
+import android.os.IBinder
+import android.util.Log
+import com.ryfter.smscommands.BuildConfig
+import com.ryfter.smscommands.service.IShizukuService
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
+import rikka.shizuku.Shizuku
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.time.Duration.Companion.minutes
 
-    enum class ShizukuStatus {
-        OK,
-        MISSING_PERM,
-        BINDER_DEAD
-    }
+class ShizukuManager {
+
+
 
     fun getShizukuStatus(): ShizukuStatus {
         if (!Shizuku.pingBinder()) return ShizukuStatus.BINDER_DEAD
         if (Shizuku.checkSelfPermission() != PERMISSION_GRANTED) return ShizukuStatus.MISSING_PERM
         return ShizukuStatus.OK
     }
+    fun isGranted(): Boolean =
+        getShizukuStatus() == ShizukuStatus.OK
+
 
     suspend fun <T>usingShizuku(
         action: (service: IShizukuService?) -> T
     ) : T {
 
-        if (getShizukuStatus() != ShizukuStatus.OK) {
+        if (!isGranted()) {
             Log.w(TAG, "usingShizuku: shizuku status not ok, ShizukuStatus=${getShizukuStatus()}")
             return action(null)
         }
@@ -82,4 +88,35 @@
         }
     }
 
-    private const val TAG = "ShizukuService"
+
+    fun request(onResult: (Boolean) -> Unit) {
+
+        var job: Job? = null
+
+        val listener = object : Shizuku.OnRequestPermissionResultListener {
+            override fun onRequestPermissionResult(requestCode: Int, grantResult: Int) {
+                onResult(grantResult == PERMISSION_GRANTED)
+                Shizuku.removeRequestPermissionResultListener(this)
+                job?.cancel()
+            }
+        }
+
+        Shizuku.addRequestPermissionResultListener(listener)
+        Shizuku.requestPermission(0)
+
+        job = CoroutineScope(Dispatchers.IO).launch {
+            delay(1.minutes)
+            Shizuku.removeRequestPermissionResultListener(listener)
+        }
+    }
+
+    companion object {
+        private const val TAG = "ShizukuService"
+
+        enum class ShizukuStatus {
+            OK,
+            MISSING_PERM,
+            BINDER_DEAD
+        }
+    }
+}
